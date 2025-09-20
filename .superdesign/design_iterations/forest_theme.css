@@ -1,0 +1,99 @@
+/* Forest Theme - Language Recommendation Page */
+:root {
+  /* Primary Forest Color Palette */
+  --forest-primary: oklch(0.4500 0.1800 145.0000);        /* Deep Forest Green */
+  --forest-primary-foreground: oklch(0.9800 0.0200 145.0000); /* Light Forest */
+
+  --forest-secondary: oklch(0.6200 0.1400 125.0000);      /* Fresh Leaf Green */
+  --forest-secondary-foreground: oklch(0.1500 0.0300 125.0000); /* Dark Leaf */
+
+  --forest-accent: oklch(0.7800 0.1600 85.0000);          /* Spring Green */
+  --forest-accent-foreground: oklch(0.2000 0.0400 85.0000); /* Deep Spring */
+
+  /* Earth Tones */
+  --earth-brown: oklch(0.3800 0.0800 55.0000);            /* Rich Earth */
+  --earth-brown-light: oklch(0.7200 0.0600 55.0000);      /* Light Earth */
+  --bark-brown: oklch(0.2800 0.0500 45.0000);             /* Tree Bark */
+  --moss-green: oklch(0.5500 0.1200 135.0000);            /* Moss */
+
+  /* Neutral Forest Tones */
+  --forest-background: oklch(0.9900 0.0100 145.0000);     /* Misty Forest */
+  --forest-foreground: oklch(0.1800 0.0200 145.0000);     /* Forest Shadow */
+  --forest-muted: oklch(0.9200 0.0200 145.0000);          /* Forest Mist */
+  --forest-muted-foreground: oklch(0.4500 0.0300 145.0000); /* Muted Forest */
+
+  /* Card and Surface Colors */
+  --card: oklch(0.9800 0.0150 145.0000);                  /* Light Forest Card */
+  --card-foreground: oklch(0.1800 0.0200 145.0000);       /* Forest Text */
+  --popover: oklch(0.9800 0.0150 145.0000);               /* Popover Background */
+  --popover-foreground: oklch(0.1800 0.0200 145.0000);    /* Popover Text */
+
+  /* Interactive States */
+  --forest-border: oklch(0.8500 0.0300 145.0000);         /* Soft Forest Border */
+  --forest-input: oklch(0.9500 0.0200 145.0000);          /* Input Background */
+  --forest-ring: oklch(0.6200 0.1400 125.0000);           /* Focus Ring */
+
+  /* Status Colors with Forest Theme */
+  --success: oklch(0.6500 0.1600 140.0000);               /* Growth Green */
+  --success-foreground: oklch(0.9800 0.0200 140.0000);    /* Light Success */
+  --warning: oklch(0.7500 0.1800 75.0000);                /* Autumn Gold */
+  --warning-foreground: oklch(0.2000 0.0400 75.0000);     /* Dark Gold */
+  --destructive: oklch(0.5500 0.2000 25.0000);            /* Autumn Red */
+  --destructive-foreground: oklch(0.9800 0.0200 25.0000); /* Light Red */
+
+  /* Typography */
+  --font-sans: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-serif: 'Merriweather', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Spacing and Layout */
+  --radius: 0.75rem;                                      /* Rounded like pebbles */
+  --radius-sm: calc(var(--radius) - 0.25rem);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 0.25rem);
+  --radius-xl: calc(var(--radius) + 0.5rem);
+
+  /* Forest-Inspired Shadows */
+  --shadow-forest-soft: 0 2px 8px oklch(0.4500 0.1800 145.0000 / 0.15);
+  --shadow-forest-medium: 0 4px 16px oklch(0.4500 0.1800 145.0000 / 0.20);
+  --shadow-forest-strong: 0 8px 32px oklch(0.4500 0.1800 145.0000 / 0.25);
+  --shadow-forest-inner: inset 0 2px 4px oklch(0.4500 0.1800 145.0000 / 0.10);
+
+  /* Progress and Chart Colors */
+  --progress-forest: linear-gradient(90deg,
+    oklch(0.6200 0.1400 125.0000),
+    oklch(0.7800 0.1600 85.0000));
+  --chart-1: oklch(0.6200 0.1400 125.0000);               /* Fresh Green */
+  --chart-2: oklch(0.7800 0.1600 85.0000);                /* Spring Green */
+  --chart-3: oklch(0.3800 0.0800 55.0000);                /* Earth Brown */
+  --chart-4: oklch(0.5500 0.1200 135.0000);               /* Moss Green */
+  --chart-5: oklch(0.7200 0.0600 55.0000);                /* Light Earth */
+
+  /* Animation and Transitions */
+  --transition-forest: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-grow: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Special Elements */
+  --recommendation-highlight: oklch(0.9500 0.0800 85.0000); /* Highlighted Recommendation */
+  --match-percentage: oklch(0.6500 0.1600 140.0000);        /* Match Percentage Color */
+  --difficulty-easy: oklch(0.7800 0.1600 85.0000);          /* Easy Difficulty */
+  --difficulty-medium: oklch(0.7500 0.1800 75.0000);        /* Medium Difficulty */
+  --difficulty-hard: oklch(0.5500 0.2000 25.0000);          /* Hard Difficulty */
+}
+
+/* Utility classes for forest theme */
+.text-forest-primary { color: var(--forest-primary); }
+.text-forest-secondary { color: var(--forest-secondary); }
+.text-forest-accent { color: var(--forest-accent); }
+.text-earth-brown { color: var(--earth-brown); }
+.text-moss-green { color: var(--moss-green); }
+
+.bg-forest-primary { background-color: var(--forest-primary); }
+.bg-forest-secondary { background-color: var(--forest-secondary); }
+.bg-forest-accent { background-color: var(--forest-accent); }
+.bg-recommendation-highlight { background-color: var(--recommendation-highlight); }
+
+.border-forest { border-color: var(--forest-border); }
+.shadow-forest-soft { box-shadow: var(--shadow-forest-soft); }
+.shadow-forest-medium { box-shadow: var(--shadow-forest-medium); }
+.shadow-forest-strong { box-shadow: var(--shadow-forest-strong); }
