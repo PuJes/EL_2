@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日语详情页 - 语言学习平台</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <style>
+        /* Updated color scheme to match reference site with purple-to-teal gradient theme */
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --secondary: #06b6d4;
+            --secondary-dark: #0891b2;
+            --accent: #10b981;
+            --background: #ffffff;
+            --foreground: #1f2937;
+            --card: #ffffff;
+            --card-foreground: #1f2937;
+            --muted: #f8fafc;
+            --muted-foreground: #64748b;
+            --border: #e2e8f0;
+            --gradient-start: #8b5cf6;
+            --gradient-end: #06b6d4;
+            --radius: 1rem;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        /* Updated base styles with modern typography */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+
+        /* Modern gradient hero background */
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+        }
+
+        /* Updated button styles to match modern design */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: var(--radius);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Modern card styles with enhanced shadows */
+        .card {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Updated tab styles with modern design */
+        .tab-navigation {
+            display: flex;
+            background: var(--card);
+            border-radius: var(--radius) var(--radius) 0 0;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 1.25rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--muted-foreground);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-button:hover {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            color: var(--foreground);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2.5rem;
+            background-color: var(--card);
+            border-radius: 0 0 var(--radius) var(--radius);
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Modern gradient backgrounds for content sections */
+        .gradient-purple { background: linear-gradient(135deg, #f3e8ff 0%, #e0e7ff 100%); }
+        .gradient-blue { background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%); }
+        .gradient-green { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); }
+        .gradient-orange { background: linear-gradient(135deg, #fed7aa 0%, #fde68a 100%); }
+
+        /* Enhanced statistics cards */
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modern animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+
+        /* Enhanced responsive grid layouts */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .three-col-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Modern article cards */
+        .article-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Enhanced scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--muted);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+        }
+
+        /* Modern responsive design */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .desktop-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 2.5rem;
+            }
+
+            .desktop-three-col {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen fade-in">
+
+    <!-- Modern navigation header with clean white background -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-border shadow-sm">
+        <div class="container mx-auto px-6">
+            <div class="flex h-20 items-center justify-between">
+                <!-- Logo and Brand -->
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);">
+                        <i data-lucide="globe" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">语言世界</span>
+                        <span class="text-sm text-muted-foreground -mt-1">Language World</span>
+                    </div>
+                </div>
+
+                <!-- Navigation Menu -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#" class="text-foreground hover:text-primary transition-colors font-medium">首页</a>
+                    
+                    <div class="nav-item relative group">
+                        <button class="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium">
+                            <span>语言探索</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="nav-dropdown absolute top-full left-0 mt-2 w-64 bg-white border border-border rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <div class="p-4 space-y-3">
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">语言列表</a>
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">语言推荐</a>
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">语言对比</a>
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">语言测试</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nav-item relative group">
+                        <button class="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium">
+                            <span>文化世界</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="nav-dropdown absolute top-full left-0 mt-2 w-64 bg-white border border-border rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <div class="p-4 space-y-3">
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">旅游文化</a>
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">影视文化</a>
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">音乐文化</a>
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">历史文化</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nav-item relative group">
+                        <button class="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium">
+                            <span>学习指导</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="nav-dropdown absolute top-full left-0 mt-2 w-64 bg-white border border-border rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <div class="p-4 space-y-3">
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">学习方法</a>
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">语法指导</a>
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">发音练习</a>
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">考试准备</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nav-item relative group">
+                        <button class="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium">
+                            <span>资源工具</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="nav-dropdown absolute top-full left-0 mt-2 w-64 bg-white border border-border rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <div class="p-4 space-y-3">
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">学习应用</a>
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">在线工具</a>
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">电子书籍</a>
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">练习题库</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Settings -->
+                <div class="hidden md:flex items-center gap-4">
+                    <div class="relative group">
+                        <button class="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                            <i data-lucide="settings" class="w-4 h-4"></i>
+                            <span>设置</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="nav-dropdown absolute top-full right-0 mt-2 w-48 bg-white border border-border rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <div class="p-4 space-y-3">
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">重新填写调研问卷</a>
+                                <a href="#" class="block text-sm hover:text-primary transition-colors">重新选择母语</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden p-2 text-foreground hover:text-primary transition-colors" onclick="toggleMobileMenu()">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden border-t border-border bg-white/95 backdrop-blur-md hidden">
+            <div class="container mx-auto px-6 py-6 space-y-4">
+                <a href="#" class="block text-foreground hover:text-primary transition-colors font-medium">首页</a>
+                <div class="space-y-2">
+                    <div class="text-sm font-semibold text-muted-foreground">语言探索</div>
+                    <a href="#" class="block text-sm text-muted-foreground hover:text-primary transition-colors ml-4">语言列表</a>
+                    <a href="#" class="block text-sm text-muted-foreground hover:text-primary transition-colors ml-4">语言推荐</a>
+                    <a href="#" class="block text-sm text-muted-foreground hover:text-primary transition-colors ml-4">语言对比</a>
+                    <a href="#" class="block text-sm text-muted-foreground hover:text-primary transition-colors ml-4">语言测试</a>
+                </div>
+                <!-- ... existing mobile menu items ... -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero section with gradient background matching reference design -->
+    <div class="hero-gradient relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/10"></div>
+        <div class="container mx-auto px-6 py-20 relative z-10">
+            
+            <!-- Language Main Info Section -->
+            <div class="glass-card p-10 mb-8 stagger-1">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                    
+                    <!-- Language Identity -->
+                    <div class="flex flex-col lg:flex-row lg:items-center gap-8">
+                        <div class="flex items-center gap-6">
+                            <div class="text-8xl">🇯🇵</div>
+                            <div>
+                                <h1 class="text-6xl font-black text-white mb-3 leading-tight">日语</h1>
+                                <p class="text-2xl text-white/90 font-semibold mb-4">Japanese (日本語)</p>
+                                <div class="flex flex-wrap gap-3">
+                                    <span class="px-4 py-2 bg-white/20 text-white rounded-full text-sm font-semibold backdrop-blur-sm">ISO 639: ja-JP</span>
+                                    <span class="px-4 py-2 bg-white/20 text-white rounded-full text-sm font-semibold backdrop-blur-sm">日语族</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="btn-outline px-8 py-4 text-lg flex items-center justify-center gap-3">
+                            <i data-lucide="play-circle" class="w-6 h-6"></i>
+                            开始探索
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Statistics Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 stagger-2">
+                <div class="stat-card">
+                    <div class="flex items-center justify-center mb-4">
+                        <i data-lucide="users" class="w-10 h-10 text-primary"></i>
+                    </div>
+                    <div class="stat-number">1.3亿</div>
+                    <p class="text-muted-foreground font-semibold">全球使用者</p>
+                    <p class="text-sm text-muted-foreground mt-2">1.28亿母语使用者</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="flex items-center justify-center mb-4">
+                        <i data-lucide="map-pin" class="w-10 h-10 text-secondary"></i>
+                    </div>
+                    <div class="stat-number">主要地区</div>
+                    <p class="text-muted-foreground font-semibold">日本、美国、巴西</p>
+                    <p class="text-sm text-muted-foreground mt-2">及其他海外社区</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="flex items-center justify-center mb-4">
+                        <i data-lucide="flag" class="w-10 h-10 text-accent"></i>
+                    </div>
+                    <div class="stat-number">1个</div>
+                    <p class="text-muted-foreground font-semibold">官方语言国家</p>
+                    <p class="text-sm text-muted-foreground mt-2">日本国官方语言</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="flex items-center justify-center mb-4">
+                        <i data-lucide="graduation-cap" class="w-10 h-10 text-primary"></i>
+                    </div>
+                    <div class="stat-number">500万+</div>
+                    <p class="text-muted-foreground font-semibold">在线学习者</p>
+                    <p class="text-sm text-muted-foreground mt-2">全球学习人数</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content area with updated styling -->
+    <div class="container mx-auto px-6 py-12">
+        <!-- Tab Navigation and Content -->
+        <div class="card overflow-hidden stagger-3">
+            <div class="tab-navigation">
+                <button class="tab-button active" onclick="switchTab('basic-info', this)">
+                    基础信息
+                </button>
+                <button class="tab-button" onclick="switchTab('learning-guide', this)">
+                    学习指南
+                </button>
+                <button class="tab-button" onclick="switchTab('culture', this)">
+                    相关文化
+                </button>
+                <button class="tab-button" onclick="switchTab('resources', this)">
+                    学习资源
+                </button>
+            </div>
+
+            <!-- Tab 1: Basic Info -->
+            <div id="basic-info" class="tab-content active">
+                <div class="content-grid">
+
+                    <!-- Language Family -->
+                    <div class="card gradient-purple p-8">
+                        <h3 class="text-2xl font-bold text-primary mb-6 flex items-center gap-3">
+                            <i data-lucide="git-branch" class="w-6 h-6"></i>
+                            语言家族详情
+                        </h3>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-lg text-primary mb-3">家族树状图</h4>
+                                <div class="bg-white rounded-xl p-6 text-sm font-mono shadow-sm">
+                                    日语族<br>
+                                    └── 日语<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;├── 古日语<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;├── 中古日语<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;└── 现代日语
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg text-primary mb-3">同族语言列表</h4>
+                                <p class="text-muted-foreground">琉球语族（已濒危）</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg text-primary mb-3">家族特点说明</h4>
+                                <p class="text-muted-foreground">孤立语言，与其他语言家族关系不明确</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Geographic Distribution -->
+                    <div class="card gradient-blue p-8">
+                        <h3 class="text-2xl font-bold text-secondary mb-6 flex items-center gap-3">
+                            <i data-lucide="map" class="w-6 h-6"></i>
+                            地理分布
+                        </h3>
+                        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6 mb-6 min-h-[200px] flex items-center justify-center relative">
+                            <div class="text-6xl">🗺️</div>
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-4 text-sm shadow-md">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                                    <span>主要使用地区</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-secondary rounded-full"></div>
+                                    <span>次要使用地区</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-lg text-secondary mb-2">各地区使用人数</h4>
+                                <p class="text-sm text-muted-foreground">日本: 1.25亿 | 美国: 100万 | 巴西: 80万</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg text-secondary mb-2">方言差异</h4>
+                                <p class="text-sm text-muted-foreground">关东方言、关西方言、东北方言等</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Language Features -->
+                    <div class="card gradient-green p-8">
+                        <h3 class="text-2xl font-bold text-accent mb-6 flex items-center gap-3">
+                            <i data-lucide="layers" class="w-6 h-6"></i>
+                            语言特点
+                        </h3>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-lg text-accent mb-3 flex items-center gap-2">
+                                    <i data-lucide="type" class="w-5 h-5"></i>
+                                    文字系统
+                                </h4>
+                                <div class="text-sm space-y-2 ml-7">
+                                    <p><span class="font-semibold">平假名:</span> 表音文字，46个基本字符</p>
+                                    <p><span class="font-semibold">片假名:</span> 表音文字，外来词专用</p>
+                                    <p><span class="font-semibold">汉字:</span> 表意文字，常用约2000字</p>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg text-accent mb-3 flex items-center gap-2">
+                                    <i data-lucide="volume-2" class="w-5 h-5"></i>
+                                    语音特点
+                                </h4>
+                                <div class="text-sm space-y-2 ml-7">
+                                    <p><span class="font-semibold">音素:</span> 约15个辅音，5个元音</p>
+                                    <p><span class="font-semibold">音调:</span> 高低音调系统</p>
+                                    <p><span class="font-semibold">特色:</span> 音拍(モーラ)节拍系统</p>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg text-accent mb-3 flex items-center gap-2">
+                                    <i data-lucide="book" class="w-5 h-5"></i>
+                                    语法特色
+                                </h4>
+                                <div class="text-sm space-y-2 ml-7">
+                                    <p><span class="font-semibold">语序:</span> SOV（主谓宾）</p>
+                                    <p><span class="font-semibold">助词:</span> 丰富的助词系统</p>
+                                    <p><span class="font-semibold">敬语:</span> 复杂的敬语体系</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Historical Development -->
+                    <div class="card gradient-orange p-8">
+                        <h3 class="text-2xl font-bold text-orange-600 mb-6 flex items-center gap-3">
+                            <i data-lucide="clock" class="w-6 h-6"></i>
+                            历史发展
+                        </h3>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-lg text-orange-600 mb-3">语言起源</h4>
+                                <p class="text-sm text-muted-foreground">约公元3-8世纪形成，起源存在争议</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg text-orange-600 mb-3">重要发展阶段</h4>
+                                <div class="text-sm space-y-2">
+                                    <p><span class="font-semibold">奈良时代:</span> 汉字传入，万叶假名</p>
+                                    <p><span class="font-semibold">平安时代:</span> 平假名、片假名确立</p>
+                                    <p><span class="font-semibold">江户时代:</span> 现代日语基础形成</p>
+                                    <p><span class="font-semibold">明治时代:</span> 现代化改革，标准语确立</p>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg text-orange-600 mb-3">现代标准化过程</h4>
+                                <p class="text-sm text-muted-foreground">基于东京方言的标准语，战后文字改革</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Learning Guide -->
+            <div id="learning-guide" class="tab-content">
+                <div class="space-y-10">
+
+                    <!-- Specialized Learning Methods -->
+                    <div class="card gradient-purple p-8">
+                        <h3 class="text-2xl font-bold text-primary mb-6 flex items-center gap-3">
+                            <i data-lucide="lightbulb" class="w-6 h-6"></i>
+                            专属学习方法
+                        </h3>
+                        <div class="three-col-grid mb-6">
+                            <div class="article-card">
+                                <h4 class="font-semibold text-lg mb-3">零基础日语入门指南</h4>
+                                <p class="text-sm text-muted-foreground mb-4">从五十音图开始的完整学习路径</p>
+                                <div class="flex items-center gap-2 text-xs text-muted-foreground mb-4 flex-wrap">
+                                    <div class="flex items-center gap-1">
+                                        <i data-lucide="user" class="w-3 h-3"></i>
+                                        <span>专家</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <i data-lucide="clock" class="w-3 h-3"></i>
+                                        <span>15分钟</span>
+                                    </div>
+                                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">入门</span>
+                                </div>
+                                <button class="btn-secondary w-full py-3 text-sm rounded-lg">阅读文章</button>
+                            </div>
+
+                            <div class="article-card">
+                                <h4 class="font-semibold text-lg mb-3">动漫日语学习法</h4>
+                                <p class="text-sm text-muted-foreground mb-4">通过动漫提升听说能力的技巧</p>
+                                <div class="flex items-center gap-2 text-xs text-muted-foreground mb-4 flex-wrap">
+                                    <div class="flex items-center gap-1">
+                                        <i data-lucide="user" class="w-3 h-3"></i>
+                                        <span>用户分享</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <i data-lucide="clock" class="w-3 h-3"></i>
+                                        <span>12分钟</span>
+                                    </div>
+                                    <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium">进阶</span>
+                                </div>
+                                <button class="btn-secondary w-full py-3 text-sm rounded-lg">阅读文章</button>
+                            </div>
+
+                            <div class="article-card">
+                                <h4 class="font-semibold text-lg mb-3">JLPT考试策略</h4>
+                                <p class="text-sm text-muted-foreground mb-4">日语能力考试备考完全攻略</p>
+                                <div class="flex items-center gap-2 text-xs text-muted-foreground mb-4 flex-wrap">
+                                    <div class="flex items-center gap-1">
+                                        <i data-lucide="user" class="w-3 h-3"></i>
+                                        <span>专家</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <i data-lucide="clock" class="w-3 h-3"></i>
+                                        <span>20分钟</span>
+                                    </div>
+                                    <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">高级</span>
+                                </div>
+                                <button class="btn-secondary w-full py-3 text-sm rounded-lg">阅读文章</button>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn-primary px-8 py-3 rounded-lg text-lg">查看所有学习方法</button>
+                        </div>
+                    </div>
+
+                    <!-- ... existing learning guide content with updated styling ... -->
+                </div>
+            </div>
+
+            <!-- Tab 3: Culture -->
+            <div id="culture" class="tab-content">
+                <div class="space-y-10">
+
+                    <!-- Culture Overview -->
+                    <div class="card p-8" style="background: linear-gradient(135deg, #f3e8ff 0%, #e0e7ff 100%);">
+                        <h3 class="text-2xl font-bold text-primary mb-6 flex items-center gap-3">
+                            <i data-lucide="heart" class="w-6 h-6"></i>
+                            文化概览
+                        </h3>
+                        <div class="two-col-grid">
+                            <div>
+                                <h4 class="font-semibold text-lg mb-3">语言文化简介</h4>
+                                <p class="text-sm text-muted-foreground">日语承载着深厚的和文化传统，体现在敬语体系、季节感知等方面</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-3">文化核心价值观</h4>
+                                <p class="text-sm text-muted-foreground">和谐、礼貌、集体主义、完美主义、四季之美</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-3">文化特色亮点</h4>
+                                <p class="text-sm text-muted-foreground">传统与现代并存、匠人精神、细节追求、美学意识</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-3">文化学习重要性</h4>
+                                <p class="text-sm text-muted-foreground">理解文化背景有助于正确使用敬语、把握语言细节</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cultural Content Categories -->
+                    <div class="two-col-grid">
+
+                        <!-- Travel Culture -->
+                        <div class="card gradient-blue p-8">
+                            <h3 class="text-xl font-bold text-secondary mb-6 flex items-center gap-3">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                                🏖️ 旅游文化
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="article-card">
+                                    <h4 class="font-semibold mb-2">日本旅游必知礼仪</h4>
+                                    <p class="text-xs text-muted-foreground">温泉、寺庙、交通工具使用指南</p>
+                                </div>
+                                <div class="article-card">
+                                    <h4 class="font-semibold mb-2">樱花季旅行攻略</h4>
+                                    <p class="text-xs text-muted-foreground">最佳赏樱地点与时间推荐</p>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn-secondary px-6 py-3 text-sm rounded-lg">查看更多旅游内容</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movie Culture -->
+                        <div class="card gradient-green p-8">
+                            <h3 class="text-xl font-bold text-accent mb-6 flex items-center gap-3">
+                                <i data-lucide="film" class="w-5 h-5"></i>
+                                🎬 影视文化
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="article-card">
+                                    <h4 class="font-semibold mb-2">宫崎骏动画中的日本</h4>
+                                    <p class="text-xs text-muted-foreground">从动画作品了解日本文化内核</p>
+                                </div>
+                                <div class="article-card">
+                                    <h4 class="font-semibold mb-2">日剧学日语技巧</h4>
+                                    <p class="text-xs text-muted-foreground">通过日剧提升听力和文化理解</p>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn-secondary px-6 py-3 text-sm rounded-lg">查看更多影视内容</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Music Culture -->
+                        <div class="card gradient-orange p-8">
+                            <h3 class="text-xl font-bold text-orange-600 mb-6 flex items-center gap-3">
+                                <i data-lucide="music" class="w-5 h-5"></i>
+                                🎵 音乐文化
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="article-card">
+                                    <h4 class="font-semibold mb-2">J-POP听歌学日语</h4>
+                                    <p class="text-xs text-muted-foreground">通过流行音乐掌握日常用语</p>
+                                </div>
+                                <div class="article-card">
+                                    <h4 class="font-semibold mb-2">传统音乐与现代融合</h4>
+                                    <p class="text-xs text-muted-foreground">从传统乐器到现代音乐的演变</p>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn-secondary px-6 py-3 text-sm rounded-lg">查看更多音乐内容</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- History Culture -->
+                        <div class="card gradient-purple p-8">
+                            <h3 class="text-xl font-bold text-primary mb-6 flex items-center gap-3">
+                                <i data-lucide="scroll" class="w-5 h-5"></i>
+                                🏛️ 历史文化
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="article-card">
+                                    <h4 class="font-semibold mb-2">武士道精神的现代影响</h4>
+                                    <p class="text-xs text-muted-foreground">从历史传统到现代价值观念</p>
+                                </div>
+                                <div class="article-card">
+                                    <h4 class="font-semibold mb-2">明治维新对语言的影响</h4>
+                                    <p class="text-xs text-muted-foreground">历史变革如何塑造现代日语</p>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn-secondary px-6 py-3 text-sm rounded-lg">查看更多历史内容</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Tab 4: Resources -->
+            <div id="resources" class="tab-content">
+                <div class="text-center py-20">
+                    <div class="max-w-md mx-auto">
+                        <div class="w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-8" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);">
+                            <i data-lucide="construction" class="w-16 h-16 text-white"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-foreground mb-6">学习资源正在整理中</h3>
+                        <p class="text-muted-foreground mb-8 text-lg">我们正在为您准备最优质的学习资源</p>
+
+                        <div class="two-col-grid mb-10 text-left max-w-lg mx-auto">
+                            <div class="card gradient-purple p-6">
+                                <h4 class="font-semibold text-primary mb-3 flex items-center gap-2">
+                                    <i data-lucide="play-circle" class="w-5 h-5"></i>
+                                    在线课程
+                                </h4>
+                                <p class="text-sm text-muted-foreground">精选优质日语课程</p>
+                            </div>
+                            <div class="card gradient-blue p-6">
+                                <h4 class="font-semibold text-secondary mb-3 flex items-center gap-2">
+                                    <i data-lucide="wrench" class="w-5 h-5"></i>
+                                    学习工具
+                                </h4>
+                                <p class="text-sm text-muted-foreground">实用学习辅助工具</p>
+                            </div>
+                            <div class="card gradient-orange p-6">
+                                <h4 class="font-semibold text-orange-600 mb-3 flex items-center gap-2">
+                                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                                    练习材料
+                                </h4>
+                                <p class="text-sm text-muted-foreground">丰富的练习题库</p>
+                            </div>
+                            <div class="card gradient-green p-6">
+                                <h4 class="font-semibold text-accent mb-3 flex items-center gap-2">
+                                    <i data-lucide="users" class="w-5 h-5"></i>
+                                    社区资源
+                                </h4>
+                                <p class="text-sm text-muted-foreground">学习者交流社区</p>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary px-8 py-4 rounded-lg text-lg">订阅更新通知</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="mt-12 flex flex-col sm:flex-row justify-between items-center gap-6">
+            <button onclick="scrollToTop()" class="btn-secondary px-6 py-3 rounded-lg flex items-center gap-2">
+                <i data-lucide="arrow-up" class="w-5 h-5"></i>
+                返回顶部
+            </button>
+            <div class="flex items-center gap-6 text-sm text-muted-foreground">
+                <button class="hover:text-primary transition-colors font-medium">修改个人信息</button>
+                <span class="hidden sm:inline">|</span>
+                <button class="hover:text-primary transition-colors font-medium">查看推荐算法</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ... existing footer code ... -->
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mobile menu toggle functionality
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuButton = document.querySelector('[onclick="toggleMobileMenu()"] i');
+
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                menuButton.setAttribute('data-lucide', 'x');
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuButton.setAttribute('data-lucide', 'menu');
+            }
+
+            // Reinitialize icons after changing
+            lucide.createIcons();
+        }
+
+        // Tab switching functionality
+        function switchTab(tabName, buttonElement) {
+            // Hide all tab contents
+            const allTabs = document.querySelectorAll('.tab-content');
+            allTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active class from all tab buttons
+            const allButtons = document.querySelectorAll('.tab-button');
+            allButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab content
+            const targetTab = document.getElementById(tabName);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+
+            // Add active class to clicked button
+            if (buttonElement) {
+                buttonElement.classList.add('active');
+            }
+
+            // Reinitialize icons for dynamically shown content
+            setTimeout(() => {
+                lucide.createIcons();
+            }, 50);
+        }
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Reinitialize icons
+            lucide.createIcons();
+
+            // Ensure basic-info tab is active on load
+            const basicInfoTab = document.getElementById('basic-info');
+            const firstTabButton = document.querySelector('.tab-button');
+
+            if (basicInfoTab && firstTabButton) {
+                basicInfoTab.classList.add('active');
+                firstTabButton.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

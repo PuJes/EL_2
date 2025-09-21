@@ -1,0 +1,385 @@
+/* Cultural World Theme - Warm, Bright, and Modern */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap");
+
+:root {
+  /* Color Palette - Warm and Bright Cultural Theme */
+  --background: #fefefe;
+  --foreground: #2c2826;
+  --card: #ffffff;
+  --card-foreground: #2c2826;
+  --popover: #ffffff;
+  --popover-foreground: #2c2826;
+
+  /* Primary - Warm Terracotta/Rust */
+  --primary: #c4621a;
+  --primary-foreground: #ffffff;
+
+  /* Secondary - Soft Sage Green */
+  --secondary: #8fa68e;
+  --secondary-foreground: #2d3e2b;
+
+  /* Muted - Warm Light Gray */
+  --muted: #f7f5f3;
+  --muted-foreground: #6b6560;
+
+  /* Accent - Golden Amber */
+  --accent: #e6a532;
+  --accent-foreground: #2c2826;
+
+  /* Cultural Earth Tones */
+  --earth-warm: #b5651d;
+  --earth-cool: #7a9471;
+  --cultural-gold: #f4c542;
+
+  /* Status Colors */
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --success: #16a34a;
+  --success-foreground: #ffffff;
+  --warning: #ca8a04;
+  --warning-foreground: #ffffff;
+
+  /* Border and Input */
+  --border: #e5ddd8;
+  --input: #f9f7f5;
+  --ring: #c4621a;
+
+  /* Typography */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+
+  /* Spacing and Layout */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+
+  /* Border Radius */
+  --radius: 0.75rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* Shadows - Warm and Natural */
+  --shadow-2xs: 0 1px 2px 0 rgba(44, 40, 38, 0.05);
+  --shadow-xs: 0 1px 3px 0 rgba(44, 40, 38, 0.1);
+  --shadow-sm: 0 1px 3px 0 rgba(44, 40, 38, 0.1), 0 1px 2px -1px rgba(44, 40, 38, 0.1);
+  --shadow: 0 1px 3px 0 rgba(44, 40, 38, 0.1), 0 1px 2px -1px rgba(44, 40, 38, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(44, 40, 38, 0.1), 0 2px 4px -2px rgba(44, 40, 38, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(44, 40, 38, 0.1), 0 4px 6px -4px rgba(44, 40, 38, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(44, 40, 38, 0.1), 0 8px 10px -6px rgba(44, 40, 38, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(44, 40, 38, 0.25);
+
+  /* Cultural Gradients */
+  --gradient-warm: linear-gradient(135deg, #c4621a 0%, #e6a532 100%);
+  --gradient-earth: linear-gradient(135deg, #b5651d 0%, #7a9471 100%);
+  --gradient-cultural: linear-gradient(135deg, #f4c542 0%, #c4621a 50%, #8fa68e 100%);
+
+  /* Animation and Transitions */
+  --transition-fast: 150ms ease-out;
+  --transition-normal: 250ms ease-out;
+  --transition-slow: 350ms ease-out;
+}
+
+/* Base Styles */
+* {
+  border-color: var(--border);
+}
+
+body {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Typography Overrides */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif) !important;
+  color: var(--foreground) !important;
+  font-weight: 600 !important;
+}
+
+/* Tailwind CSS Overrides */
+.bg-background {
+  background-color: var(--background) !important;
+}
+
+.text-foreground {
+  color: var(--foreground) !important;
+}
+
+.bg-card {
+  background-color: var(--card) !important;
+}
+
+.text-card-foreground {
+  color: var(--card-foreground) !important;
+}
+
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-primary-foreground {
+  color: var(--primary-foreground) !important;
+}
+
+.bg-secondary {
+  background-color: var(--secondary) !important;
+}
+
+.text-secondary {
+  color: var(--secondary) !important;
+}
+
+.text-secondary-foreground {
+  color: var(--secondary-foreground) !important;
+}
+
+.bg-muted {
+  background-color: var(--muted) !important;
+}
+
+.text-muted {
+  color: var(--muted) !important;
+}
+
+.text-muted-foreground {
+  color: var(--muted-foreground) !important;
+}
+
+.bg-accent {
+  background-color: var(--accent) !important;
+}
+
+.text-accent {
+  color: var(--accent) !important;
+}
+
+.text-accent-foreground {
+  color: var(--accent-foreground) !important;
+}
+
+.bg-destructive {
+  background-color: var(--destructive) !important;
+}
+
+.text-destructive {
+  color: var(--destructive) !important;
+}
+
+.text-destructive-foreground {
+  color: var(--destructive-foreground) !important;
+}
+
+.border-border {
+  border-color: var(--border) !important;
+}
+
+.border-input {
+  border-color: var(--border) !important;
+}
+
+.bg-input {
+  background-color: var(--input) !important;
+}
+
+/* Ring colors for focus states */
+.focus\:ring-ring:focus {
+  --tw-ring-color: var(--ring) !important;
+}
+
+.focus\:ring-2:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000) !important;
+}
+
+/* Cultural UI Components */
+.cultural-card {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-md) !important;
+  transition: all var(--transition-normal) !important;
+}
+
+.cultural-card:hover {
+  box-shadow: var(--shadow-lg) !important;
+  transform: translateY(-2px) !important;
+}
+
+.cultural-button {
+  background: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  border: none !important;
+  border-radius: var(--radius) !important;
+  font-family: var(--font-sans) !important;
+  font-weight: 500 !important;
+  transition: all var(--transition-fast) !important;
+  cursor: pointer !important;
+}
+
+.cultural-button:hover {
+  background: var(--earth-warm) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* Heritage and Cultural Specific Classes */
+.heritage-text {
+  color: var(--earth-warm) !important;
+  font-family: var(--font-serif) !important;
+  font-style: italic !important;
+}
+
+.golden-highlight {
+  background: var(--cultural-gold) !important;
+  color: var(--accent-foreground) !important;
+  padding: 0.2em 0.4em !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+.earth-tone {
+  background: var(--gradient-earth) !important;
+  color: white !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+.warm-gradient {
+  background: var(--gradient-warm) !important;
+}
+
+.cultural-gradient {
+  background: var(--gradient-cultural) !important;
+}
+
+/* Input and Form Overrides */
+input,
+textarea,
+select {
+  background: var(--input) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  font-family: var(--font-sans) !important;
+  color: var(--foreground) !important;
+  transition: all var(--transition-fast) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(196, 98, 26, 0.1) !important;
+}
+
+/* Shadow Utility Classes */
+.shadow-2xs {
+  box-shadow: var(--shadow-2xs) !important;
+}
+
+.shadow-xs {
+  box-shadow: var(--shadow-xs) !important;
+}
+
+.shadow-sm {
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.shadow {
+  box-shadow: var(--shadow) !important;
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md) !important;
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.shadow-xl {
+  box-shadow: var(--shadow-xl) !important;
+}
+
+.shadow-2xl {
+  box-shadow: var(--shadow-2xl) !important;
+}
+
+/* Font Family Utilities */
+.font-sans {
+  font-family: var(--font-sans) !important;
+}
+
+.font-serif {
+  font-family: var(--font-serif) !important;
+}
+
+.font-mono {
+  font-family: var(--font-mono) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  :root {
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.5rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1a1715;
+    --foreground: #f5f3f0;
+    --card: #221e1b;
+    --card-foreground: #f5f3f0;
+    --muted: #2a2520;
+    --muted-foreground: #9d9389;
+    --border: #3a342e;
+    --input: #2a2520;
+
+    /* Adjust primary colors for dark mode */
+    --primary: #e67e22;
+    --secondary: #a7c4a0;
+    --accent: #f39c12;
+  }
+}
+
+/* Additional Cultural Elements */
+.culture-pattern {
+  background-image: radial-gradient(circle at 2px 2px, var(--muted) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
