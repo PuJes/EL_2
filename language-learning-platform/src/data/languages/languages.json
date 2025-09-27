@@ -1,0 +1,423 @@
+{
+  "languages": [
+    {
+      "id": "japanese",
+      "flag": "🇯🇵",
+      "name": "日语",
+      "nameEn": "Japanese",
+      "nativeName": "日本語",
+      "difficulty": 4,
+      "learningTimeEstimate": {
+        "beginner": "6个月",
+        "intermediate": "1-2年",
+        "advanced": "3-5年",
+        "totalHours": 2200
+      },
+      "description": "日语是日本的官方语言，以其独特的文字系统和敬语文化而闻名。适合对东亚文化感兴趣的学习者。",
+      "category": "popular",
+      "writingSystem": ["japanese"],
+      "speakers": {
+        "native": 125000000,
+        "total": 130000000,
+        "countries": ["日本"]
+      },
+      "regions": [
+        { "code": "JP", "name": "日本", "primaryLanguage": true }
+      ],
+      "culturalInfo": {
+        "history": "日语发展历史悠久，受到中国文化深刻影响，形成了独特的语言体系",
+        "traditions": ["茶道", "花道", "武道", "和服文化"],
+        "festivals": ["樱花节", "七夕节", "盂兰盆节", "新年"],
+        "cuisine": ["寿司", "拉面", "天妇罗", "怀石料理"],
+        "arts": ["浮世绘", "能剧", "歌舞伎", "书道"],
+        "literature": ["物语文学", "俳句", "短歌"],
+        "modernCulture": ["动漫", "漫画", "J-POP", "游戏"]
+      },
+      "resources": [],
+      "tags": ["东亚", "汉字", "动漫", "文化", "商务"],
+      "metadata": {
+        "iso639_1": "ja",
+        "iso639_2": "jpn",
+        "family": "Japanese",
+        "order": 1,
+        "featured": true,
+        "lastUpdated": "2024-01-01T00:00:00.000Z"
+      }
+    },
+    {
+      "id": "korean",
+      "flag": "🇰🇷",
+      "name": "韩语",
+      "nameEn": "Korean",
+      "nativeName": "한국어",
+      "difficulty": 3,
+      "learningTimeEstimate": {
+        "beginner": "4个月",
+        "intermediate": "8个月",
+        "advanced": "2-3年",
+        "totalHours": 1800
+      },
+      "description": "韩语是朝鲜半岛的官方语言，使用韩文字母，语法相对规整，适合韩流文化爱好者。",
+      "category": "popular",
+      "writingSystem": ["korean"],
+      "speakers": {
+        "native": 77000000,
+        "total": 80000000,
+        "countries": ["韩国", "朝鲜"]
+      },
+      "regions": [
+        { "code": "KR", "name": "韩国", "primaryLanguage": true },
+        { "code": "KP", "name": "朝鲜", "primaryLanguage": true }
+      ],
+      "culturalInfo": {
+        "history": "韩语历史悠久，韩文字母(한글)创制于15世纪，是表音文字",
+        "traditions": ["韩服", "传统舞蹈", "跆拳道", "儒教文化"],
+        "festivals": ["春节", "中秋节", "韩国感恩节", "儿童节"],
+        "cuisine": ["韩式烤肉", "泡菜", "石锅拌饭", "冷面"],
+        "arts": ["韩国传统音乐", "书法", "陶瓷", "韩国舞"],
+        "literature": ["古典诗歌", "现代小说", "韩国文学"],
+        "modernCulture": ["K-POP", "韩剧", "韩流", "美妆"]
+      },
+      "resources": [],
+      "tags": ["东亚", "韩流", "K-POP", "文化", "流行"],
+      "metadata": {
+        "iso639_1": "ko",
+        "iso639_2": "kor",
+        "family": "Koreanic",
+        "order": 2,
+        "featured": true,
+        "lastUpdated": "2024-01-01T00:00:00.000Z"
+      }
+    },
+    {
+      "id": "spanish",
+      "flag": "🇪🇸",
+      "name": "西班牙语",
+      "nameEn": "Spanish",
+      "nativeName": "Español",
+      "difficulty": 2,
+      "learningTimeEstimate": {
+        "beginner": "3个月",
+        "intermediate": "6个月",
+        "advanced": "1-2年",
+        "totalHours": 900
+      },
+      "description": "西班牙语是世界第二大语言，使用拉丁字母，语法相对简单，适合初学者。",
+      "category": "popular",
+      "writingSystem": ["latin"],
+      "speakers": {
+        "native": 460000000,
+        "total": 500000000,
+        "countries": ["西班牙", "墨西哥", "阿根廷", "哥伦比亚"]
+      },
+      "regions": [
+        { "code": "ES", "name": "西班牙", "primaryLanguage": true },
+        { "code": "MX", "name": "墨西哥", "primaryLanguage": true },
+        { "code": "AR", "name": "阿根廷", "primaryLanguage": true }
+      ],
+      "culturalInfo": {
+        "history": "西班牙语源于拉丁语，是罗曼语族的重要分支",
+        "traditions": ["弗拉明戈", "斗牛", "西班牙节庆", "天主教文化"],
+        "festivals": ["圣周", "西红柿节", "奔牛节", "三王节"],
+        "cuisine": ["西班牙火腿", "海鲜饭", "小食文化", "桑格利亚"],
+        "arts": ["毕加索", "达利", "弗拉明戈舞", "建筑艺术"],
+        "literature": ["堂吉诃德", "洛尔迦", "拉美文学"],
+        "modernCulture": ["足球", "拉丁音乐", "电影", "时尚"]
+      },
+      "resources": [],
+      "tags": ["欧洲", "拉丁美洲", "商务", "旅行", "易学"],
+      "metadata": {
+        "iso639_1": "es",
+        "iso639_2": "spa",
+        "family": "Indo-European",
+        "branch": "Romance",
+        "order": 3,
+        "featured": true,
+        "lastUpdated": "2024-01-01T00:00:00.000Z"
+      }
+    },
+    {
+      "id": "french",
+      "flag": "🇫🇷",
+      "name": "法语",
+      "nameEn": "French",
+      "nativeName": "Français",
+      "difficulty": 3,
+      "learningTimeEstimate": {
+        "beginner": "4个月",
+        "intermediate": "8个月",
+        "advanced": "2年",
+        "totalHours": 1200
+      },
+      "description": "法语是联合国官方语言之一，具有深厚的文化底蕴和商务价值。",
+      "category": "business",
+      "writingSystem": ["latin"],
+      "speakers": {
+        "native": 280000000,
+        "total": 300000000,
+        "countries": ["法国", "加拿大", "比利时", "瑞士"]
+      },
+      "regions": [
+        { "code": "FR", "name": "法国", "primaryLanguage": true },
+        { "code": "CA", "name": "加拿大", "primaryLanguage": false },
+        { "code": "BE", "name": "比利时", "primaryLanguage": false }
+      ],
+      "culturalInfo": {
+        "history": "法语是罗曼语族语言，曾是欧洲外交语言",
+        "traditions": ["法国大餐", "香水文化", "艺术沙龙", "咖啡文化"],
+        "festivals": ["巴士底日", "戛纳电影节", "音乐节", "葡萄酒节"],
+        "cuisine": ["法式大餐", "奶酪", "葡萄酒", "马卡龙"],
+        "arts": ["印象派", "新浪潮电影", "芭蕾舞", "时装设计"],
+        "literature": ["雨果", "莫泊桑", "加缪", "萨特"],
+        "modernCulture": ["时尚", "奢侈品", "电影", "哲学"]
+      },
+      "resources": [],
+      "tags": ["欧洲", "商务", "文化", "奢侈品", "艺术"],
+      "metadata": {
+        "iso639_1": "fr",
+        "iso639_2": "fra",
+        "family": "Indo-European",
+        "branch": "Romance",
+        "order": 4,
+        "featured": true,
+        "lastUpdated": "2024-01-01T00:00:00.000Z"
+      }
+    },
+    {
+      "id": "german",
+      "flag": "🇩🇪",
+      "name": "德语",
+      "nameEn": "German",
+      "nativeName": "Deutsch",
+      "difficulty": 4,
+      "learningTimeEstimate": {
+        "beginner": "5个月",
+        "intermediate": "10个月",
+        "advanced": "2-3年",
+        "totalHours": 1500
+      },
+      "description": "德语是欧洲重要的商务语言，在科技、工程、音乐等领域具有重要地位。",
+      "category": "business",
+      "writingSystem": ["latin"],
+      "speakers": {
+        "native": 100000000,
+        "total": 130000000,
+        "countries": ["德国", "奥地利", "瑞士"]
+      },
+      "regions": [
+        { "code": "DE", "name": "德国", "primaryLanguage": true },
+        { "code": "AT", "name": "奥地利", "primaryLanguage": true },
+        { "code": "CH", "name": "瑞士", "primaryLanguage": false }
+      ],
+      "culturalInfo": {
+        "history": "德语属于日耳曼语族，有着丰富的文学和哲学传统",
+        "traditions": ["啤酒文化", "圣诞市场", "古典音乐", "工匠精神"],
+        "festivals": ["慕尼黑啤酒节", "圣诞节", "复活节", "狂欢节"],
+        "cuisine": ["香肠", "啤酒", "椒盐卷饼", "黑森林蛋糕"],
+        "arts": ["古典音乐", "包豪斯设计", "表现主义", "歌剧"],
+        "literature": ["歌德", "席勒", "卡夫卡", "赫塞"],
+        "modernCulture": ["汽车工业", "环保意识", "足球", "电子音乐"]
+      },
+      "resources": [],
+      "tags": ["欧洲", "商务", "工程", "音乐", "科技"],
+      "metadata": {
+        "iso639_1": "de",
+        "iso639_2": "deu",
+        "family": "Indo-European",
+        "branch": "Germanic",
+        "order": 5,
+        "featured": false,
+        "lastUpdated": "2024-01-01T00:00:00.000Z"
+      }
+    },
+    {
+      "id": "english",
+      "flag": "🇺🇸",
+      "name": "英语",
+      "nameEn": "English",
+      "nativeName": "English",
+      "difficulty": 2,
+      "learningTimeEstimate": {
+        "beginner": "3个月",
+        "intermediate": "6个月",
+        "advanced": "1-2年",
+        "totalHours": 750
+      },
+      "description": "英语是全球使用最广泛的语言，在商务、科技、学术等领域占主导地位，适合所有学习者。",
+      "category": "popular",
+      "writingSystem": ["latin"],
+      "speakers": {
+        "native": 380000000,
+        "total": 1500000000,
+        "countries": ["美国", "英国", "加拿大", "澳大利亚"]
+      },
+      "regions": [
+        { "code": "US", "name": "美国", "primaryLanguage": true },
+        { "code": "GB", "name": "英国", "primaryLanguage": true },
+        { "code": "CA", "name": "加拿大", "primaryLanguage": true },
+        { "code": "AU", "name": "澳大利亚", "primaryLanguage": true }
+      ],
+      "culturalInfo": {
+        "history": "英语起源于古英语，经历了中古英语和现代英语的发展",
+        "traditions": ["下午茶", "莎士比亚戏剧", "英式绅士文化", "皇室传统"],
+        "festivals": ["圣诞节", "复活节", "感恩节", "万圣节"],
+        "cuisine": ["炸鱼薯条", "英式早餐", "下午茶", "烤牛肉"],
+        "arts": ["文艺复兴戏剧", "浪漫主义诗歌", "摇滚音乐", "流行文化"],
+        "literature": ["莎士比亚", "狄更斯", "简·奥斯汀", "哈利·波特"],
+        "modernCulture": ["好莱坞", "硅谷科技", "流行音乐", "社交媒体"]
+      },
+      "resources": [],
+      "tags": ["全球通用", "商务", "科技", "学术", "媒体"],
+      "metadata": {
+        "iso639_1": "en",
+        "iso639_2": "eng",
+        "family": "Indo-European",
+        "branch": "Germanic",
+        "order": 0,
+        "featured": true,
+        "lastUpdated": "2024-01-01T00:00:00.000Z"
+      }
+    },
+    {
+      "id": "chinese",
+      "flag": "🇨🇳",
+      "name": "中文",
+      "nameEn": "Chinese",
+      "nativeName": "中文",
+      "difficulty": 5,
+      "learningTimeEstimate": {
+        "beginner": "8个月",
+        "intermediate": "1.5年",
+        "advanced": "3-5年",
+        "totalHours": 2500
+      },
+      "description": "中文是世界上使用人数最多的语言，具有深厚的文化底蕴和重要的商业价值。",
+      "category": "popular",
+      "writingSystem": ["chinese"],
+      "speakers": {
+        "native": 918000000,
+        "total": 1400000000,
+        "countries": ["中国", "台湾", "香港", "澳门", "新加坡"]
+      },
+      "regions": [
+        { "code": "CN", "name": "中国", "primaryLanguage": true },
+        { "code": "TW", "name": "台湾", "primaryLanguage": true },
+        { "code": "HK", "name": "香港", "primaryLanguage": true },
+        { "code": "SG", "name": "新加坡", "primaryLanguage": false }
+      ],
+      "culturalInfo": {
+        "history": "中文有着5000多年的历史，是世界上最古老的连续使用的文字系统",
+        "traditions": ["书法", "太极", "传统医学", "儒家文化"],
+        "festivals": ["春节", "中秋节", "端午节", "清明节"],
+        "cuisine": ["八大菜系", "饺子", "月饼", "茶文化"],
+        "arts": ["京剧", "国画", "古典诗歌", "武术"],
+        "literature": ["四大名著", "古典诗词", "现代文学"],
+        "modernCulture": ["科技创新", "电子商务", "移动支付", "短视频"]
+      },
+      "resources": [],
+      "tags": ["东亚", "商务", "文化", "历史", "科技"],
+      "metadata": {
+        "iso639_1": "zh",
+        "iso639_2": "zho",
+        "family": "Sino-Tibetan",
+        "order": 1,
+        "featured": true,
+        "lastUpdated": "2024-01-01T00:00:00.000Z"
+      }
+    },
+    {
+      "id": "italian",
+      "flag": "🇮🇹",
+      "name": "意大利语",
+      "nameEn": "Italian",
+      "nativeName": "Italiano",
+      "difficulty": 2,
+      "learningTimeEstimate": {
+        "beginner": "4个月",
+        "intermediate": "8个月",
+        "advanced": "1.5年",
+        "totalHours": 1000
+      },
+      "description": "意大利语是艺术、美食、时尚的语言，具有优美的语音和丰富的文化内涵。",
+      "category": "culture",
+      "writingSystem": ["latin"],
+      "speakers": {
+        "native": 65000000,
+        "total": 85000000,
+        "countries": ["意大利", "瑞士", "圣马力诺", "梵蒂冈"]
+      },
+      "regions": [
+        { "code": "IT", "name": "意大利", "primaryLanguage": true },
+        { "code": "CH", "name": "瑞士", "primaryLanguage": false },
+        { "code": "SM", "name": "圣马力诺", "primaryLanguage": true }
+      ],
+      "culturalInfo": {
+        "history": "意大利语源于拉丁语，是文艺复兴的语言",
+        "traditions": ["歌剧", "艺术", "建筑", "宗教文化"],
+        "festivals": ["威尼斯嘉年华", "圣诞节", "复活节", "艺术节"],
+        "cuisine": ["意式面食", "披萨", "咖啡", "冰淇淋"],
+        "arts": ["文艺复兴绘画", "雕塑", "建筑", "歌剧"],
+        "literature": ["但丁", "薄伽丘", "现代文学"],
+        "modernCulture": ["时尚设计", "汽车工业", "电影", "足球"]
+      },
+      "resources": [],
+      "tags": ["欧洲", "艺术", "美食", "时尚", "文化"],
+      "metadata": {
+        "iso639_1": "it",
+        "iso639_2": "ita",
+        "family": "Indo-European",
+        "branch": "Romance",
+        "order": 8,
+        "featured": false,
+        "lastUpdated": "2024-01-01T00:00:00.000Z"
+      }
+    },
+    {
+      "id": "portuguese",
+      "flag": "🇵🇹",
+      "name": "葡萄牙语",
+      "nameEn": "Portuguese",
+      "nativeName": "Português",
+      "difficulty": 3,
+      "learningTimeEstimate": {
+        "beginner": "4个月",
+        "intermediate": "8个月",
+        "advanced": "1.5年",
+        "totalHours": 1100
+      },
+      "description": "葡萄牙语是拉丁美洲重要语言，在巴西、葡萄牙等国使用，具有重要商业价值。",
+      "category": "business",
+      "writingSystem": ["latin"],
+      "speakers": {
+        "native": 260000000,
+        "total": 280000000,
+        "countries": ["巴西", "葡萄牙", "安哥拉", "莫桑比克"]
+      },
+      "regions": [
+        { "code": "BR", "name": "巴西", "primaryLanguage": true },
+        { "code": "PT", "name": "葡萄牙", "primaryLanguage": true },
+        { "code": "AO", "name": "安哥拉", "primaryLanguage": true }
+      ],
+      "culturalInfo": {
+        "history": "葡萄牙语随着大航海时代传播到世界各地",
+        "traditions": ["法朵音乐", "足球文化", "宗教节庆", "殖民文化"],
+        "festivals": ["狂欢节", "圣诞节", "复活节", "圣安东尼奥节"],
+        "cuisine": ["蛋挞", "烤鱼", "巴西烧烤", "海鲜饭"],
+        "arts": ["法朵音乐", "巴西音乐", "文学", "舞蹈"],
+        "literature": ["佩索阿", "萨拉马戈", "巴西文学"],
+        "modernCulture": ["足球", "巴西文化", "音乐", "节庆"]
+      },
+      "resources": [],
+      "tags": ["拉丁美洲", "商务", "足球", "音乐", "文化"],
+      "metadata": {
+        "iso639_1": "pt",
+        "iso639_2": "por",
+        "family": "Indo-European",
+        "branch": "Romance",
+        "order": 9,
+        "featured": false,
+        "lastUpdated": "2024-01-01T00:00:00.000Z"
+      }
+    }
+  ]
+}

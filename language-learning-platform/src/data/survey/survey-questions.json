@@ -1,0 +1,223 @@
+{
+  "survey": {
+    "id": "language-learning-assessment",
+    "title": "语言学习需求评估",
+    "description": "通过简单的几个问题，我们将为您推荐最适合的语言学习方案",
+    "version": "1.0",
+    "estimatedTime": "5分钟",
+    "steps": [
+      {
+        "id": "basic-info",
+        "title": "基本信息",
+        "description": "了解您的语言背景",
+        "order": 1,
+        "questions": [
+          {
+            "id": "native-language",
+            "type": "single-choice",
+            "title": "您的母语是什么？",
+            "required": true,
+            "options": [
+              { "value": "chinese", "label": "中文", "description": "包括普通话、方言等" },
+              { "value": "english", "label": "英语", "description": "以英语为母语" },
+              { "value": "other", "label": "其他", "description": "请在下方说明" }
+            ],
+            "allowCustom": true,
+            "customPlaceholder": "请输入您的母语"
+          },
+          {
+            "id": "language-experience",
+            "type": "single-choice",
+            "title": "您的语言学习经验如何？",
+            "required": true,
+            "options": [
+              { "value": "beginner", "label": "初学者", "description": "很少或没有外语学习经验" },
+              { "value": "intermediate", "label": "有一定基础", "description": "学过一门或多门外语，有基础对话能力" },
+              { "value": "advanced", "label": "经验丰富", "description": "熟练掌握多门语言，有丰富学习经验" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "motivation",
+        "title": "学习动机",
+        "description": "了解您学习语言的目标",
+        "order": 2,
+        "questions": [
+          {
+            "id": "learning-motivation",
+            "type": "single-choice",
+            "title": "您学习语言的主要目的是？",
+            "required": true,
+            "options": [
+              { "value": "career", "label": "职业发展", "description": "提升工作竞争力，拓展职业机会" },
+              { "value": "travel", "label": "旅行交流", "description": "为了旅行时更好地交流沟通" },
+              { "value": "culture", "label": "文化兴趣", "description": "对某种文化感兴趣，想深入了解" },
+              { "value": "academic", "label": "学术研究", "description": "学术或研究需要" },
+              { "value": "immigration", "label": "移民定居", "description": "计划移民或长期居住" },
+              { "value": "hobby", "label": "个人爱好", "description": "纯粹出于兴趣爱好" },
+              { "value": "other", "label": "其他", "description": "请在下方说明" }
+            ],
+            "allowCustom": true,
+            "customPlaceholder": "请描述您的学习目的"
+          },
+          {
+            "id": "priority-areas",
+            "type": "multiple-choice",
+            "title": "您希望重点提升哪些能力？（可多选）",
+            "required": true,
+            "minSelections": 1,
+            "maxSelections": 4,
+            "options": [
+              { "value": "speaking", "label": "口语交流", "description": "日常对话和表达能力" },
+              { "value": "listening", "label": "听力理解", "description": "理解母语者的表达" },
+              { "value": "reading", "label": "阅读理解", "description": "阅读文章、书籍等文本" },
+              { "value": "writing", "label": "书面表达", "description": "写作和文字表达能力" },
+              { "value": "business", "label": "商务沟通", "description": "工作和商务场合的专业表达" },
+              { "value": "academic", "label": "学术表达", "description": "学术研究和论文写作" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "preferences",
+        "title": "学习偏好",
+        "description": "了解您的学习方式和时间安排",
+        "order": 3,
+        "questions": [
+          {
+            "id": "time-commitment",
+            "type": "single-choice",
+            "title": "您每天可以投入多少时间学习语言？",
+            "required": true,
+            "options": [
+              { "value": "15-30min", "label": "15-30分钟", "description": "轻松入门，适合忙碌人群" },
+              { "value": "30-60min", "label": "30-60分钟", "description": "稳步提升，平衡工作生活" },
+              { "value": "1-2hours", "label": "1-2小时", "description": "快速进步，有明确目标" },
+              { "value": "2hours+", "label": "2小时以上", "description": "密集学习，快速掌握" }
+            ]
+          },
+          {
+            "id": "learning-style",
+            "type": "multiple-choice",
+            "title": "您偏好哪种学习方式？（可多选）",
+            "required": true,
+            "minSelections": 1,
+            "maxSelections": 3,
+            "options": [
+              { "value": "interactive", "label": "互动练习", "description": "通过对话和游戏学习" },
+              { "value": "structured", "label": "系统化课程", "description": "按照教材循序渐进" },
+              { "value": "immersive", "label": "沉浸式体验", "description": "通过文化内容学习语言" },
+              { "value": "practical", "label": "实用导向", "description": "专注于日常实用表达" },
+              { "value": "grammar", "label": "语法理论", "description": "重视语法规则和理论" },
+              { "value": "media", "label": "多媒体学习", "description": "通过视频、音频、游戏等" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "interests",
+        "title": "文化兴趣",
+        "description": "了解您对不同文化的兴趣",
+        "order": 4,
+        "questions": [
+          {
+            "id": "cultural-interests",
+            "type": "multiple-choice",
+            "title": "您对哪些地区或文化特别感兴趣？（可多选）",
+            "required": true,
+            "minSelections": 1,
+            "maxSelections": 5,
+            "options": [
+              { "value": "east-asia", "label": "东亚文化", "description": "中国、日本、韩国等" },
+              { "value": "southeast-asia", "label": "东南亚文化", "description": "泰国、越南、印尼等" },
+              { "value": "europe", "label": "欧洲文化", "description": "法国、德国、意大利等" },
+              { "value": "latin-america", "label": "拉丁美洲", "description": "西班牙、巴西、墨西哥等" },
+              { "value": "middle-east", "label": "中东文化", "description": "阿拉伯、波斯等文化" },
+              { "value": "africa", "label": "非洲文化", "description": "各种非洲本土文化" },
+              { "value": "north-america", "label": "北美文化", "description": "美国、加拿大文化" },
+              { "value": "oceania", "label": "大洋洲", "description": "澳大利亚、新西兰等" }
+            ]
+          },
+          {
+            "id": "content-interests",
+            "type": "multiple-choice",
+            "title": "您通过哪些内容了解和学习文化？（可多选）",
+            "required": false,
+            "maxSelections": 6,
+            "options": [
+              { "value": "movies", "label": "电影电视", "description": "通过影视作品了解文化" },
+              { "value": "music", "label": "音乐", "description": "喜欢听不同文化的音乐" },
+              { "value": "food", "label": "美食", "description": "对各国料理和饮食文化感兴趣" },
+              { "value": "literature", "label": "文学作品", "description": "阅读外国文学和诗歌" },
+              { "value": "history", "label": "历史", "description": "对历史和传统文化感兴趣" },
+              { "value": "art", "label": "艺术", "description": "绘画、雕塑、建筑等艺术形式" },
+              { "value": "sports", "label": "体育", "description": "关注国际体育和运动文化" },
+              { "value": "fashion", "label": "时尚", "description": "关注时尚和设计文化" },
+              { "value": "technology", "label": "科技", "description": "关注科技发展和创新文化" },
+              { "value": "business", "label": "商业", "description": "了解商业文化和经济发展" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "goals",
+        "title": "学习目标",
+        "description": "设定您的学习目标和期望",
+        "order": 5,
+        "questions": [
+          {
+            "id": "target-level",
+            "type": "single-choice",
+            "title": "您希望达到什么水平？",
+            "required": true,
+            "options": [
+              { "value": "basic", "label": "基础交流", "description": "能进行简单的日常对话" },
+              { "value": "intermediate", "label": "中级水平", "description": "能较流利地表达想法和观点" },
+              { "value": "advanced", "label": "高级水平", "description": "能在专业场合流畅沟通" },
+              { "value": "native", "label": "接近母语", "description": "达到接近母语者的水平" }
+            ]
+          },
+          {
+            "id": "timeline",
+            "type": "single-choice",
+            "title": "您希望在多长时间内达到目标？",
+            "required": true,
+            "options": [
+              { "value": "3months", "label": "3个月内", "description": "短期速成，有紧急需求" },
+              { "value": "6months", "label": "6个月内", "description": "中短期目标，稳步提升" },
+              { "value": "1year", "label": "1年内", "description": "中期规划，扎实基础" },
+              { "value": "2years", "label": "2年内", "description": "长期目标，全面掌握" },
+              { "value": "no-rush", "label": "不着急", "description": "慢慢学习，享受过程" }
+            ]
+          },
+          {
+            "id": "specific-needs",
+            "type": "multiple-choice",
+            "title": "您有哪些特殊需求？（可多选）",
+            "required": false,
+            "maxSelections": 4,
+            "options": [
+              { "value": "exam-prep", "label": "考试准备", "description": "准备语言能力考试" },
+              { "value": "interview", "label": "面试准备", "description": "为工作面试做准备" },
+              { "value": "presentation", "label": "演讲技能", "description": "提升公开演讲能力" },
+              { "value": "negotiation", "label": "商务谈判", "description": "商务谈判和合作交流" },
+              { "value": "academic-writing", "label": "学术写作", "description": "论文和学术文档写作" },
+              { "value": "daily-life", "label": "生活应用", "description": "日常生活中的实际应用" }
+            ]
+          }
+        ]
+      }
+    ],
+    "completion": {
+      "title": "评估完成",
+      "message": "感谢您完成语言学习需求评估！我们将根据您的回答为您推荐最适合的语言和学习方案。",
+      "nextSteps": [
+        "查看个性化语言推荐",
+        "制定学习计划",
+        "选择学习资源",
+        "开始学习之旅"
+      ]
+    }
+  }
+}

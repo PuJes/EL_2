@@ -1,0 +1,48 @@
+I want to conduct a comprehensive analysis of the AI emotional tools market landscape and identify genuine user pain points using Reddit scraper data. Please help me analyze the following:
+
+​Data Collection Parameters:​​
+
+​Social Media Platform Analysis:​​
+
+Target search keywords: ""
+Reddit scraper focus: r/artificial, r/MachineLearning, r/chatbots, r/mentalhealth, r/socialanxiety, r/loneliness, r/productivity, r/apps, r/reviewmyapp
+Content per keyword: Top 30-50 most relevant comments/posts
+Focus areas: User experiences, tool comparisons, pain point complaints, success stories, feature requests
+Time range: Last 90 days of comments/posts
+Priority: High-engagement content (high likes, shares, comments, viral posts)
+​Analysis Framework:​​
+
+​1. Pain Points & Challenges Analysis​
+
+What real-world problems do users encounter with AI emotional tools?
+Which features receive the most user complaints?
+Under what circumstances do users abandon these tools?
+What are the main barriers to paid conversion?
+Technical limitations and bugs mentioned frequently
+Emotional/psychological barriers to adoption
+​2. Emerging Trends & Opportunities​
+
+What new features or improvements do users most desire?
+Which AI emotional tools are receiving positive buzz?
+What innovative approaches or business models are gaining traction?
+Shifts in user preferences and expectations
+Integration requests with existing platforms/workflows
+​3. Competitive Landscape Insights​
+
+How do users compare different AI emotional tools?
+Tolan vs competitor feedback comparison matrix
+Which features are considered key differentiators?
+Price sensitivity analysis and willingness to pay
+Brand loyalty patterns and switching behavior
+​4. User Behavior & Adoption Patterns​
+
+How are users actually utilizing these AI emotional tools in practice?
+Peak usage scenarios and contexts
+Integration challenges with existing social/communication habits
+Learning curve feedback and onboarding difficulties
+Retention patterns and long-term engagement
+​5. Market Sentiment Indicators​
+
+Overall optimism vs skepticism toward AI emotional tools
+Privacy and security concern discussion frequency
+Future development expectations and predictions
