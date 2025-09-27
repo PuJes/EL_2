@@ -231,24 +231,24 @@ export default async function LanguageDetailPage({ params }: PageProps) {
                       <CardContent className="space-y-6">
                         <div className="space-y-4">
                           <div className="flex justify-between items-center">
-                            <span className="text-sm text-muted-foreground">入门水平</span>
-                            <span className="font-medium">{language.learningTimeEstimate.beginner}</span>
+                            <span className="text-sm text-muted-foreground">入门水平 (A1-A2)</span>
+                            <span className="font-medium">{Math.round(language.learningTimeEstimate.totalHours * 0.25)} 小时</span>
                           </div>
                           <Progress value={25} className="h-2" />
                         </div>
 
                         <div className="space-y-4">
                           <div className="flex justify-between items-center">
-                            <span className="text-sm text-muted-foreground">中级水平</span>
-                            <span className="font-medium">{language.learningTimeEstimate.intermediate}</span>
+                            <span className="text-sm text-muted-foreground">中级水平 (B1-B2)</span>
+                            <span className="font-medium">{Math.round(language.learningTimeEstimate.totalHours * 0.35)} 小时</span>
                           </div>
                           <Progress value={60} className="h-2" />
                         </div>
 
                         <div className="space-y-4">
                           <div className="flex justify-between items-center">
-                            <span className="text-sm text-muted-foreground">高级水平</span>
-                            <span className="font-medium">{language.learningTimeEstimate.advanced}</span>
+                            <span className="text-sm text-muted-foreground">高级水平 (C1-C2)</span>
+                            <span className="font-medium">{Math.round(language.learningTimeEstimate.totalHours * 0.4)} 小时</span>
                           </div>
                           <Progress value={90} className="h-2" />
                         </div>
@@ -285,34 +285,42 @@ export default async function LanguageDetailPage({ params }: PageProps) {
                           <span className="text-xl font-bold">{language.difficulty}/5</span>
                         </div>
                       </div>
-                      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                         <div className="text-center p-4 border rounded-lg">
                           <MessageCircle className="h-6 w-6 mx-auto mb-2 text-purple-500" />
                           <div className="font-medium">语法结构</div>
                           <div className="text-sm text-muted-foreground mt-1">
-                            {language.difficulty <= 2 ? '简单' : language.difficulty <= 3 ? '中等' : '复杂'}
+                            {language.difficultyAnalysis?.grammar ? (
+                              language.difficultyAnalysis.grammar <= 2 ? '简单' :
+                              language.difficultyAnalysis.grammar <= 3 ? '中等' : '复杂'
+                            ) : (
+                              language.difficulty <= 2 ? '简单' : language.difficulty <= 3 ? '中等' : '复杂'
+                            )}
                           </div>
                         </div>
                         <div className="text-center p-4 border rounded-lg">
                           <HeadphonesIcon className="h-6 w-6 mx-auto mb-2 text-teal-500" />
                           <div className="font-medium">发音系统</div>
                           <div className="text-sm text-muted-foreground mt-1">
-                            {language.difficulty <= 2 ? '容易' : language.difficulty <= 3 ? '中等' : '困难'}
+                            {language.difficultyAnalysis?.pronunciation ? (
+                              language.difficultyAnalysis.pronunciation <= 2 ? '容易' :
+                              language.difficultyAnalysis.pronunciation <= 3 ? '中等' : '困难'
+                            ) : (
+                              language.difficulty <= 2 ? '容易' : language.difficulty <= 3 ? '中等' : '困难'
+                            )}
                           </div>
                         </div>
                         <div className="text-center p-4 border rounded-lg">
                           <FileText className="h-6 w-6 mx-auto mb-2 text-orange-500" />
                           <div className="font-medium">文字系统</div>
                           <div className="text-sm text-muted-foreground mt-1">
-                            {language.writingSystem.includes('chinese') ? '复杂' :
-                             language.writingSystem.includes('latin') ? '简单' : '中等'}
-                          </div>
-                        </div>
-                        <div className="text-center p-4 border rounded-lg">
-                          <Globe className="h-6 w-6 mx-auto mb-2 text-blue-500" />
-                          <div className="font-medium">文化差异</div>
-                          <div className="text-sm text-muted-foreground mt-1">
-                            {language.difficulty <= 2 ? '相似' : language.difficulty <= 3 ? '中等' : '较大'}
+                            {language.difficultyAnalysis?.writing ? (
+                              language.difficultyAnalysis.writing <= 2 ? '简单' :
+                              language.difficultyAnalysis.writing <= 3 ? '中等' : '复杂'
+                            ) : (
+                              language.writingSystem.includes('chinese') ? '复杂' :
+                              language.writingSystem.includes('latin') ? '简单' : '中等'
+                            )}
                           </div>
                         </div>
                       </div>
@@ -426,92 +434,169 @@ export default async function LanguageDetailPage({ params }: PageProps) {
                       <CardHeader>
                         <CardTitle className="flex items-center">
                           <Award className="h-5 w-5 mr-2" />
-                          推荐学习路径
+                          学习路径
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-3">
-                          <div className="flex items-center space-x-3 p-3 border rounded-lg">
-                            <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-sm font-medium">
-                              1
-                            </div>
-                            <div>
-                              <div className="font-medium">基础语音</div>
-                              <div className="text-sm text-muted-foreground">掌握基本发音和语调</div>
-                            </div>
-                          </div>
-
-                          <div className="flex items-center space-x-3 p-3 border rounded-lg">
-                            <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-sm font-medium">
-                              2
-                            </div>
-                            <div>
-                              <div className="font-medium">常用词汇</div>
-                              <div className="text-sm text-muted-foreground">学习500-1000个高频词汇</div>
-                            </div>
-                          </div>
-
-                          <div className="flex items-center space-x-3 p-3 border rounded-lg">
-                            <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-sm font-medium">
-                              3
-                            </div>
-                            <div>
-                              <div className="font-medium">基础语法</div>
-                              <div className="text-sm text-muted-foreground">理解基本句型结构</div>
-                            </div>
-                          </div>
-
-                          <div className="flex items-center space-x-3 p-3 border rounded-lg">
-                            <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-sm font-medium">
-                              4
-                            </div>
-                            <div>
-                              <div className="font-medium">实践应用</div>
-                              <div className="text-sm text-muted-foreground">日常对话和文化体验</div>
-                            </div>
-                          </div>
+                          {language.learningGuide?.learningPath ? (
+                            language.learningGuide.learningPath.map((step, index) => (
+                              <div key={index} className="flex items-start space-x-3 p-3 border rounded-lg">
+                                <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-sm font-medium flex-shrink-0">
+                                  {index + 1}
+                                </div>
+                                <div className="flex-1">
+                                  <div className="font-medium">{step.title}</div>
+                                  <div className="text-sm text-muted-foreground mb-2">{step.description}</div>
+                                  <div className="text-xs text-purple-600">
+                                    预计 {step.estimatedHours} 小时 • {step.level}
+                                  </div>
+                                  <div className="flex flex-wrap gap-1 mt-2">
+                                    {step.skills.map((skill, skillIndex) => (
+                                      <Badge key={skillIndex} variant="outline" className="text-xs">
+                                        {skill}
+                                      </Badge>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                            ))
+                          ) : (
+                            // Fallback content
+                            <>
+                              <div className="flex items-center space-x-3 p-3 border rounded-lg">
+                                <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-sm font-medium">
+                                  1
+                                </div>
+                                <div>
+                                  <div className="font-medium">基础语音</div>
+                                  <div className="text-sm text-muted-foreground">掌握基本发音和语调</div>
+                                </div>
+                              </div>
+                              <div className="flex items-center space-x-3 p-3 border rounded-lg">
+                                <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-sm font-medium">
+                                  2
+                                </div>
+                                <div>
+                                  <div className="font-medium">常用词汇</div>
+                                  <div className="text-sm text-muted-foreground">学习500-1000个高频词汇</div>
+                                </div>
+                              </div>
+                            </>
+                          )}
                         </div>
                       </CardContent>
                     </Card>
 
-                    {/* Learning Resources */}
+                    {/* Learning Methods */}
                     <Card>
                       <CardHeader>
                         <CardTitle className="flex items-center">
                           <BookOpen className="h-5 w-5 mr-2" />
-                          学习资源
+                          学习方法
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {language.learningGuide?.learningMethods ? (
+                          language.learningGuide.learningMethods.map((method, index) => (
+                            <div key={index} className="p-3 border rounded-lg">
+                              <div className="font-medium mb-2">{method.title}</div>
+                              <div className="text-sm text-muted-foreground mb-3">{method.description}</div>
+                              <div className="flex flex-wrap gap-1">
+                                {method.techniques.map((technique, techIndex) => (
+                                  <Badge key={techIndex} variant="secondary" className="text-xs">
+                                    {technique}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="text-sm text-muted-foreground">
+                            暂无针对该语言的特定学习方法建议
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Learning Tools */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center">
+                          <PlayCircle className="h-5 w-5 mr-2" />
+                          学习工具
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {language.learningGuide?.learningTools ? (
+                          language.learningGuide.learningTools.map((category, index) => (
+                            <div key={index}>
+                              <h4 className="font-medium mb-2">{category.category}</h4>
+                              <div className="grid grid-cols-2 gap-2">
+                                {category.tools.map((tool, toolIndex) => (
+                                  <Button key={toolIndex} variant="outline" size="sm" className="justify-start text-xs">
+                                    {tool}
+                                  </Button>
+                                ))}
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="space-y-3">
+                            <Button variant="outline" className="w-full justify-start">
+                              <PlayCircle className="h-4 w-4 mr-2" />
+                              在线课程
+                            </Button>
+                            <Button variant="outline" className="w-full justify-start">
+                              <HeadphonesIcon className="h-4 w-4 mr-2" />
+                              听力练习
+                            </Button>
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+
+                    {/* Progress Tracking */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center">
+                          <TrendingUp className="h-5 w-5 mr-2" />
+                          学习进度
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-3">
-                          <Button variant="outline" className="w-full justify-start">
-                            <PlayCircle className="h-4 w-4 mr-2" />
-                            在线课程
-                          </Button>
-                          <Button variant="outline" className="w-full justify-start">
-                            <HeadphonesIcon className="h-4 w-4 mr-2" />
-                            听力练习
-                          </Button>
-                          <Button variant="outline" className="w-full justify-start">
-                            <FileText className="h-4 w-4 mr-2" />
-                            阅读材料
-                          </Button>
-                          <Button variant="outline" className="w-full justify-start">
-                            <MessageCircle className="h-4 w-4 mr-2" />
-                            对话练习
-                          </Button>
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm">词汇掌握</span>
+                            <span className="text-sm font-medium">0 / 2000</span>
+                          </div>
+                          <Progress value={0} className="h-2" />
+                        </div>
+
+                        <div className="space-y-3">
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm">语法进度</span>
+                            <span className="text-sm font-medium">0%</span>
+                          </div>
+                          <Progress value={0} className="h-2" />
+                        </div>
+
+                        <div className="space-y-3">
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm">口语流利度</span>
+                            <span className="text-sm font-medium">初学者</span>
+                          </div>
+                          <Progress value={5} className="h-2" />
                         </div>
 
                         <Separator />
 
-                        <div>
-                          <h4 className="font-medium mb-2">推荐学习工具</h4>
-                          <div className="text-sm text-muted-foreground space-y-1">
-                            <div>• 语言交换平台</div>
-                            <div>• 移动学习应用</div>
-                            <div>• 在线词典</div>
-                            <div>• 文化体验活动</div>
-                          </div>
+                        <div className="text-center">
+                          <Button size="sm" className="w-full">
+                            开始学习记录
+                          </Button>
                         </div>
                       </CardContent>
                     </Card>

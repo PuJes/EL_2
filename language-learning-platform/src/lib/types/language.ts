@@ -129,7 +129,6 @@ export interface PersonalizedDifficulty {
     writingSystem: number           // 文字系统影响 -0.5 to +0.5
     grammar: number                 // 语法结构影响 -0.3 to +0.3
     phonetics: number               // 语音系统影响 -0.2 to +0.2
-    culture: number                 // 文化距离影响 -0.1 to +0.1
   }
   confidence: number                // 计算置信度 0-1
   reasons: string[]                 // 难度判断理由

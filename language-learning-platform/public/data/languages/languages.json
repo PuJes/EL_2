@@ -33,11 +33,6 @@
         "literature": ["物语文学", "俳句", "短歌"],
         "modernCulture": ["动漫", "漫画", "J-POP", "游戏"]
       },
-      "difficultyAnalysis": {
-        "grammar": 4,
-        "pronunciation": 3,
-        "writing": 5
-      },
       "resources": [],
       "tags": ["东亚", "汉字", "动漫", "文化", "商务"],
       "metadata": {
@@ -83,11 +78,6 @@
         "literature": ["古典诗歌", "现代小说", "韩国文学"],
         "modernCulture": ["K-POP", "韩剧", "韩流", "美妆"]
       },
-      "difficultyAnalysis": {
-        "grammar": 4,
-        "pronunciation": 3,
-        "writing": 3
-      },
       "resources": [],
       "tags": ["东亚", "韩流", "K-POP", "文化", "流行"],
       "metadata": {
@@ -111,76 +101,6 @@
         "intermediate": "6个月",
         "advanced": "1-2年",
         "totalHours": 900
-      },
-      "difficultyAnalysis": {
-        "grammar": 3,
-        "pronunciation": 2,
-        "writing": 2
-      },
-      "learningGuide": {
-        "learningPath": [
-          {
-            "level": "beginner",
-            "title": "基础发音和语调",
-            "description": "掌握西班牙语的发音规则，包括重音和语调",
-            "estimatedHours": 50,
-            "skills": ["发音", "听力基础", "基本语调"]
-          },
-          {
-            "level": "beginner",
-            "title": "基础词汇和短语",
-            "description": "学习日常生活中最常用的500个单词",
-            "estimatedHours": 80,
-            "skills": ["日常词汇", "问候语", "基本表达"]
-          },
-          {
-            "level": "intermediate",
-            "title": "语法结构掌握",
-            "description": "学习动词变位、时态和基本句型",
-            "estimatedHours": 120,
-            "skills": ["动词变位", "现在时", "过去时", "基本句型"]
-          },
-          {
-            "level": "intermediate",
-            "title": "对话实践",
-            "description": "进行日常对话练习，提高口语流利度",
-            "estimatedHours": 100,
-            "skills": ["日常对话", "口语表达", "文化理解"]
-          },
-          {
-            "level": "advanced",
-            "title": "高级语法和写作",
-            "description": "掌握复杂语法结构和正式写作技能",
-            "estimatedHours": 150,
-            "skills": ["高级语法", "写作技能", "正式表达"]
-          }
-        ],
-        "learningMethods": [
-          {
-            "title": "沉浸式学习法",
-            "description": "通过西班牙语媒体内容进行语言浸泡",
-            "techniques": ["观看西语电影", "听西语播客", "阅读新闻"]
-          },
-          {
-            "title": "语法渐进法",
-            "description": "循序渐进地学习语法规则",
-            "techniques": ["语法练习", "句型操练", "错误分析"]
-          }
-        ],
-        "learningTools": [
-          {
-            "category": "应用软件",
-            "tools": ["Duolingo", "Babbel", "Busuu", "HelloTalk"]
-          },
-          {
-            "category": "在线资源",
-            "tools": ["SpanishDict", "Conjuguemos", "News in Slow Spanish"]
-          },
-          {
-            "category": "书籍教材",
-            "tools": ["Madrigal's Magic Key", "Practice Makes Perfect", "First Spanish Reader"]
-          }
-        ]
       },
       "description": "西班牙语是世界第二大语言，使用拉丁字母，语法相对简单，适合初学者。",
       "category": "popular",
@@ -250,11 +170,6 @@
         "arts": ["印象派", "新浪潮电影", "芭蕾舞", "时装设计"],
         "literature": ["雨果", "莫泊桑", "加缪", "萨特"],
         "modernCulture": ["时尚", "奢侈品", "电影", "哲学"]
-      },
-      "difficultyAnalysis": {
-        "grammar": 4,
-        "pronunciation": 3,
-        "writing": 3
       },
       "resources": [],
       "tags": ["欧洲", "商务", "文化", "奢侈品", "艺术"],

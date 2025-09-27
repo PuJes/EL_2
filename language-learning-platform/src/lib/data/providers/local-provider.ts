@@ -18,14 +18,36 @@ export class LocalDataProvider implements ILanguageDataProvider {
     }
 
     try {
-      const response = await fetch('/data/languages/languages.json')
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
+      // Handle both client-side and server-side requests
+      let response: Response;
 
-      const data = await response.json()
-      this.languagesCache = this.transformLanguageData(data)
-      return this.languagesCache
+      if (typeof window === 'undefined') {
+        // Server-side: read from file system
+        const fs = await import('fs/promises')
+        const path = await import('path')
+        const filePath = path.join(process.cwd(), 'public/data/languages/languages.json')
+
+        try {
+          const fileContent = await fs.readFile(filePath, 'utf-8')
+          const data = JSON.parse(fileContent)
+          this.languagesCache = this.transformLanguageData(data)
+          return this.languagesCache
+        } catch (fileError) {
+          console.error('Failed to read languages file from filesystem:', fileError)
+          // Fallback to default data
+          return this.getDefaultLanguages()
+        }
+      } else {
+        // Client-side: use fetch
+        response = await fetch('/data/languages/languages.json')
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const data = await response.json()
+        this.languagesCache = this.transformLanguageData(data)
+        return this.languagesCache
+      }
     } catch (error) {
       console.error('Failed to load languages from local data:', error)
       // 返回默认数据

@@ -153,6 +153,33 @@ const ALGORITHM_CONFIG = {
     'czech': { 'polish': 0.6, 'slovak': 0.8, 'russian': 0.5 },
     'slovak': { 'czech': 0.8, 'polish': 0.5 },
     'swahili': { 'arabic': 0.3 }
+  },
+
+  // 主要母语的难度基准数据 (1-5分制)
+  nativeLanguageBaselines: {
+    'chinese': { grammar: 4, pronunciation: 5, writing: 5 },     // 中文：复杂语法，声调，汉字
+    'english': { grammar: 2, pronunciation: 3, writing: 2 },     // 英语：简单语法，中等发音，拉丁字母
+    'spanish': { grammar: 3, pronunciation: 2, writing: 2 },     // 西班牙语：动词变位，相对简单
+    'french': { grammar: 4, pronunciation: 3, writing: 3 },      // 法语：复杂语法，鼻音，拼写规则
+    'german': { grammar: 5, pronunciation: 3, writing: 3 },      // 德语：极复杂语法，中等发音
+    'japanese': { grammar: 4, pronunciation: 3, writing: 5 },    // 日语：复杂语法，中等发音，三套文字
+    'korean': { grammar: 4, pronunciation: 3, writing: 3 },      // 韩语：语法变位，中等发音，韩文
+    'arabic': { grammar: 5, pronunciation: 4, writing: 4 },      // 阿拉伯语：极复杂语法，难发音，从右到左
+    'russian': { grammar: 5, pronunciation: 4, writing: 4 },     // 俄语：复杂格变，难发音，西里尔字母
+    'portuguese': { grammar: 3, pronunciation: 3, writing: 2 },  // 葡萄牙语：类似西班牙语
+    'italian': { grammar: 3, pronunciation: 2, writing: 2 },     // 意大利语：相对简单
+    'hindi': { grammar: 4, pronunciation: 3, writing: 4 },       // 印地语：复杂语法，天城文
+    'thai': { grammar: 2, pronunciation: 5, writing: 4 },        // 泰语：简单语法，声调复杂，泰文
+    'vietnamese': { grammar: 2, pronunciation: 5, writing: 3 },  // 越南语：简单语法，6个声调
+    'dutch': { grammar: 3, pronunciation: 2, writing: 2 },       // 荷兰语：中等复杂度
+    'swedish': { grammar: 2, pronunciation: 2, writing: 2 },     // 瑞典语：相对简单
+    'polish': { grammar: 5, pronunciation: 4, writing: 3 },      // 波兰语：极复杂语法
+    'turkish': { grammar: 4, pronunciation: 3, writing: 3 },     // 土耳其语：黏着语特征
+    'hebrew': { grammar: 4, pronunciation: 3, writing: 4 },      // 希伯来语：词根系统，从右到左
+    'finnish': { grammar: 5, pronunciation: 2, writing: 2 },     // 芬兰语：15个格变
+    'hungarian': { grammar: 5, pronunciation: 3, writing: 3 },   // 匈牙利语：极复杂语法
+    'norwegian': { grammar: 2, pronunciation: 2, writing: 2 },   // 挪威语：相对简单
+    'danish': { grammar: 2, pronunciation: 3, writing: 2 }       // 丹麦语：简单语法，发音略难
   }
 }
 
@@ -466,29 +493,48 @@ export class LanguageRecommendationEngine {
   }
 
   /**
+   * 获取母语基准数据
+   */
+  private getNativeLanguageBaseline(nativeLanguage: string | undefined): { grammar: number, pronunciation: number, writing: number } {
+    if (!nativeLanguage || !ALGORITHM_CONFIG.nativeLanguageBaselines[nativeLanguage]) {
+      // 默认返回中等难度基准
+      return { grammar: 3, pronunciation: 3, writing: 3 }
+    }
+    return ALGORITHM_CONFIG.nativeLanguageBaselines[nativeLanguage]
+  }
+
+  /**
    * 计算个性化难度
    */
   private calculatePersonalizedDifficulty(language: Language, responses: SurveyResponses): PersonalizedDifficulty {
     const baseDifficulty = language.difficulty || 3
     let overallDifficulty = baseDifficulty
 
-    // 计算各个影响因子
+    // 获取目标语言的难度分析数据
+    const targetGrammar = language.difficultyAnalysis?.grammar || baseDifficulty
+    const targetPronunciation = language.difficultyAnalysis?.pronunciation || baseDifficulty
+    const targetWriting = language.difficultyAnalysis?.writing || baseDifficulty
+
+    // 获取用户母语基准
+    const nativeBaseline = this.getNativeLanguageBaseline(responses.nativeLanguage)
+
+    // 计算各个影响因子 (基于真实数据对比)
     const nativeLanguage = responses.nativeLanguage
     const familyRelation = nativeLanguage && ALGORITHM_CONFIG.languageFamilySimilarity[nativeLanguage]
       ? -(ALGORITHM_CONFIG.languageFamilySimilarity[nativeLanguage][language.id] || 0) * 0.5
       : 0
 
+    // 根据语言学习经验调整文字系统难度
     const knownLanguagesCount = responses.knownLanguages?.length || 0
-    const writingSystem = knownLanguagesCount > 0 ? -0.2 : 0
+    const writingSystemBase = (targetWriting - nativeBaseline.writing) * 0.12 // 标准化到合理范围
+    const writingSystem = writingSystemBase - (knownLanguagesCount > 0 ? 0.2 : 0) // 学习经验奖励
 
-    const grammar = Math.random() * 0.6 - 0.3 // -0.3 to +0.3，根据语法复杂度
-    const phonetics = Math.random() * 0.4 - 0.2 // -0.2 to +0.2，根据发音难度
-    const culture = responses.culturalInterests?.some(interest =>
-      language.tags?.some(tag => interest.includes(tag) || tag.includes(interest))
-    ) ? -0.1 : 0.1
+    // 基于真实数据的语法和发音对比
+    const grammar = (targetGrammar - nativeBaseline.grammar) * 0.15  // 语法复杂度差异
+    const phonetics = (targetPronunciation - nativeBaseline.pronunciation) * 0.1  // 发音难度差异
 
     // 应用调整
-    overallDifficulty += familyRelation + writingSystem + grammar + phonetics + culture
+    overallDifficulty += familyRelation + writingSystem + grammar + phonetics
     overallDifficulty = Math.max(1, Math.min(5, overallDifficulty))
 
     // 计算时间估算 (周)
@@ -500,11 +546,16 @@ export class LanguageRecommendationEngine {
     // 置信度计算
     const confidence = Math.max(0.6, Math.min(0.95, 1 - Math.abs(overallDifficulty - baseDifficulty) * 0.2))
 
-    // 生成理由
+    // 生成理由 (基于具体的难度对比)
     const reasons = []
     if (familyRelation < -0.1) reasons.push('母语相似性降低了学习难度')
-    if (writingSystem < 0) reasons.push('已有语言学习经验提供优势')
-    if (culture < 0) reasons.push('文化兴趣匹配提供动力支持')
+    if (writingSystemBase < -0.1) reasons.push(`文字系统比母语简单(${targetWriting} vs ${nativeBaseline.writing})`)
+    if (writingSystemBase > 0.1) reasons.push(`文字系统比母语复杂(${targetWriting} vs ${nativeBaseline.writing})`)
+    if (knownLanguagesCount > 0) reasons.push('已有语言学习经验提供优势')
+    if (grammar < -0.1) reasons.push(`语法结构比母语简单(${targetGrammar} vs ${nativeBaseline.grammar})`)
+    if (grammar > 0.1) reasons.push(`语法结构比母语复杂(${targetGrammar} vs ${nativeBaseline.grammar})`)
+    if (phonetics < -0.1) reasons.push(`发音系统比母语简单(${targetPronunciation} vs ${nativeBaseline.pronunciation})`)
+    if (phonetics > 0.1) reasons.push(`发音系统比母语复杂(${targetPronunciation} vs ${nativeBaseline.pronunciation})`)
     if (overallDifficulty < baseDifficulty) reasons.push('个人背景优势使学习更容易')
     if (overallDifficulty > baseDifficulty) reasons.push('需要克服一些额外挑战')
 
@@ -515,8 +566,7 @@ export class LanguageRecommendationEngine {
         familyRelation,
         writingSystem,
         grammar,
-        phonetics,
-        culture
+        phonetics
       },
       confidence,
       reasons

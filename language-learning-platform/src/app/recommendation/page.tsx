@@ -544,8 +544,7 @@ export default function RecommendationPage() {
                                 familyRelation: '语系关系',
                                 writingSystem: '文字系统',
                                 grammar: '语法结构',
-                                phonetics: '语音系统',
-                                culture: '文化距离'
+                                phonetics: '语音系统'
                               }
                               const isAdvantage = value < 0
                               return (
