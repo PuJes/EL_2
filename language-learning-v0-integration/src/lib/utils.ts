@@ -7,10 +7,10 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // V0组件适配工具
-export function adaptV0Component(Component: any, props?: any) {
-  return function AdaptedComponent(additionalProps?: any) {
-    const mergedProps = { ...props, ...additionalProps }
-    return <Component {...mergedProps} className={cn("v0-component", mergedProps.className)} />
+export function adaptV0ComponentConfig(props?: any) {
+  return {
+    className: cn("v0-component", props?.className),
+    ...props
   }
 }
 

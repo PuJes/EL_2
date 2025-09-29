@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { Navigation, TopBar } from '@/components/navigation'
+import { Header } from '@/components/header'
+import { Footer } from '@/components/footer'
 import { cn } from '@/lib/utils'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -25,22 +26,17 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body className={cn(inter.className, "antialiased bg-gray-50")}>
-        <div className="flex h-screen overflow-hidden">
-          {/* 侧边导航 */}
-          <Navigation />
+        <div className="min-h-screen flex flex-col">
+          {/* Header */}
+          <Header />
 
-          {/* 主内容区域 */}
-          <div className="flex-1 flex flex-col lg:ml-64">
-            {/* 顶部导航栏 */}
-            <TopBar />
+          {/* Main Content */}
+          <main className="flex-1 pt-16">
+            {children}
+          </main>
 
-            {/* 页面内容 */}
-            <main className="flex-1 overflow-auto">
-              <div className="container-custom py-6">
-                {children}
-              </div>
-            </main>
-          </div>
+          {/* Footer */}
+          <Footer />
         </div>
 
         {/* 这里可以添加全局组件，如Toast通知等 */}
