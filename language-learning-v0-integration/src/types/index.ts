@@ -1,25 +1,93 @@
 // 核心数据类型定义
 
 export interface Language {
+  // 基础信息
   id: string
+  code: string              // ISO 639-1 语言代码
   flag: string
   name: string
   nameEn: string
   nativeName: string
   description: string
   category: "popular" | "cultural" | "business" | "emerging"
-  difficulty: number // 1-5
+  difficulty: number        // 1-5
+
+  // 使用和分布数据
   speakers: {
     native: number
     total: number
     countries: string[]
   }
   regions: string[]
+
+  // 语言分类信息
+  family: string            // 语系
+  script: string            // 文字系统
+  tags?: string[]           // 标签
+
+  // 学习相关信息
+  studyTime?: string        // 预估学习时长（简化版）
+  usage?: string[]          // 使用场景
+  resources?: string[]      // 学习资源类型
+
+  // 详细文化信息
   culturalInfo?: {
     history: string
     traditions: string[]
+    festivals: string[]
+    cuisine: string[]
+    arts: string[]
     modernCulture: string[]
   }
+
+  // 语言元数据
+  metadata?: {
+    iso639_1: string        // ISO 639-1 代码
+    family: string          // 语系
+    branch?: string         // 语族分支
+    writingSystem: string[] // 文字系统
+  }
+
+  // 学习指导
+  learningGuide?: {
+    learningPath: Array<{
+      title: string
+      description: string
+      level: string
+      estimatedHours: number
+      skills: string[]
+    }>
+    learningMethods?: Array<{
+      title: string
+      description: string
+      techniques: string[]
+    }>
+    learningTools?: Array<{
+      category: string
+      tools: string[]
+    }>
+  }
+
+  // 学习时间估算
+  learningTimeEstimate?: {
+    beginner: string        // 初学者时间
+    intermediate: string    // 中级时间
+    advanced: string        // 高级时间
+    totalHours: number      // 总学时
+    basic?: number          // 基础阶段
+    intermediate?: number   // 中级阶段
+    advanced?: number       // 高级阶段
+  }
+
+  // 难度分析
+  difficultyAnalysis?: {
+    grammar: number         // 语法复杂度 1-5
+    pronunciation: number   // 发音难度 1-5
+    writing: number         // 文字系统难度 1-5
+    vocabulary?: number     // 词汇难度 1-5
+  }
+
+  // 学习资源
   learningResources?: {
     apps: Array<{
       name: string
@@ -37,17 +105,24 @@ export interface Language {
       description: string
     }>
   }
+
+  // 职业机会
   careerOpportunities?: {
     industries: string[]
     averageSalary: string
     jobGrowth: string
     remoteWork: boolean
   }
+
+  // 旅游优势
   travelAdvantages?: {
     countries: string[]
     businessHubs: string[]
     culturalSites: string[]
   }
+
+  // 兼容字段（仅用于文字系统）
+  writingSystem?: string[]
 }
 
 export interface SurveyAnswer {
@@ -181,5 +256,5 @@ export interface V0ComponentMeta {
   description: string
   version: string
   dependencies: string[]
-  props?: Record<string, any>
+  props?: Record<string, unknown>
 }

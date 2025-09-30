@@ -30,7 +30,7 @@ const Button = React.forwardRef<
   const classes = `${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`
 
   if (asChild) {
-    return <div className={classes} ref={ref} {...props}>{children}</div>
+    return <div className={classes}>{children}</div>
   }
 
   return (

@@ -621,7 +621,7 @@ export default function LanguageRecommendationPage() {
 
   const handleStartLearning = (languageId: string) => {
     console.log(`Starting to learn ${languageId}`)
-    // In real implementation: router.push(`/languages/${languageId}`)
+    window.location.href = `/languages/${languageId}`
   }
 
   const handleRetakeSurvey = () => {
@@ -724,6 +724,21 @@ export default function LanguageRecommendationPage() {
                             {tag}
                           </Badge>
                         ))}
+                      </div>
+
+                      <div className="mt-3 pt-3 border-t border-gray-200">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            window.location.href = `/languages/${recommendation.language.id}`
+                          }}
+                        >
+                          查看详情
+                          <ChevronRight className="h-4 w-4 ml-1" />
+                        </Button>
                       </div>
                     </div>
                   ))}
