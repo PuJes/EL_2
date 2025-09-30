@@ -322,7 +322,7 @@ export const languages: Language[] = [
       native: 150000000,
       countries: ["俄罗斯", "白俄罗斯", "哈萨克斯坦", "吉尔吉斯斯坦", "乌克兰", "摩尔多瓦"]
     },
-    regions: ["东欧", "中亚", "东欧"],
+    regions: ["东欧", "中亚"],
     family: "印欧语系",
     script: "西里尔字母",
     tags: ["斯拉夫语族", "科学", "文学"],

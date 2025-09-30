@@ -4,12 +4,14 @@ import * as React from "react"
 import { ArrowRight, Globe, Star, Clock, BookOpen, Users, TrendingUp, Calendar, MapPin, Award, HeadphonesIcon, FileText, MessageCircle, PlayCircle } from "lucide-react"
 import Link from "next/link"
 import { useParams } from "next/navigation"
+import { Slot } from "@radix-ui/react-slot"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { enhancedLanguageData } from '@/data/enhanced-languages'
 import { Language } from '@/types'
+import { Header } from '@/components/header'
 
 // UI Components (same as homepage)
 const Button = React.forwardRef<
@@ -35,15 +37,12 @@ const Button = React.forwardRef<
   }
 
   const classes = `${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`
-
-  if (asChild) {
-    return <div className={classes} ref={ref} {...props}>{children}</div>
-  }
+  const Comp = asChild ? Slot : "button"
 
   return (
-    <button className={classes} ref={ref} {...props}>
+    <Comp className={classes} ref={ref} {...props}>
       {children}
-    </button>
+    </Comp>
   )
 })
 Button.displayName = "Button"
@@ -54,7 +53,7 @@ const Card = React.forwardRef<
 >(({ className = '', ...props }, ref) => (
   <div
     ref={ref}
-    className={`rounded-lg border bg-card text-card-foreground shadow-sm ${className}`}
+    className={`rounded-lg border bg-card text-card-foreground shadow-sm min-w-0 overflow-hidden ${className}`}
     {...props}
   />
 ))
@@ -81,7 +80,7 @@ export default function LanguageDetailPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">语言未找到</h1>
+          <h1 className="text-2xl font-bold text-foreground mb-4">语言未找到</h1>
           <Link href="/">
             <Button variant="outline">返回首页</Button>
           </Link>
@@ -100,21 +99,22 @@ export default function LanguageDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
         {/* Hero Section */}
-        <section className="bg-white rounded-xl shadow-sm p-8 mb-8">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <div className="flex items-center space-x-4 mb-6">
-                <span className="text-6xl">{language.flag}</span>
-                <div>
-                  <h1 className="text-4xl font-bold text-gray-900 mb-2">{language.name}</h1>
-                  <p className="text-xl text-gray-600">{language.nameEn} • {language.nativeName}</p>
+        <section className="bg-card rounded-xl shadow-sm p-8 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <div className="min-w-0">
+              <div className="flex items-center space-x-4 mb-6 min-w-0">
+                <span className="text-6xl flex-shrink-0">{language.flag}</span>
+                <div className="min-w-0">
+                  <h1 className="text-4xl font-bold text-foreground mb-2 break-words">{language.name}</h1>
+                  <p className="text-xl text-muted-foreground break-words">{language.nameEn} • {language.nativeName}</p>
                 </div>
               </div>
 
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              <p className="text-lg text-foreground/80 mb-6 leading-relaxed break-words">
                 {language.description}
               </p>
 
@@ -138,93 +138,93 @@ export default function LanguageDetailPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <Card className="p-6 text-center">
-                <Users className="w-8 h-8 text-blue-600 mx-auto mb-3" />
-                <div className="text-2xl font-bold text-gray-900 mb-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 min-w-0">
+              <Card className="p-6 text-center min-w-0 overflow-hidden">
+                <Users className="w-8 h-8 text-blue-600 dark:text-blue-400 mx-auto mb-3" />
+                <div className="text-2xl font-bold text-foreground mb-1 break-words">
                   {Math.round(language.speakers.total / 1000000)}M
                 </div>
-                <div className="text-sm text-gray-600">全球使用者</div>
+                <div className="text-sm text-muted-foreground">全球使用者</div>
               </Card>
 
-              <Card className="p-6 text-center">
-                <Clock className="w-8 h-8 text-teal-500 mx-auto mb-3" />
-                <div className="text-2xl font-bold text-gray-900 mb-1">
+              <Card className="p-6 text-center min-w-0 overflow-hidden">
+                <Clock className="w-8 h-8 text-teal-500 dark:text-teal-400 mx-auto mb-3" />
+                <div className="text-2xl font-bold text-foreground mb-1 break-words">
                   {language.learningTimeEstimate?.beginner || "6个月"}
                 </div>
-                <div className="text-sm text-gray-600">入门时间</div>
+                <div className="text-sm text-muted-foreground">入门时间</div>
               </Card>
 
-              <Card className="p-6 text-center">
+              <Card className="p-6 text-center min-w-0 overflow-hidden">
                 <Star className={`w-8 h-8 mx-auto mb-3 ${difficultyColors[language.difficulty as keyof typeof difficultyColors]}`} />
-                <div className="text-2xl font-bold text-gray-900 mb-1">
+                <div className="text-2xl font-bold text-foreground mb-1 break-words">
                   {language.difficulty}/5
                 </div>
-                <div className="text-sm text-gray-600">学习难度</div>
+                <div className="text-sm text-muted-foreground">学习难度</div>
               </Card>
 
-              <Card className="p-6 text-center">
-                <Globe className="w-8 h-8 text-green-600 mx-auto mb-3" />
-                <div className="text-2xl font-bold text-gray-900 mb-1">
+              <Card className="p-6 text-center min-w-0 overflow-hidden">
+                <Globe className="w-8 h-8 text-green-600 dark:text-green-400 mx-auto mb-3" />
+                <div className="text-2xl font-bold text-foreground mb-1 break-words">
                   {language.regions.length}
                 </div>
-                <div className="text-sm text-gray-600">主要地区</div>
+                <div className="text-sm text-muted-foreground">主要地区</div>
               </Card>
             </div>
           </div>
         </section>
 
         {/* Detailed Information with Tabs */}
-        <section className="bg-white rounded-xl shadow-sm p-8">
+        <section className="bg-card rounded-xl shadow-sm p-8 overflow-hidden">
           <Tabs defaultValue="overview" className="space-y-8">
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
-              <TabsTrigger value="overview">概览</TabsTrigger>
-              <TabsTrigger value="culture">文化</TabsTrigger>
-              <TabsTrigger value="learning">学习指南</TabsTrigger>
-              <TabsTrigger value="resources">学习资源</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 gap-1">
+              <TabsTrigger value="overview" className="truncate">概览</TabsTrigger>
+              <TabsTrigger value="culture" className="truncate">文化</TabsTrigger>
+              <TabsTrigger value="learning" className="truncate">学习指南</TabsTrigger>
+              <TabsTrigger value="resources" className="truncate">学习资源</TabsTrigger>
             </TabsList>
 
             <TabsContent value="overview" className="space-y-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 min-w-0">
                 {/* Language Information */}
                 <Card>
                   <CardContent className="p-6">
                     <div className="flex items-center space-x-3 mb-4">
                       <BookOpen className="w-5 h-5 text-purple-600" />
-                      <h3 className="text-lg font-semibold text-gray-900">语言信息</h3>
+                      <h3 className="text-lg font-semibold text-foreground">语言信息</h3>
                     </div>
                     <div className="space-y-3">
                       {language.metadata && (
                         <>
                           <div className="flex justify-between">
-                            <span className="text-gray-600">语系</span>
+                            <span className="text-muted-foreground">语系</span>
                             <span className="font-medium">{language.metadata.family}</span>
                           </div>
                           {language.metadata.branch && (
                             <div className="flex justify-between">
-                              <span className="text-gray-600">语支</span>
+                              <span className="text-muted-foreground">语支</span>
                               <span className="font-medium">{language.metadata.branch}</span>
                             </div>
                           )}
                           <div className="flex justify-between">
-                            <span className="text-gray-600">文字系统</span>
+                            <span className="text-muted-foreground">文字系统</span>
                             <span className="font-medium">{language.metadata.writingSystem.join(', ')}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-gray-600">ISO 639-1</span>
+                            <span className="text-muted-foreground">ISO 639-1</span>
                             <span className="font-medium">{language.metadata.iso639_1}</span>
                           </div>
                         </>
                       )}
                       <Separator />
                       <div className="flex justify-between">
-                        <span className="text-gray-600">母语使用者</span>
+                        <span className="text-muted-foreground">母语使用者</span>
                         <span className="font-medium">
                           {(language.speakers.native / 1000000).toFixed(1)}M
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">总使用者</span>
+                        <span className="text-muted-foreground">总使用者</span>
                         <span className="font-medium">
                           {(language.speakers.total / 1000000).toFixed(1)}M
                         </span>
@@ -238,13 +238,13 @@ export default function LanguageDetailPage() {
                   <CardContent className="p-6">
                     <div className="flex items-center space-x-3 mb-4">
                       <Calendar className="w-5 h-5 text-teal-600" />
-                      <h3 className="text-lg font-semibold text-gray-900">学习时间线</h3>
+                      <h3 className="text-lg font-semibold text-foreground">学习时间线</h3>
                     </div>
                     {language.learningTimeEstimate && (
                       <div className="space-y-4">
                         <div className="space-y-2">
                           <div className="flex justify-between items-center">
-                            <span className="text-sm text-gray-600">入门水平 (A1-A2)</span>
+                            <span className="text-sm text-muted-foreground">入门水平 (A1-A2)</span>
                             <span className="font-medium">{Math.round(language.learningTimeEstimate.totalHours * 0.25)} 小时</span>
                           </div>
                           <Progress value={25} />
@@ -252,7 +252,7 @@ export default function LanguageDetailPage() {
 
                         <div className="space-y-2">
                           <div className="flex justify-between items-center">
-                            <span className="text-sm text-gray-600">中级水平 (B1-B2)</span>
+                            <span className="text-sm text-muted-foreground">中级水平 (B1-B2)</span>
                             <span className="font-medium">{Math.round(language.learningTimeEstimate.totalHours * 0.35)} 小时</span>
                           </div>
                           <Progress value={60} />
@@ -260,7 +260,7 @@ export default function LanguageDetailPage() {
 
                         <div className="space-y-2">
                           <div className="flex justify-between items-center">
-                            <span className="text-sm text-gray-600">高级水平 (C1-C2)</span>
+                            <span className="text-sm text-muted-foreground">高级水平 (C1-C2)</span>
                             <span className="font-medium">{Math.round(language.learningTimeEstimate.totalHours * 0.4)} 小时</span>
                           </div>
                           <Progress value={90} />
@@ -268,11 +268,11 @@ export default function LanguageDetailPage() {
 
                         <Separator />
 
-                        <div className="text-center p-4 bg-gray-50 rounded-lg">
+                        <div className="text-center p-4 bg-muted/20 rounded-lg">
                           <div className="text-2xl font-bold text-purple-600">
                             {language.learningTimeEstimate.totalHours}
                           </div>
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-muted-foreground">
                             预估总学习时长（小时）
                           </div>
                         </div>
@@ -288,7 +288,7 @@ export default function LanguageDetailPage() {
                   <CardContent className="p-6">
                     <div className="flex items-center space-x-3 mb-4">
                       <TrendingUp className="w-5 h-5 text-orange-600" />
-                      <h3 className="text-lg font-semibold text-gray-900">难度分析</h3>
+                      <h3 className="text-lg font-semibold text-foreground">难度分析</h3>
                     </div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-lg font-medium">整体难度评级</span>
@@ -299,27 +299,27 @@ export default function LanguageDetailPage() {
                         <span className="text-xl font-bold">{language.difficulty}/5</span>
                       </div>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                      <div className="text-center p-4 border rounded-lg">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                      <div className="text-center p-4 border rounded-lg min-w-0 overflow-hidden">
                         <MessageCircle className="w-6 h-6 mx-auto mb-2 text-purple-500" />
                         <div className="font-medium">语法结构</div>
-                        <div className="text-sm text-gray-600 mt-1">
+                        <div className="text-sm text-muted-foreground mt-1">
                           {language.difficultyAnalysis.grammar <= 2 ? '简单' :
                            language.difficultyAnalysis.grammar <= 3 ? '中等' : '复杂'}
                         </div>
                       </div>
-                      <div className="text-center p-4 border rounded-lg">
+                      <div className="text-center p-4 border rounded-lg min-w-0 overflow-hidden">
                         <HeadphonesIcon className="w-6 h-6 mx-auto mb-2 text-teal-500" />
                         <div className="font-medium">发音系统</div>
-                        <div className="text-sm text-gray-600 mt-1">
+                        <div className="text-sm text-muted-foreground mt-1">
                           {language.difficultyAnalysis.pronunciation <= 2 ? '容易' :
                            language.difficultyAnalysis.pronunciation <= 3 ? '中等' : '困难'}
                         </div>
                       </div>
-                      <div className="text-center p-4 border rounded-lg">
+                      <div className="text-center p-4 border rounded-lg min-w-0 overflow-hidden">
                         <FileText className="w-6 h-6 mx-auto mb-2 text-orange-500" />
                         <div className="font-medium">文字系统</div>
-                        <div className="text-sm text-gray-600 mt-1">
+                        <div className="text-sm text-muted-foreground mt-1">
                           {language.difficultyAnalysis.writing <= 2 ? '简单' :
                            language.difficultyAnalysis.writing <= 3 ? '中等' : '复杂'}
                         </div>
@@ -332,12 +332,12 @@ export default function LanguageDetailPage() {
 
             <TabsContent value="culture" className="space-y-8">
               {language.culturalInfo && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 min-w-0">
                   {/* Historical Background */}
                   <Card>
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">历史背景</h3>
-                      <p className="text-gray-700 leading-relaxed">
+                      <h3 className="text-lg font-semibold text-foreground mb-4">历史背景</h3>
+                      <p className="text-foreground/80 leading-relaxed">
                         {language.culturalInfo.history}
                       </p>
                     </CardContent>
@@ -346,7 +346,7 @@ export default function LanguageDetailPage() {
                   {/* Modern Culture */}
                   <Card>
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">现代文化</h3>
+                      <h3 className="text-lg font-semibold text-foreground mb-4">现代文化</h3>
                       <div className="flex flex-wrap gap-2">
                         {language.culturalInfo.modernCulture.map((item, index) => (
                           <Badge key={index} variant="outline">
@@ -360,7 +360,7 @@ export default function LanguageDetailPage() {
                   {/* Traditions */}
                   <Card>
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">传统文化</h3>
+                      <h3 className="text-lg font-semibold text-foreground mb-4">传统文化</h3>
                       <div className="space-y-2">
                         {language.culturalInfo.traditions.map((tradition, index) => (
                           <div key={index} className="flex items-center space-x-2">
@@ -375,7 +375,7 @@ export default function LanguageDetailPage() {
                   {/* Festivals */}
                   <Card>
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">节日庆典</h3>
+                      <h3 className="text-lg font-semibold text-foreground mb-4">节日庆典</h3>
                       <div className="space-y-2">
                         {language.culturalInfo.festivals.map((festival, index) => (
                           <div key={index} className="flex items-center space-x-2">
@@ -390,7 +390,7 @@ export default function LanguageDetailPage() {
                   {/* Cuisine and Arts */}
                   <Card>
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">美食文化</h3>
+                      <h3 className="text-lg font-semibold text-foreground mb-4">美食文化</h3>
                       <div className="flex flex-wrap gap-2">
                         {language.culturalInfo.cuisine.map((dish, index) => (
                           <Badge key={index} variant="secondary">
@@ -403,7 +403,7 @@ export default function LanguageDetailPage() {
 
                   <Card>
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">艺术形式</h3>
+                      <h3 className="text-lg font-semibold text-foreground mb-4">艺术形式</h3>
                       <div className="flex flex-wrap gap-2">
                         {language.culturalInfo.arts.map((art, index) => (
                           <Badge key={index} variant="secondary">
@@ -419,13 +419,13 @@ export default function LanguageDetailPage() {
 
             <TabsContent value="learning" className="space-y-8">
               {language.learningGuide && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 min-w-0">
                   {/* Learning Path */}
                   <Card>
                     <CardContent className="p-6">
                       <div className="flex items-center space-x-3 mb-4">
                         <Award className="w-5 h-5 text-purple-600" />
-                        <h3 className="text-lg font-semibold text-gray-900">学习路径</h3>
+                        <h3 className="text-lg font-semibold text-foreground">学习路径</h3>
                       </div>
                       <div className="space-y-3">
                         {language.learningGuide.learningPath.map((step, index) => (
@@ -435,7 +435,7 @@ export default function LanguageDetailPage() {
                             </div>
                             <div className="flex-1">
                               <div className="font-medium">{step.title}</div>
-                              <div className="text-sm text-gray-600 mb-2">{step.description}</div>
+                              <div className="text-sm text-muted-foreground mb-2">{step.description}</div>
                               <div className="text-xs text-purple-600">
                                 预计 {step.estimatedHours} 小时 • {step.level}
                               </div>
@@ -459,13 +459,13 @@ export default function LanguageDetailPage() {
                       <CardContent className="p-6">
                         <div className="flex items-center space-x-3 mb-4">
                           <BookOpen className="w-5 h-5 text-teal-600" />
-                          <h3 className="text-lg font-semibold text-gray-900">学习方法</h3>
+                          <h3 className="text-lg font-semibold text-foreground">学习方法</h3>
                         </div>
                         <div className="space-y-4">
                           {language.learningGuide.learningMethods.map((method, index) => (
                             <div key={index} className="p-3 border rounded-lg">
                               <div className="font-medium mb-2">{method.title}</div>
-                              <div className="text-sm text-gray-600 mb-3">{method.description}</div>
+                              <div className="text-sm text-muted-foreground mb-3">{method.description}</div>
                               <div className="flex flex-wrap gap-1">
                                 {method.techniques.map((technique, techIndex) => (
                                   <Badge key={techIndex} variant="secondary" className="text-xs">
@@ -486,15 +486,15 @@ export default function LanguageDetailPage() {
                       <CardContent className="p-6">
                         <div className="flex items-center space-x-3 mb-4">
                           <PlayCircle className="w-5 h-5 text-orange-600" />
-                          <h3 className="text-lg font-semibold text-gray-900">学习工具</h3>
+                          <h3 className="text-lg font-semibold text-foreground">学习工具</h3>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                           {language.learningGuide.learningTools.map((category, index) => (
-                            <div key={index}>
+                            <div key={index} className="min-w-0">
                               <h4 className="font-medium mb-2">{category.category}</h4>
                               <div className="space-y-2">
                                 {category.tools.map((tool, toolIndex) => (
-                                  <Button key={toolIndex} variant="outline" size="sm" className="w-full justify-start text-xs">
+                                  <Button key={toolIndex} variant="outline" size="sm" className="w-full justify-start text-xs min-w-0 truncate">
                                     {tool}
                                   </Button>
                                 ))}
@@ -511,16 +511,16 @@ export default function LanguageDetailPage() {
 
             <TabsContent value="resources" className="space-y-8">
               {language.learningResources && (
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 min-w-0">
                   {/* Apps */}
                   <Card>
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">学习应用</h3>
+                      <h3 className="text-lg font-semibold text-foreground mb-4">学习应用</h3>
                       <div className="space-y-3">
                         {language.learningResources.apps?.map((app, index) => (
                           <div key={index} className="p-3 border rounded-lg">
                             <div className="font-medium">{app.name}</div>
-                            <div className="text-sm text-gray-600 mb-1">{app.description}</div>
+                            <div className="text-sm text-muted-foreground mb-1">{app.description}</div>
                             <div className="text-xs text-purple-600">{app.price}</div>
                           </div>
                         ))}
@@ -531,12 +531,12 @@ export default function LanguageDetailPage() {
                   {/* Books */}
                   <Card>
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">推荐书籍</h3>
+                      <h3 className="text-lg font-semibold text-foreground mb-4">推荐书籍</h3>
                       <div className="space-y-3">
                         {language.learningResources.books?.map((book, index) => (
                           <div key={index} className="p-3 border rounded-lg">
                             <div className="font-medium">{book.title}</div>
-                            <div className="text-sm text-gray-600">{book.author}</div>
+                            <div className="text-sm text-muted-foreground">{book.author}</div>
                             <Badge variant="outline" className="text-xs mt-1">{book.level}</Badge>
                           </div>
                         ))}
@@ -547,12 +547,12 @@ export default function LanguageDetailPage() {
                   {/* Websites */}
                   <Card>
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">在线资源</h3>
+                      <h3 className="text-lg font-semibold text-foreground mb-4">在线资源</h3>
                       <div className="space-y-3">
                         {language.learningResources.websites?.map((website, index) => (
                           <div key={index} className="p-3 border rounded-lg">
                             <div className="font-medium">{website.name}</div>
-                            <div className="text-sm text-gray-600 mb-1">{website.description}</div>
+                            <div className="text-sm text-muted-foreground mb-1">{website.description}</div>
                             <a href={website.url} target="_blank" rel="noopener noreferrer"
                                className="text-xs text-blue-600 hover:underline">
                               访问网站 →
@@ -567,35 +567,35 @@ export default function LanguageDetailPage() {
 
               {/* Career and Travel */}
               {(language.careerOpportunities || language.travelAdvantages) && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 min-w-0">
                   {language.careerOpportunities && (
                     <Card>
                       <CardContent className="p-6">
                         <div className="flex items-center space-x-3 mb-4">
                           <TrendingUp className="w-5 h-5 text-green-600" />
-                          <h3 className="text-lg font-semibold text-gray-900">职业机会</h3>
+                          <h3 className="text-lg font-semibold text-foreground">职业机会</h3>
                         </div>
                         <div className="space-y-3">
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {language.careerOpportunities.industries.map((industry, index) => (
-                              <div key={index} className="flex items-center space-x-2 p-2 bg-gray-50 rounded">
-                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                <span className="text-sm">{industry}</span>
+                              <div key={index} className="flex items-center space-x-2 p-2 bg-muted/20 rounded min-w-0">
+                                <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
+                                <span className="text-sm truncate">{industry}</span>
                               </div>
                             ))}
                           </div>
                           <Separator />
                           <div className="space-y-2 text-sm">
                             <div className="flex justify-between">
-                              <span className="text-gray-600">平均薪资</span>
+                              <span className="text-muted-foreground">平均薪资</span>
                               <span className="font-medium">{language.careerOpportunities.averageSalary}</span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="text-gray-600">就业增长</span>
+                              <span className="text-muted-foreground">就业增长</span>
                               <span className="font-medium">{language.careerOpportunities.jobGrowth}</span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="text-gray-600">远程工作</span>
+                              <span className="text-muted-foreground">远程工作</span>
                               <span className="font-medium">{language.careerOpportunities.remoteWork ? '支持' : '较少'}</span>
                             </div>
                           </div>
@@ -609,7 +609,7 @@ export default function LanguageDetailPage() {
                       <CardContent className="p-6">
                         <div className="flex items-center space-x-3 mb-4">
                           <MapPin className="w-5 h-5 text-blue-600" />
-                          <h3 className="text-lg font-semibold text-gray-900">旅游优势</h3>
+                          <h3 className="text-lg font-semibold text-foreground">旅游优势</h3>
                         </div>
                         <div className="space-y-4">
                           <div>
@@ -636,7 +636,7 @@ export default function LanguageDetailPage() {
                             <h4 className="font-medium mb-2">文化景点</h4>
                             <div className="space-y-1">
                               {language.travelAdvantages.culturalSites.map((site, index) => (
-                                <div key={index} className="text-sm text-gray-600">• {site}</div>
+                                <div key={index} className="text-sm text-muted-foreground">• {site}</div>
                               ))}
                             </div>
                           </div>
@@ -648,25 +648,6 @@ export default function LanguageDetailPage() {
               )}
             </TabsContent>
           </Tabs>
-        </section>
-
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-purple-600 to-cyan-600 rounded-xl text-white p-8 mt-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">准备开始学习{language.name}了吗？</h2>
-          <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-            加入我们的学习社区，获得个性化的学习计划和专业指导
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/survey">
-              <Button className="bg-white text-purple-600 hover:bg-gray-100 text-lg px-8 py-3 rounded-full">
-                立即开始学习
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Button variant="outline" className="text-lg px-8 py-3 rounded-full border-white text-white hover:bg-white/10">
-              预约试听课程
-            </Button>
-          </div>
         </section>
       </main>
     </div>

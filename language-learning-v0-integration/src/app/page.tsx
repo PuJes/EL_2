@@ -1,8 +1,9 @@
 'use client'
 
 import * as React from "react"
-import { ArrowRight, Globe, Brain, GraduationCap, Wrench, Menu, Star, Users, BookOpen, Clock, Target, MapPin } from "lucide-react"
+import { ArrowRight, Globe, Brain, GraduationCap, Wrench, Star, Users, BookOpen, Clock, Target, MapPin, Lightbulb, ChevronLeft, ChevronRight, Rocket, Download, TrendingUp, Trophy, Gamepad2, MessageCircle, Camera } from "lucide-react"
 import Link from "next/link"
+import { Header } from "@/components/header"
 
 // UI Components
 const Button = React.forwardRef<
@@ -280,52 +281,7 @@ const CultureCard = ({ region }: { region: typeof cultureRegions[0] }) => {
   )
 }
 
-// Main Header Component
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
-
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-purple-100">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center space-x-2">
-            <Globe className="w-8 h-8 text-purple-600" />
-            <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent">
-              语言世界
-            </span>
-          </div>
-
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-purple-600 transition-colors">首页</Link>
-            <Link href="/survey" className="text-gray-700 hover:text-purple-600 transition-colors">语言推荐</Link>
-            <Link href="/culture" className="text-gray-700 hover:text-purple-600 transition-colors">文化探索</Link>
-            <Link href="/languages" className="text-gray-700 hover:text-purple-600 transition-colors">语言列表</Link>
-            <a href="#" className="text-gray-700 hover:text-purple-600 transition-colors">关于我们</a>
-          </nav>
-
-          <div className="flex items-center space-x-4">
-            <Button variant="outline" size="sm">
-              登录
-            </Button>
-            <Link href="/survey">
-              <Button size="sm" className="bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-600 hover:to-cyan-600">
-                开始探索
-              </Button>
-            </Link>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <Menu className="w-5 h-5" />
-            </Button>
-          </div>
-        </div>
-      </div>
-    </header>
-  )
-}
+// Header is now imported from @/components/header
 
 // Footer Component
 const Footer = () => {
@@ -398,6 +354,491 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+  )
+}
+
+// Culture Preview Section with horizontal scrolling
+const CulturePreviewSection = () => {
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = React.useState(false)
+  const [canScrollRight, setCanScrollRight] = React.useState(true)
+
+  const cultureArticles = [
+    {
+      title: "日本樱花季：语言与自然的诗意融合",
+      type: "旅游",
+      region: "日本",
+      image: "https://images.unsplash.com/photo-1522383225653-ed111181a951?w=800",
+      description: "探索日语中描述春天的独特词汇，感受樱花文化的深层意义",
+      readTime: "5分钟"
+    },
+    {
+      title: "西班牙弗拉明戈：激情舞蹈背后的语言艺术",
+      type: "音乐",
+      region: "西班牙",
+      image: "https://images.unsplash.com/photo-1494783367193-149034c05e8f?w=800",
+      description: "了解弗拉明戈音乐中的西班牙语表达，体验音乐与语言的完美结合",
+      readTime: "7分钟"
+    },
+    {
+      title: "法国咖啡文化：从 'Café' 到生活哲学",
+      type: "历史",
+      region: "法国",
+      image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800",
+      description: "深入巴黎咖啡馆文化，学习法语社交用语的精妙之处",
+      readTime: "6分钟"
+    }
+  ]
+
+  const checkScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
+      setCanScrollLeft(scrollLeft > 0)
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
+    }
+  }
+
+  React.useEffect(() => {
+    const container = scrollContainerRef.current
+    if (container) {
+      container.addEventListener('scroll', checkScroll)
+      checkScroll()
+      return () => container.removeEventListener('scroll', checkScroll)
+    }
+  }, [])
+
+  return (
+    <section className="py-24 bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 font-medium mb-6">
+            <Camera className="w-4 h-4" />
+            文化探索之旅
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent mb-6">
+            文化探索精选
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            通过文化故事，深度理解语言的魅力与内涵
+          </p>
+        </div>
+
+        <div className="relative mb-12">
+          {canScrollLeft && (
+            <button
+              onClick={() => scrollContainerRef.current?.scrollBy({ left: -400, behavior: 'smooth' })}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white shadow-lg border flex items-center justify-center hover:shadow-xl transition-all"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+          )}
+          {canScrollRight && (
+            <button
+              onClick={() => scrollContainerRef.current?.scrollBy({ left: 400, behavior: 'smooth' })}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white shadow-lg border flex items-center justify-center hover:shadow-xl transition-all"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          )}
+
+          <div ref={scrollContainerRef} className="overflow-x-auto pb-4 hide-scrollbar" style={{ scrollbarWidth: 'none' }}>
+            <div className="flex gap-6 px-12">
+              {cultureArticles.map((article, index) => (
+                <Card key={index} className="flex-shrink-0 w-80 hover:shadow-xl transition-all overflow-hidden">
+                  <div className="relative h-48">
+                    <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
+                    <div className="absolute top-4 left-4">
+                      <span className="px-3 py-1 bg-white/90 backdrop-blur rounded-full text-sm font-medium">
+                        {article.type}
+                      </span>
+                    </div>
+                  </div>
+                  <CardContent className="p-6">
+                    <h3 className="font-semibold text-lg mb-2 line-clamp-2">{article.title}</h3>
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">{article.description}</p>
+                    <div className="flex items-center justify-between text-sm text-gray-500">
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4" />
+                        {article.region}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4" />
+                        {article.readTime}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <Link href="/culture">
+            <Button className="bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-600 hover:to-cyan-600 px-8 py-3">
+              探索更多文化
+              <Globe className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Learning Methods Section
+const LearningMethodsSection = () => {
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = React.useState(false)
+  const [canScrollRight, setCanScrollRight] = React.useState(true)
+
+  const methods = [
+    {
+      title: "沉浸式学习法：像婴儿一样学语言",
+      languages: ["英语", "西班牙语", "法语"],
+      summary: "通过创造纯语言环境，让大脑自然习得语言规律",
+      readTime: "8分钟",
+      rating: 4.8,
+      difficulty: "初级",
+      icon: Brain,
+      color: "text-blue-600"
+    },
+    {
+      title: "语言交换伙伴系统：真实对话的力量",
+      languages: ["所有语言"],
+      summary: "与母语者建立语言交换关系，在真实对话中提升口语能力",
+      readTime: "6分钟",
+      rating: 4.9,
+      difficulty: "中级",
+      icon: Users,
+      color: "text-green-600"
+    },
+    {
+      title: "记忆宫殿法：高效记忆单词和语法",
+      languages: ["日语", "阿拉伯语", "中文"],
+      summary: "运用空间记忆原理，将抽象的语言知识转化为具象场景",
+      readTime: "10分钟",
+      rating: 4.7,
+      difficulty: "高级",
+      icon: Target,
+      color: "text-purple-600"
+    },
+    {
+      title: "间隔重复法：科学记忆新突破",
+      languages: ["德语", "俄语", "韩语"],
+      summary: "基于艾宾浩斯遗忘曲线，科学安排复习时间",
+      readTime: "7分钟",
+      rating: 4.6,
+      difficulty: "中级",
+      icon: Lightbulb,
+      color: "text-amber-600"
+    }
+  ]
+
+  const checkScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
+      setCanScrollLeft(scrollLeft > 0)
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
+    }
+  }
+
+  React.useEffect(() => {
+    const container = scrollContainerRef.current
+    if (container) {
+      container.addEventListener('scroll', checkScroll)
+      checkScroll()
+      return () => container.removeEventListener('scroll', checkScroll)
+    }
+  }, [])
+
+  return (
+    <section className="py-24 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 font-medium mb-6">
+            <Lightbulb className="w-4 h-4" />
+            专家推荐方法
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent mb-6">
+            学习方法推荐
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            专家验证的高效语言学习方法，让你的学习之路更加轻松高效
+          </p>
+        </div>
+
+        <div className="relative mb-12">
+          {canScrollLeft && (
+            <button
+              onClick={() => scrollContainerRef.current?.scrollBy({ left: -300, behavior: 'smooth' })}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white shadow-lg border flex items-center justify-center hover:shadow-xl transition-all"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+          )}
+          {canScrollRight && (
+            <button
+              onClick={() => scrollContainerRef.current?.scrollBy({ left: 300, behavior: 'smooth' })}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white shadow-lg border flex items-center justify-center hover:shadow-xl transition-all"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          )}
+
+          <div ref={scrollContainerRef} className="overflow-x-auto pb-4" style={{ scrollbarWidth: 'none' }}>
+            <div className="flex gap-6 px-12">
+              {methods.map((method, index) => {
+                const IconComponent = method.icon
+                return (
+                  <Card key={index} className="flex-shrink-0 w-72 hover:shadow-xl transition-all">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+                          <IconComponent className={`h-5 w-5 ${method.color}`} />
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-1 bg-gray-100 rounded text-xs">{method.difficulty}</span>
+                          <div className="flex items-center gap-1">
+                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                            <span className="text-sm font-medium">{method.rating}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <h3 className="font-semibold mb-3 line-clamp-2">{method.title}</h3>
+                      <div className="flex flex-wrap gap-1 mb-3">
+                        {method.languages.slice(0, 2).map((lang, i) => (
+                          <span key={i} className="px-2 py-1 bg-purple-50 text-purple-700 rounded text-xs">
+                            {lang}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">{method.summary}</p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-xs text-gray-500">
+                          <Clock className="h-3 w-3" />
+                          {method.readTime}
+                        </div>
+                        <Button variant="outline" size="sm">
+                          详细了解
+                          <BookOpen className="h-3 w-3 ml-2" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <Card className="max-w-3xl mx-auto">
+            <CardContent className="p-12">
+              <h3 className="text-3xl font-bold mb-4">掌握更多学习秘籍！</h3>
+              <p className="text-lg text-gray-600 mb-8">
+                20+ 种专业学习方法等你来探索，总有一种适合你的学习风格！
+              </p>
+              <Button className="bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-600 hover:to-cyan-600 px-8 py-3">
+                查看完整学习指导
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Resource Tools Section
+const ResourceToolsSection = () => {
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = React.useState(false)
+  const [canScrollRight, setCanScrollRight] = React.useState(true)
+
+  const tools = [
+    {
+      name: "Duolingo",
+      category: "综合学习",
+      ranking: "#1",
+      rating: 4.6,
+      users: "5亿+",
+      trend: "上升",
+      features: ["游戏化学习", "多语言支持", "免费使用"],
+      description: "全球最受欢迎的语言学习应用，通过游戏化方式让学习变得有趣",
+      icon: Gamepad2,
+      color: "text-green-600"
+    },
+    {
+      name: "Anki",
+      category: "记忆工具",
+      ranking: "#2",
+      rating: 4.8,
+      users: "1000万+",
+      trend: "稳定",
+      features: ["间隔重复", "自定义卡片", "社区共享"],
+      description: "基于科学记忆原理的闪卡应用，是背单词和语法的强大工具",
+      icon: Trophy,
+      color: "text-orange-600"
+    },
+    {
+      name: "HelloTalk",
+      category: "语言交换",
+      ranking: "#3",
+      rating: 4.5,
+      users: "5000万+",
+      trend: "上升",
+      features: ["真人对话", "文化交流", "即时翻译"],
+      description: "连接全球语言学习者的社交平台，与母语者进行真实对话练习",
+      icon: MessageCircle,
+      color: "text-purple-600"
+    },
+    {
+      name: "Busuu",
+      category: "在线课程",
+      ranking: "#4",
+      rating: 4.4,
+      users: "1200万+",
+      trend: "上升",
+      features: ["AI课程", "认证证书", "个性化"],
+      description: "提供专业语言课程和认证，由语言专家设计的学习路径",
+      icon: Rocket,
+      color: "text-blue-600"
+    }
+  ]
+
+  const checkScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
+      setCanScrollLeft(scrollLeft > 0)
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
+    }
+  }
+
+  React.useEffect(() => {
+    const container = scrollContainerRef.current
+    if (container) {
+      container.addEventListener('scroll', checkScroll)
+      checkScroll()
+      return () => container.removeEventListener('scroll', checkScroll)
+    }
+  }, [])
+
+  return (
+    <section className="py-24 bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 font-medium mb-6">
+            <Rocket className="w-4 h-4" />
+            全球精选工具
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent mb-6">
+            学习资源工具
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            全球语言学习者都在使用的精选工具，让你的学习事半功倍
+          </p>
+        </div>
+
+        <div className="relative mb-12">
+          {canScrollLeft && (
+            <button
+              onClick={() => scrollContainerRef.current?.scrollBy({ left: -300, behavior: 'smooth' })}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white shadow-lg border flex items-center justify-center hover:shadow-xl transition-all"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+          )}
+          {canScrollRight && (
+            <button
+              onClick={() => scrollContainerRef.current?.scrollBy({ left: 300, behavior: 'smooth' })}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white shadow-lg border flex items-center justify-center hover:shadow-xl transition-all"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          )}
+
+          <div ref={scrollContainerRef} className="overflow-x-auto pb-4" style={{ scrollbarWidth: 'none' }}>
+            <div className="flex gap-6 px-12">
+              {tools.map((tool, index) => {
+                const IconComponent = tool.icon
+                return (
+                  <Card key={index} className="flex-shrink-0 w-72 hover:shadow-xl transition-all">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-purple-500 to-cyan-500 text-white flex items-center justify-center font-bold text-sm">
+                            {tool.ranking}
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">{tool.name}</h3>
+                            <span className="text-xs text-gray-500">{tool.category}</span>
+                          </div>
+                        </div>
+                        <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
+                          <IconComponent className={`h-4 w-4 ${tool.color}`} />
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3 mb-3 text-sm">
+                        <div className="flex items-center gap-1">
+                          <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                          <span>{tool.rating}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Users className="h-3 w-3" />
+                          <span>{tool.users}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <TrendingUp className={`h-3 w-3 ${tool.trend === '上升' ? 'text-green-500' : 'text-gray-500'}`} />
+                          <span className="text-xs">{tool.trend}</span>
+                        </div>
+                      </div>
+
+                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">{tool.description}</p>
+
+                      <div className="flex flex-wrap gap-1 mb-4">
+                        {tool.features.slice(0, 2).map((feature, i) => (
+                          <span key={i} className="px-2 py-1 border rounded text-xs">
+                            {feature}
+                          </span>
+                        ))}
+                        {tool.features.length > 2 && (
+                          <span className="px-2 py-1 border rounded text-xs">
+                            +{tool.features.length - 2}
+                          </span>
+                        )}
+                      </div>
+
+                      <Button variant="outline" size="sm" className="w-full">
+                        了解详情
+                        <Download className="h-4 w-4 ml-2" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <Card className="max-w-3xl mx-auto">
+            <CardContent className="p-12">
+              <h3 className="text-3xl font-bold mb-4">发现更多神器工具！</h3>
+              <p className="text-lg text-gray-600 mb-8">
+                100+ 款精选学习工具等你来探索，总有一款让你爱不释手！
+              </p>
+              <Button className="bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-600 hover:to-cyan-600 px-8 py-3">
+                查看所有资源与工具
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -556,34 +997,14 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Culture Preview */}
-        <section className="py-24 bg-gradient-to-br from-slate-50 to-slate-100">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent mb-6">
-                探索世界文化
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                语言是文化的载体，了解文化让语言学习更加生动有趣
-              </p>
-            </div>
+        {/* Culture Preview - Enhanced */}
+        <CulturePreviewSection />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              {cultureRegions.map((region) => (
-                <CultureCard key={region.id} region={region} />
-              ))}
-            </div>
+        {/* Learning Methods */}
+        <LearningMethodsSection />
 
-            <div className="text-center">
-              <Link href="/culture">
-                <Button variant="outline" className="px-8 py-3">
-                  探索更多文化
-                  <Globe className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+        {/* Resource Tools */}
+        <ResourceToolsSection />
 
         {/* Stats Section */}
         <section className="py-24 bg-gradient-to-r from-purple-600 to-cyan-600">

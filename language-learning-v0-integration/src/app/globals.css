@@ -49,14 +49,7 @@
   --font-mono: ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: oklch(0.0448 0 0);
-    --foreground: oklch(0.9851 0 0);
-    --card: oklch(0.0448 0 0);
-    --card-foreground: oklch(0.9851 0 0);
-  }
-}
+/* Dark mode disabled - using light mode only */
 
 body {
   background: var(--background);

@@ -17,6 +17,7 @@ import {
   Trophy,
   ChevronRight,
 } from "lucide-react"
+import { Header } from '../src/components/header'
 
 // Import algorithm and data
 import { getLanguageRecommendations } from '../src/lib/recommendation/recommendation-algorithm'
@@ -413,43 +414,7 @@ const mockRecommendations: LanguageRecommendation[] = [
   },
 ]
 
-// Header Component
-const Header = () => {
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-pink-100">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center space-x-2">
-            <Globe className="w-8 h-8 text-rose-500" />
-            <span className="text-xl font-bold bg-gradient-to-r from-rose-500 to-violet-500 bg-clip-text text-transparent">
-              语言世界
-            </span>
-          </div>
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-gray-700 hover:text-rose-500 transition-colors">
-              首页
-            </a>
-            <a href="#" className="text-gray-700 hover:text-rose-500 transition-colors">
-              语言推荐
-            </a>
-            <a href="#" className="text-gray-700 hover:text-rose-500 transition-colors">
-              文化探索
-            </a>
-            <a href="#" className="text-gray-700 hover:text-rose-500 transition-colors">
-              学习资源
-            </a>
-          </nav>
-          <Button
-            size="sm"
-            className="bg-gradient-to-r from-rose-400 to-violet-400 hover:from-rose-500 hover:to-violet-500"
-          >
-            返回首页
-          </Button>
-        </div>
-      </div>
-    </header>
-  )
-}
+// Header is now imported from @/components/header with rose theme
 
 // Footer Component
 const Footer = () => {
@@ -659,7 +624,7 @@ export default function LanguageRecommendationPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <Header theme="rose" />
 
       <div className="pt-16 bg-gradient-to-br from-rose-50 via-violet-50 to-sky-50">
         {/* Header Section */}

@@ -1,8 +1,9 @@
 'use client'
 
 import * as React from "react"
-import { ArrowRight, ArrowLeft, Globe, MapPin, Users, BookOpen, Calendar, Award } from "lucide-react"
+import { ArrowRight, Globe, MapPin, Users, BookOpen, Calendar, Award } from "lucide-react"
 import Link from "next/link"
+import { Header } from "@/components/header"
 
 // UI Components
 const Button = React.forwardRef<
@@ -131,39 +132,7 @@ const cultureRegions = [
   }
 ]
 
-// Header Component
-const Header = () => {
-  return (
-    <header className="bg-white border-b border-gray-200">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center space-x-4">
-            <Link href="/" className="flex items-center space-x-2 text-gray-600 hover:text-purple-600 transition-colors">
-              <ArrowLeft className="w-5 h-5" />
-              <span>返回首页</span>
-            </Link>
-            <div className="hidden sm:block w-px h-6 bg-gray-300"></div>
-            <div className="flex items-center space-x-3">
-              <Globe className="w-8 h-8 text-purple-600" />
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">世界文化探索</h1>
-                <p className="text-sm text-gray-600">文化是语言学习的源泉</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-4">
-            <Link href="/survey">
-              <Button className="bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-600 hover:to-cyan-600">
-                开始学习
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </header>
-  )
-}
+// Header is now imported from @/components/header with culture theme
 
 // Culture Region Card Component
 const CultureRegionCard = ({ region }: { region: typeof cultureRegions[0] }) => {
@@ -250,7 +219,13 @@ const CultureRegionCard = ({ region }: { region: typeof cultureRegions[0] }) => 
 export default function CulturePage() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
+      <Header
+        theme="culture"
+        fixed={false}
+        showBackButton={true}
+        customTitle="世界文化探索"
+        customSubtitle="文化是语言学习的源泉"
+      />
 
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}

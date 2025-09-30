@@ -14,18 +14,16 @@ import { Footer } from "@/components/footer"
 import { languages } from "@/lib/data/languages"
 import type { Language } from "@/types"
 
-const regions = ["全部地区", "东亚", "东南亚", "欧洲", "北美洲", "南美洲", "中美洲", "中东", "北非", "大洋洲"]
-const families = ["全部语族", "汉藏语系", "印欧语系", "日语族", "朝鲜语族", "闪米特语族", "其他语系"]
-const difficulties = ["全部难度", "简单 ⭐", "中等 ⭐⭐", "困难 ⭐⭐⭐", "很难 ⭐⭐⭐⭐", "极难 ⭐⭐⭐⭐⭐"]
-const categories = ["全部类型", "热门语言", "文化语言", "商务语言", "新兴语言"]
-const sortOptions = ["使用人数排序", "学习难度排序", "字母顺序排序", "学习时长排序"]
+const regions = ["全部地区", "东亚", "东南亚", "欧洲", "北美洲", "南美洲", "中美洲", "中东", "北非", "非洲", "大洋洲", "中亚", "东欧"]
+const families = ["全部语族", "汉藏语系", "印欧语系", "日语族", "朝鲜语族", "闪米特语族", "乌拉尔语系", "其他语系"]
+const difficulties = ["全部难度", "1星 (简单)", "2星 (较易)", "3星 (中等)", "4星 (较难)", "5星 (极难)"]
+const sortOptions = ["使用人数排序", "学习难度排序"]
 
 export default function LanguageListPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedRegion, setSelectedRegion] = useState("全部地区")
   const [selectedFamily, setSelectedFamily] = useState("全部语族")
   const [selectedDifficulty, setSelectedDifficulty] = useState("全部难度")
-  const [selectedCategory, setSelectedCategory] = useState("全部类型")
   const [sortBy, setSortBy] = useState("使用人数排序")
   const [favorites, setFavorites] = useState<string[]>([])
 
@@ -50,16 +48,9 @@ export default function LanguageListPage() {
 
         const matchesDifficulty =
           selectedDifficulty === "全部难度" ||
-          (selectedDifficulty.includes("⭐") && lang.difficulty === selectedDifficulty.split(" ")[1].length)
+          (selectedDifficulty.includes("星") && lang.difficulty === parseInt(selectedDifficulty.charAt(0)))
 
-        const matchesCategory =
-          selectedCategory === "全部类型" ||
-          (selectedCategory === "热门语言" && lang.category === "popular") ||
-          (selectedCategory === "文化语言" && lang.category === "cultural") ||
-          (selectedCategory === "商务语言" && lang.category === "business") ||
-          (selectedCategory === "新兴语言" && lang.category === "emerging")
-
-        return matchesSearch && matchesRegion && matchesFamily && matchesDifficulty && matchesCategory
+        return matchesSearch && matchesRegion && matchesFamily && matchesDifficulty
       })
       .sort((a: Language, b: Language) => {
         switch (sortBy) {
@@ -67,20 +58,11 @@ export default function LanguageListPage() {
             return (b.speakers?.total || 0) - (a.speakers?.total || 0)
           case "学习难度排序":
             return a.difficulty - b.difficulty
-          case "字母顺序排序":
-            return a.name.localeCompare(b.name)
-          case "学习时长排序":
-            const getStudyTimeHours = (timeStr: string): number => {
-              if (!timeStr) return 0
-              const match = timeStr.match(/(\d+)/)
-              return match ? parseInt(match[1]) : 0
-            }
-            return getStudyTimeHours(a.studyTime || "") - getStudyTimeHours(b.studyTime || "")
           default:
-            return 0
+            return (b.speakers?.total || 0) - (a.speakers?.total || 0)
         }
       })
-  }, [searchTerm, selectedRegion, selectedFamily, selectedDifficulty, selectedCategory, sortBy])
+  }, [searchTerm, selectedRegion, selectedFamily, selectedDifficulty, sortBy])
 
   const toggleFavorite = (languageId: string) => {
     setFavorites((prev) => (prev.includes(languageId) ? prev.filter((id) => id !== languageId) : [...prev, languageId]))
@@ -91,14 +73,21 @@ export default function LanguageListPage() {
   }
 
   const formatSpeakers = (count: number) => {
-    if (count >= 1000000000) {
-      return `${(count / 1000000000).toFixed(1)}亿`
-    } else if (count >= 100000000) {
-      return `${(count / 100000000).toFixed(1)}亿`
-    } else if (count >= 10000000) {
-      return `${(count / 10000000).toFixed(0)}千万`
-    } else if (count >= 1000000) {
-      return `${(count / 1000000).toFixed(0)}百万`
+    // 1亿以上，显示为X.X亿（中文的"亿"是10^8，即100,000,000）
+    if (count >= 100000000) {
+      const yi = count / 100000000
+      // 如果是整数亿，不显示小数点
+      return yi % 1 === 0 ? `${yi.toFixed(0)}亿` : `${yi.toFixed(1)}亿`
+    }
+    // 1千万以上，显示为XX千万
+    else if (count >= 10000000) {
+      const tenMillions = count / 10000000
+      return `${tenMillions.toFixed(0)}千万`
+    }
+    // 100万以上，显示为XXX百万
+    else if (count >= 1000000) {
+      const millions = count / 1000000
+      return `${millions.toFixed(0)}百万`
     }
     return count.toString()
   }
@@ -147,7 +136,7 @@ export default function LanguageListPage() {
           </CardHeader>
           <CardContent>
             {/* Filter Options */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
               <Select value={selectedRegion} onValueChange={setSelectedRegion}>
                 <SelectTrigger>
                   <SelectValue placeholder="按地区筛选" />
@@ -187,19 +176,6 @@ export default function LanguageListPage() {
                 </SelectContent>
               </Select>
 
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger>
-                  <SelectValue placeholder="按类型筛选" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map((category) => (
-                    <SelectItem key={category} value={category}>
-                      {category}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger>
                   <SelectValue placeholder="排序方式" />
@@ -225,7 +201,6 @@ export default function LanguageListPage() {
                   setSelectedRegion("全部地区")
                   setSelectedFamily("全部语族")
                   setSelectedDifficulty("全部难度")
-                  setSelectedCategory("全部类型")
                 }}
               >
                 清除筛选
@@ -289,32 +264,6 @@ export default function LanguageListPage() {
                   <div className="flex items-center justify-between text-sm">
                     <span>预估学习时长</span>
                     <span className="text-primary font-medium">{language.studyTime || "未知"}</span>
-                  </div>
-                </div>
-
-                <Separator />
-
-                {/* Culture and Usage */}
-                <div className="space-y-2">
-                  <div>
-                    <p className="text-xs text-muted-foreground mb-1">使用场景</p>
-                    <div className="flex flex-wrap gap-1">
-                      {language.usage?.map((item) => (
-                        <Badge key={item} variant="outline" className="text-xs">
-                          {item}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground mb-1">学习资源</p>
-                    <div className="flex flex-wrap gap-1">
-                      {language.resources?.slice(0, 2).map((item) => (
-                        <Badge key={item} variant="secondary" className="text-xs">
-                          {item}
-                        </Badge>
-                      ))}
-                    </div>
                   </div>
                 </div>
 
