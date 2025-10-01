@@ -182,7 +182,7 @@ const DifficultyIndicator = ({ level }: { level: number }) => {
 const LanguageCard = ({ language }: { language: typeof popularLanguages[0] }) => {
   return (
     <Card className="group hover:shadow-lg transition-all duration-300 h-full bg-white/50 backdrop-blur hover:bg-white/80">
-      <CardContent className="p-6">
+      <CardContent className="p-6 pt-8">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center space-x-3">
             <span className="text-4xl">{language.flag}</span>
@@ -592,7 +592,7 @@ const LearningMethodsSection = () => {
                 const IconComponent = method.icon
                 return (
                   <Card key={index} className="flex-shrink-0 w-72 hover:shadow-xl transition-all">
-                    <CardContent className="p-6">
+                    <CardContent className="p-6 pt-8">
                       <div className="flex items-center justify-between mb-4">
                         <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
                           <IconComponent className={`h-5 w-5 ${method.color}`} />
@@ -634,7 +634,7 @@ const LearningMethodsSection = () => {
 
         <div className="text-center">
           <Card className="max-w-3xl mx-auto">
-            <CardContent className="p-12">
+            <CardContent className="p-12 py-16">
               <h3 className="text-3xl font-bold mb-4">掌握更多学习秘籍！</h3>
               <p className="text-lg text-gray-600 mb-8">
                 20+ 种专业学习方法等你来探索，总有一种适合你的学习风格！
@@ -765,7 +765,7 @@ const ResourceToolsSection = () => {
                 const IconComponent = tool.icon
                 return (
                   <Card key={index} className="flex-shrink-0 w-72 hover:shadow-xl transition-all">
-                    <CardContent className="p-6">
+                    <CardContent className="p-6 pt-8">
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-purple-500 to-cyan-500 text-white flex items-center justify-center font-bold text-sm">
@@ -825,7 +825,7 @@ const ResourceToolsSection = () => {
 
         <div className="text-center">
           <Card className="max-w-3xl mx-auto">
-            <CardContent className="p-12">
+            <CardContent className="p-12 py-16">
               <h3 className="text-3xl font-bold mb-4">发现更多神器工具！</h3>
               <p className="text-lg text-gray-600 mb-8">
                 100+ 款精选学习工具等你来探索，总有一款让你爱不释手！
@@ -952,7 +952,7 @@ export default function HomePage() {
               ].map((feature, index) => (
                 <div key={index} className="group">
                   <Card className="border-0 shadow-sm hover:shadow-lg transition-all duration-300 h-full bg-white/50 hover:bg-white/80">
-                    <CardContent className="p-8 text-center">
+                    <CardContent className="p-8 pt-10 text-center">
                       <div className="mb-6">
                         <div className="w-16 h-16 mx-auto rounded-2xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                           <feature.icon className={`h-8 w-8 ${feature.color}`} />
@@ -1006,65 +1006,6 @@ export default function HomePage() {
         {/* Resource Tools */}
         <ResourceToolsSection />
 
-        {/* Stats Section */}
-        <section className="py-24 bg-gradient-to-r from-purple-600 to-cyan-600">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                数字见证我们的成长
-              </h2>
-              <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-                每一个数字背后，都是我们与学习者共同创造的语言学习故事
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
-              <div className="space-y-2">
-                <div className="text-4xl md:text-5xl font-bold">50+</div>
-                <div className="text-white/80">支持语言</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-4xl md:text-5xl font-bold">100K+</div>
-                <div className="text-white/80">学习资源</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-4xl md:text-5xl font-bold">10M+</div>
-                <div className="text-white/80">全球用户</div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-4xl md:text-5xl font-bold">95%</div>
-                <div className="text-white/80">满意度</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-24 bg-white">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center space-y-8">
-              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent">
-                准备开始您的语言学习之旅了吗？
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                通过我们的个性化测评，找到最适合您的语言和学习路径
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/survey">
-                  <Button className="bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-600 hover:to-cyan-600 text-lg px-8 py-6 h-auto rounded-full">
-                    开始个性化测评
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Link href="/culture">
-                  <Button variant="outline" className="text-lg px-8 py-6 h-auto rounded-full">
-                    探索文化世界
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
     </div>
   )

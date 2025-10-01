@@ -9,7 +9,6 @@ export const languages: Language[] = [
     nativeName: "Español",
     flag: "🇪🇸",
     description: "世界第二大母语，职场和旅游热门选择",
-    category: "popular",
     difficulty: 2,
     speakers: {
       total: 500000000,
@@ -47,7 +46,6 @@ export const languages: Language[] = [
     nativeName: "Français",
     flag: "🇫🇷",
     description: "优雅的语言，艺术和时尚的象征",
-    category: "cultural",
     difficulty: 3,
     speakers: {
       total: 280000000,
@@ -85,7 +83,6 @@ export const languages: Language[] = [
     nativeName: "日本語",
     flag: "🇯🇵",
     description: "动漫文化和先进科技的语言",
-    category: "cultural",
     difficulty: 4,
     speakers: {
       total: 125000000,
@@ -124,7 +121,6 @@ export const languages: Language[] = [
     nativeName: "Deutsch",
     flag: "🇩🇪",
     description: "科学和工程的语言，欧洲商务重要语言",
-    category: "business",
     difficulty: 3,
     speakers: {
       total: 132000000,
@@ -162,7 +158,6 @@ export const languages: Language[] = [
     nativeName: "中文",
     flag: "🇨🇳",
     description: "世界上使用人数最多的语言",
-    category: "popular",
     difficulty: 5,
     speakers: {
       total: 1300000000,
@@ -201,7 +196,6 @@ export const languages: Language[] = [
     nativeName: "한국어",
     flag: "🇰🇷",
     description: "韩流文化的载体，科技产业重要语言",
-    category: "cultural",
     difficulty: 4,
     speakers: {
       total: 77000000,
@@ -239,7 +233,6 @@ export const languages: Language[] = [
     nativeName: "Italiano",
     flag: "🇮🇹",
     description: "艺术、美食和设计的语言",
-    category: "cultural",
     difficulty: 2,
     speakers: {
       total: 85000000,
@@ -277,7 +270,6 @@ export const languages: Language[] = [
     nativeName: "Português",
     flag: "🇵🇹",
     description: "巴西和葡语国家的官方语言",
-    category: "popular",
     difficulty: 2,
     speakers: {
       total: 260000000,
@@ -315,7 +307,6 @@ export const languages: Language[] = [
     nativeName: "Русский",
     flag: "🇷🇺",
     description: "东欧和中亚重要语言，科学文学语言",
-    category: "emerging",
     difficulty: 5,
     speakers: {
       total: 260000000,
@@ -353,7 +344,6 @@ export const languages: Language[] = [
     nativeName: "العربية",
     flag: "🇸🇦",
     description: "中东和北非地区的重要语言",
-    category: "emerging",
     difficulty: 5,
     speakers: {
       total: 422000000,

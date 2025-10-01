@@ -119,23 +119,11 @@ export default function LanguageDetailPage() {
               </p>
 
               <div className="flex flex-wrap gap-2 mb-6">
-                <Badge variant="secondary">{language.category}</Badge>
                 {language.metadata?.family && (
                   <Badge variant="outline">{language.metadata.family}</Badge>
                 )}
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/survey">
-                  <Button className="bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-600 hover:to-cyan-600 text-lg px-8 py-3">
-                    开始学习 {language.name}
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Button variant="outline" className="text-lg px-8 py-3">
-                  收藏到学习列表
-                </Button>
-              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 min-w-0">

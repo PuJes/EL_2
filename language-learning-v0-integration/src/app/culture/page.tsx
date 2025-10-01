@@ -3,7 +3,6 @@
 import * as React from "react"
 import { ArrowRight, Globe, MapPin, Users, BookOpen, Calendar, Award } from "lucide-react"
 import Link from "next/link"
-import { Header } from "@/components/header"
 
 // UI Components
 const Button = React.forwardRef<
@@ -219,14 +218,6 @@ const CultureRegionCard = ({ region }: { region: typeof cultureRegions[0] }) => 
 export default function CulturePage() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header
-        theme="culture"
-        fixed={false}
-        showBackButton={true}
-        customTitle="世界文化探索"
-        customSubtitle="文化是语言学习的源泉"
-      />
-
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
         <section className="text-center py-16 mb-12">
@@ -331,29 +322,6 @@ export default function CulturePage() {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-purple-600 to-cyan-600 rounded-xl text-white p-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            开始您的文化语言学习之旅
-          </h2>
-          <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-            选择一个您感兴趣的文化圈，我们将为您推荐最适合的语言学习路径
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/survey">
-              <Button className="bg-white text-purple-600 hover:bg-gray-100 text-lg px-8 py-3 rounded-full">
-                开始个性化测评
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Link href="/languages">
-              <Button variant="outline" className="text-lg px-8 py-3 rounded-full border-white text-white hover:bg-white/10">
-                浏览语言列表
-                <Globe className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-          </div>
-        </section>
       </main>
     </div>
   )

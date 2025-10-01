@@ -9,7 +9,6 @@ export interface Language {
   nameEn: string
   nativeName: string
   description: string
-  category: "popular" | "cultural" | "business" | "emerging"
   difficulty: number        // 1-5
 
   // 使用和分布数据

@@ -2,8 +2,10 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Globe, Menu, ArrowLeft } from "lucide-react"
+import { Globe, Menu, ArrowLeft, Languages } from "lucide-react"
 import { usePathname } from "next/navigation"
+import { useTranslation } from "@/hooks/useTranslation"
+import type { Locale } from "@/types/i18n"
 
 // UI Components
 const Button = React.forwardRef<
@@ -81,6 +83,66 @@ const themeConfig = {
   }
 }
 
+// Language Switcher Component
+const LanguageSwitcher: React.FC<{ config: typeof themeConfig[keyof typeof themeConfig] }> = ({ config }) => {
+  const { locale, setLocale, t } = useTranslation()
+  const [isOpen, setIsOpen] = React.useState(false)
+  const dropdownRef = React.useRef<HTMLDivElement>(null)
+
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  const handleLocaleChange = (newLocale: Locale) => {
+    setLocale(newLocale)
+    setIsOpen(false)
+  }
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => setIsOpen(!isOpen)}
+        className="gap-2"
+        title={t.header.switchLanguage}
+      >
+        <Languages className="w-4 h-4" />
+        <span className="hidden sm:inline">{locale === 'zh' ? '中文' : 'EN'}</span>
+      </Button>
+
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-white border border-gray-200 z-50">
+          <div className="py-1">
+            <button
+              onClick={() => handleLocaleChange('zh')}
+              className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
+                locale === 'zh' ? 'bg-purple-50 text-purple-700 font-medium' : 'text-gray-700'
+              }`}
+            >
+              中文
+            </button>
+            <button
+              onClick={() => handleLocaleChange('en')}
+              className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
+                locale === 'en' ? 'bg-purple-50 text-purple-700 font-medium' : 'text-gray-700'
+              }`}
+            >
+              English
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 // Main Header Component
 export const Header: React.FC<HeaderProps> = ({
   theme = 'default',
@@ -92,6 +154,7 @@ export const Header: React.FC<HeaderProps> = ({
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
   const pathname = usePathname()
   const config = themeConfig[theme]
+  const { t } = useTranslation()
 
   // Determine position class
   const positionClass = fixed ? 'fixed top-0 left-0 right-0 z-50' : 'relative'
@@ -106,7 +169,7 @@ export const Header: React.FC<HeaderProps> = ({
               <>
                 <Link href="/" className="flex items-center space-x-2 text-gray-600 hover:text-purple-600 transition-colors">
                   <ArrowLeft className="w-5 h-5" />
-                  <span>返回首页</span>
+                  <span>{t.common.backToHome}</span>
                 </Link>
                 <div className="hidden sm:block w-px h-6 bg-gray-300"></div>
               </>
@@ -123,7 +186,7 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
               ) : (
                 <span className={`text-xl font-bold bg-gradient-to-r ${config.gradient} bg-clip-text text-transparent`}>
-                  语言世界
+                  {t.header.title}
                 </span>
               )}
             </div>
@@ -136,37 +199,38 @@ export const Header: React.FC<HeaderProps> = ({
                 href="/"
                 className={`text-foreground ${config.linkHover} transition-colors ${pathname === '/' ? 'font-semibold' : ''}`}
               >
-                首页
+                {t.common.home}
               </Link>
               <Link
                 href="/survey"
                 className={`text-foreground ${config.linkHover} transition-colors ${pathname === '/survey' ? 'font-semibold' : ''}`}
               >
-                语言推荐
+                {t.common.languageRecommendation}
               </Link>
               <Link
                 href="/culture"
                 className={`text-foreground ${config.linkHover} transition-colors ${pathname === '/culture' ? 'font-semibold' : ''}`}
               >
-                文化探索
+                {t.common.cultureExploration}
               </Link>
               <Link
                 href="/languages"
                 className={`text-foreground ${config.linkHover} transition-colors ${pathname?.startsWith('/languages') ? 'font-semibold' : ''}`}
               >
-                语言列表
+                {t.common.languageList}
               </Link>
               <a href="#" className={`text-foreground ${config.linkHover} transition-colors`}>
-                关于我们
+                {t.common.aboutUs}
               </a>
             </nav>
           )}
 
           {/* Right section */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            <LanguageSwitcher config={config} />
             <Link href="/survey">
               <Button size="sm" className={`bg-gradient-to-r ${config.buttonGradient}`}>
-                {customTitle ? '开始学习' : '开始探索'}
+                {customTitle ? t.common.startLearning : t.common.startExploring}
               </Button>
             </Link>
             <Button
@@ -184,11 +248,11 @@ export const Header: React.FC<HeaderProps> = ({
         {isMenuOpen && !customTitle && (
           <div className="md:hidden absolute top-16 left-0 right-0 bg-card/95 backdrop-blur-md border-b border-border shadow-lg">
             <nav className="container mx-auto px-4 py-4 space-y-2">
-              <Link href="/" className={`block py-2 text-foreground ${config.linkHover} transition-colors`}>首页</Link>
-              <Link href="/survey" className={`block py-2 text-foreground ${config.linkHover} transition-colors`}>语言推荐</Link>
-              <Link href="/culture" className={`block py-2 text-foreground ${config.linkHover} transition-colors`}>文化探索</Link>
-              <Link href="/languages" className={`block py-2 text-foreground ${config.linkHover} transition-colors`}>语言列表</Link>
-              <a href="#" className={`block py-2 text-foreground ${config.linkHover} transition-colors`}>关于我们</a>
+              <Link href="/" className={`block py-2 text-foreground ${config.linkHover} transition-colors`}>{t.common.home}</Link>
+              <Link href="/survey" className={`block py-2 text-foreground ${config.linkHover} transition-colors`}>{t.common.languageRecommendation}</Link>
+              <Link href="/culture" className={`block py-2 text-foreground ${config.linkHover} transition-colors`}>{t.common.cultureExploration}</Link>
+              <Link href="/languages" className={`block py-2 text-foreground ${config.linkHover} transition-colors`}>{t.common.languageList}</Link>
+              <a href="#" className={`block py-2 text-foreground ${config.linkHover} transition-colors`}>{t.common.aboutUs}</a>
             </nav>
           </div>
         )}

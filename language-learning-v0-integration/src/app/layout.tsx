@@ -8,14 +8,15 @@ import { cn } from '@/lib/utils'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: '语言世界 - 个性化语言学习平台',
-  description: '通过AI智能推荐系统，根据您的个人背景、文化兴趣和学习目标，为您推荐最适合的语言和学习路径。',
-  keywords: ['语言学习', '人工智能', '个性化推荐', '多语言', '文化交流'],
-  authors: [{ name: '语言世界团队' }],
-  viewport: {
-    width: 'device-width',
-    initialValue: 1.0,
-  },
+  title: 'Language World - Personalized Language Learning Platform | 语言世界',
+  description: 'Through AI-powered recommendation system, we provide personalized language recommendations based on your background, cultural interests, and learning goals. | 通过AI智能推荐系统，根据您的个人背景、文化兴趣和学习目标，为您推荐最适合的语言和学习路径。',
+  keywords: ['language learning', '语言学习', 'AI', '人工智能', 'personalized recommendation', '个性化推荐', 'multilingual', '多语言', 'cultural exchange', '文化交流'],
+  authors: [{ name: 'Language World Team | 语言世界团队' }],
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1.0,
 }
 
 export default function RootLayout({

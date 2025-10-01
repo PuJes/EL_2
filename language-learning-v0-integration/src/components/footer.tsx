@@ -1,8 +1,13 @@
+'use client'
+
 import Link from "next/link"
 import { Globe } from "lucide-react"
+import { useTranslation } from "@/hooks/useTranslation"
 
 // Footer Component
 export const Footer = () => {
+  const { t } = useTranslation()
+
   return (
     <footer className="bg-muted/30 dark:bg-card text-foreground py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,10 +15,10 @@ export const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <Globe className="w-6 h-6 text-purple-400" />
-              <span className="text-lg font-bold">语言世界</span>
+              <span className="text-lg font-bold">{t.header.title}</span>
             </div>
             <p className="text-muted-foreground text-sm">
-              个性化的语言学习指导，深入的文化探索体验。让每一次学习都成为通向更广阔世界的桥梁。
+              {t.footer.description}
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
@@ -35,41 +40,41 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">学习资源</h3>
+            <h3 className="text-lg font-semibold mb-4">{t.footer.learningResources}</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/survey" className="text-muted-foreground hover:text-foreground transition-colors">语言推荐</Link></li>
-              <li><Link href="/recommendation" className="text-muted-foreground hover:text-foreground transition-colors">AI推荐</Link></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">学习计划</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">难度评估</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">学习工具</a></li>
+              <li><Link href="/survey" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.languageRecommendation}</Link></li>
+              <li><Link href="/recommendation" className="text-muted-foreground hover:text-foreground transition-colors">AI {t.footer.languageRecommendation}</Link></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.learningPlan}</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.difficultyAssessment}</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.learningTools}</a></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">文化探索</h3>
+            <h3 className="text-lg font-semibold mb-4">{t.footer.cultureExploration}</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/culture" className="text-muted-foreground hover:text-foreground transition-colors">世界文化</Link></li>
-              <li><Link href="/languages" className="text-muted-foreground hover:text-foreground transition-colors">语言列表</Link></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">语言历史</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">文化对比</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">节日习俗</a></li>
+              <li><Link href="/culture" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.worldCulture}</Link></li>
+              <li><Link href="/languages" className="text-muted-foreground hover:text-foreground transition-colors">{t.common.languageList}</Link></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.languageHistory}</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.culturalComparison}</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.festivalCustoms}</a></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">联系我们</h3>
+            <h3 className="text-lg font-semibold mb-4">{t.footer.contactUs}</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">关于我们</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">联系方式</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">合作伙伴</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">隐私政策</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.about}</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.contact}</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.partners}</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.privacyPolicy}</a></li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-border mt-12 pt-8 text-center">
           <p className="text-muted-foreground text-sm">
-            © 2024 语言世界. 保留所有权利.
+            {t.footer.copyright}
           </p>
         </div>
       </div>
