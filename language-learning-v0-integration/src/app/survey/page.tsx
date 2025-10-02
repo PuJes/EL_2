@@ -1,11 +1,15 @@
-import { Metadata } from 'next'
-import LanguageSurveyPage from '../../../v0-components/LanguageSurveyPage'
+'use client'
 
-export const metadata: Metadata = {
-  title: '语言学习测评 | 语言世界',
-  description: '通过科学的问卷测评，为您推荐最适合的语言学习方案',
-}
+import LanguageSurveyPage from '../../../v0-components/LanguageSurveyPage'
+import { useTranslation } from '@/hooks/useTranslation'
+import { useEffect } from 'react'
 
 export default function SurveyRoute() {
+  const { t } = useTranslation()
+
+  useEffect(() => {
+    document.title = `${t.survey.pageTitle} | ${t.header.title}`
+  }, [t])
+
   return <LanguageSurveyPage />
 }

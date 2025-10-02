@@ -1,5 +1,17 @@
 // 核心数据类型定义
 
+// 双语文本类型
+export interface BilingualText {
+  zh: string
+  en: string
+}
+
+// 双语数组类型
+export interface BilingualArray {
+  zh: string[]
+  en: string[]
+}
+
 export interface Language {
   // 基础信息
   id: string
@@ -8,74 +20,74 @@ export interface Language {
   name: string
   nameEn: string
   nativeName: string
-  description: string
+  description: BilingualText
   difficulty: number        // 1-5
 
   // 使用和分布数据
   speakers: {
     native: number
     total: number
-    countries: string[]
+    countries: BilingualArray
   }
-  regions: string[]
+  regions: BilingualArray
 
   // 语言分类信息
-  family: string            // 语系
-  script: string            // 文字系统
-  tags?: string[]           // 标签
+  family: BilingualText     // 语系
+  script: BilingualText     // 文字系统
+  tags?: BilingualArray     // 标签
 
   // 学习相关信息
-  studyTime?: string        // 预估学习时长（简化版）
-  usage?: string[]          // 使用场景
-  resources?: string[]      // 学习资源类型
+  studyTime?: BilingualText        // 预估学习时长（简化版）
+  usage?: BilingualArray           // 使用场景
+  resources?: BilingualArray       // 学习资源类型
 
   // 详细文化信息
   culturalInfo?: {
-    history: string
-    traditions: string[]
-    festivals: string[]
-    cuisine: string[]
-    arts: string[]
-    modernCulture: string[]
+    history: BilingualText
+    traditions: BilingualArray
+    festivals: BilingualArray
+    cuisine: BilingualArray
+    arts: BilingualArray
+    modernCulture: BilingualArray
   }
 
   // 语言元数据
   metadata?: {
     iso639_1: string        // ISO 639-1 代码
-    family: string          // 语系
-    branch?: string         // 语族分支
-    writingSystem: string[] // 文字系统
+    family: BilingualText   // 语系
+    branch?: BilingualText  // 语族分支
+    writingSystem: BilingualArray // 文字系统
   }
 
   // 学习指导
   learningGuide?: {
     learningPath: Array<{
-      title: string
-      description: string
-      level: string
+      title: BilingualText
+      description: BilingualText
+      level: BilingualText
       estimatedHours: number
-      skills: string[]
+      skills: BilingualArray
     }>
     learningMethods?: Array<{
-      title: string
-      description: string
-      techniques: string[]
+      title: BilingualText
+      description: BilingualText
+      techniques: BilingualArray
     }>
     learningTools?: Array<{
-      category: string
-      tools: string[]
+      category: BilingualText
+      tools: BilingualArray
     }>
   }
 
   // 学习时间估算
   learningTimeEstimate?: {
-    beginner: string        // 初学者时间
-    intermediate: string    // 中级时间
-    advanced: string        // 高级时间
+    beginner: BilingualText    // 初学者时间
+    intermediate: BilingualText // 中级时间
+    advanced: BilingualText     // 高级时间
     totalHours: number      // 总学时
-    basic?: number          // 基础阶段
-    intermediate?: number   // 中级阶段
-    advanced?: number       // 高级阶段
+    basic?: number          // 基础阶段学时
+    intermediateHours?: number   // 中级阶段学时
+    advancedHours?: number       // 高级阶段学时
   }
 
   // 难度分析
@@ -90,38 +102,38 @@ export interface Language {
   learningResources?: {
     apps: Array<{
       name: string
-      description: string
-      price: string
+      description: BilingualText
+      price: BilingualText
     }>
     books: Array<{
       title: string
       author: string
-      level: string
+      level: BilingualText
     }>
     websites: Array<{
       name: string
       url: string
-      description: string
+      description: BilingualText
     }>
   }
 
   // 职业机会
   careerOpportunities?: {
-    industries: string[]
-    averageSalary: string
-    jobGrowth: string
+    industries: BilingualArray
+    averageSalary: BilingualText
+    jobGrowth: BilingualText
     remoteWork: boolean
   }
 
   // 旅游优势
   travelAdvantages?: {
-    countries: string[]
-    businessHubs: string[]
-    culturalSites: string[]
+    countries: BilingualArray
+    businessHubs: BilingualArray
+    culturalSites: BilingualArray
   }
 
   // 兼容字段（仅用于文字系统）
-  writingSystem?: string[]
+  writingSystem?: BilingualArray
 }
 
 export interface SurveyAnswer {

@@ -4,6 +4,7 @@ import * as React from "react"
 import { ArrowRight, Globe, Brain, GraduationCap, Wrench, Star, Users, BookOpen, Clock, Target, MapPin, Lightbulb, ChevronLeft, ChevronRight, Rocket, Download, TrendingUp, Trophy, Gamepad2, MessageCircle, Camera } from "lucide-react"
 import Link from "next/link"
 import { Header } from "@/components/header"
+import { useTranslation } from "@/hooks/useTranslation"
 
 // UI Components
 const Button = React.forwardRef<
@@ -358,7 +359,7 @@ const Footer = () => {
 }
 
 // Culture Preview Section with horizontal scrolling
-const CulturePreviewSection = () => {
+const CulturePreviewSection = ({ t }: { t: any }) => {
   const scrollContainerRef = React.useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = React.useState(false)
   const [canScrollRight, setCanScrollRight] = React.useState(true)
@@ -413,13 +414,13 @@ const CulturePreviewSection = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 font-medium mb-6">
             <Camera className="w-4 h-4" />
-            文化探索之旅
+            {t.homepage.culture.badge}
           </div>
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent mb-6">
-            文化探索精选
+            {t.homepage.culture.title}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            通过文化故事，深度理解语言的魅力与内涵
+            {t.homepage.culture.subtitle}
           </p>
         </div>
 
@@ -487,7 +488,7 @@ const CulturePreviewSection = () => {
 }
 
 // Learning Methods Section
-const LearningMethodsSection = () => {
+const LearningMethodsSection = ({ t }: { t: any }) => {
   const scrollContainerRef = React.useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = React.useState(false)
   const [canScrollRight, setCanScrollRight] = React.useState(true)
@@ -558,13 +559,13 @@ const LearningMethodsSection = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 font-medium mb-6">
             <Lightbulb className="w-4 h-4" />
-            专家推荐方法
+            {t.homepage.learningMethods.badge}
           </div>
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent mb-6">
-            学习方法推荐
+            {t.homepage.learningMethods.title}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            专家验证的高效语言学习方法，让你的学习之路更加轻松高效
+            {t.homepage.learningMethods.subtitle}
           </p>
         </div>
 
@@ -652,7 +653,7 @@ const LearningMethodsSection = () => {
 }
 
 // Resource Tools Section
-const ResourceToolsSection = () => {
+const ResourceToolsSection = ({ t }: { t: any }) => {
   const scrollContainerRef = React.useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = React.useState(false)
   const [canScrollRight, setCanScrollRight] = React.useState(true)
@@ -731,13 +732,13 @@ const ResourceToolsSection = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 font-medium mb-6">
             <Rocket className="w-4 h-4" />
-            全球精选工具
+            {t.homepage.resources.badge}
           </div>
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent mb-6">
-            学习资源工具
+            {t.homepage.resources.title}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            全球语言学习者都在使用的精选工具，让你的学习事半功倍
+            {t.homepage.resources.subtitle}
           </p>
         </div>
 
@@ -844,6 +845,8 @@ const ResourceToolsSection = () => {
 
 // Main HomePage Component
 export default function HomePage() {
+  const { t } = useTranslation()
+
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1">
@@ -863,17 +866,17 @@ export default function HomePage() {
               {/* Main heading */}
               <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
                 <span className="bg-gradient-to-r from-white via-slate-100 to-white bg-clip-text text-transparent">
-                  发现语言
+                  {t.homepage.hero.title1}
                 </span>
                 <br />
-                <span className="text-white">探索世界</span>
+                <span className="text-white">{t.homepage.hero.title2}</span>
               </h1>
 
               {/* Subtitle */}
               <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-12 leading-relaxed">
-                个性化的语言学习指导，深入的文化探索体验
+                {t.homepage.hero.subtitle1}
                 <br />
-                让每一次学习都成为通向更广阔世界的桥梁
+                {t.homepage.hero.subtitle2}
               </p>
 
               {/* CTA Buttons */}
@@ -883,8 +886,18 @@ export default function HomePage() {
                     size="lg"
                     className="px-8 py-3 rounded-full font-medium group bg-white text-slate-900 hover:bg-slate-100 border-0"
                   >
-                    开始探索
+                    {t.homepage.hero.cta}
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+                <Link href="/culture">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="px-8 py-3 rounded-full font-medium group bg-transparent text-white border-white/30 hover:bg-white/10 hover:border-white/50"
+                  >
+                    {t.homepage.cta.button2}
+                    <Globe className="w-5 h-5 ml-2 group-hover:scale-110 transition-transform" />
                   </Button>
                 </Link>
               </div>
@@ -893,12 +906,12 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row justify-center items-center gap-16 max-w-lg mx-auto">
                 <div className="text-center">
                   <div className="text-4xl font-bold text-white mb-2">50+</div>
-                  <div className="text-white/80">支持语言</div>
+                  <div className="text-white/80">{t.homepage.hero.supportedLanguages}</div>
                 </div>
                 <div className="hidden sm:block w-px h-16 bg-white/30"></div>
                 <div className="text-center">
                   <div className="text-4xl font-bold text-white mb-2">100K+</div>
-                  <div className="text-white/80">活跃学习者</div>
+                  <div className="text-white/80">{t.homepage.hero.activeLearners}</div>
                 </div>
               </div>
             </div>
@@ -916,10 +929,10 @@ export default function HomePage() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent mb-6">
-                为什么选择我们
+                {t.homepage.whyUs.title}
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                我们致力于为每位学习者提供最个性化、最有效的语言学习体验
+                {t.homepage.whyUs.subtitle}
               </p>
             </div>
 
@@ -927,26 +940,26 @@ export default function HomePage() {
               {[
                 {
                   icon: Brain,
-                  title: "因材施教",
-                  description: "根据您的母语和学习目标，定制学习难度和时间规划",
+                  title: t.homepage.whyUs.feature1Title,
+                  description: t.homepage.whyUs.feature1Desc,
                   color: "text-blue-600"
                 },
                 {
                   icon: Globe,
-                  title: "文化浸润",
-                  description: "不只是语言，更是文化的深度体验和理解",
+                  title: t.homepage.whyUs.feature2Title,
+                  description: t.homepage.whyUs.feature2Desc,
                   color: "text-green-600"
                 },
                 {
                   icon: GraduationCap,
-                  title: "专家方法",
-                  description: "汇聚语言学习专家的方法论和实践经验",
+                  title: t.homepage.whyUs.feature3Title,
+                  description: t.homepage.whyUs.feature3Desc,
                   color: "text-purple-600"
                 },
                 {
                   icon: Wrench,
-                  title: "学习工具排名",
-                  description: "全世界的人都在用什么工具学习语言",
+                  title: t.homepage.whyUs.feature4Title,
+                  description: t.homepage.whyUs.feature4Desc,
                   color: "text-orange-600"
                 }
               ].map((feature, index) => (
@@ -973,10 +986,10 @@ export default function HomePage() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent mb-6">
-                热门语言推荐
+                {t.homepage.popularLanguages.title}
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                探索世界上最受欢迎的语言，找到最适合您的学习选择
+                {t.homepage.popularLanguages.subtitle}
               </p>
             </div>
 
@@ -989,7 +1002,7 @@ export default function HomePage() {
             <div className="text-center">
               <Link href="/languages">
                 <Button className="bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-600 hover:to-cyan-600 text-white px-8 py-3">
-                  查看全部语言
+                  {t.homepage.popularLanguages.viewAll}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -998,13 +1011,13 @@ export default function HomePage() {
         </section>
 
         {/* Culture Preview - Enhanced */}
-        <CulturePreviewSection />
+        <CulturePreviewSection t={t} />
 
         {/* Learning Methods */}
-        <LearningMethodsSection />
+        <LearningMethodsSection t={t} />
 
         {/* Resource Tools */}
-        <ResourceToolsSection />
+        <ResourceToolsSection t={t} />
 
       </main>
     </div>

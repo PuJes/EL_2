@@ -1,328 +1,184 @@
 'use client'
 
-import * as React from "react"
-import { ArrowRight, Globe, MapPin, Users, BookOpen, Calendar, Award } from "lucide-react"
-import Link from "next/link"
+import { useState, useMemo } from 'react'
+import { useTranslation } from '@/hooks/useTranslation'
+import { CultureArticleCard } from '@/components/culture-article-card'
+import { cultureArticles } from '@/lib/data/culture-articles'
+import { REGION_LABELS, THEME_LABELS } from '@/types/culture'
+import { getLocalizedArticles, type LocalizedCultureArticle } from '@/lib/utils/i18n-data'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Button } from '@/components/ui/button'
 
-// UI Components
-const Button = React.forwardRef<
-  HTMLButtonElement,
-  React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    variant?: 'default' | 'outline' | 'ghost'
-    size?: 'sm' | 'default' | 'lg'
-    asChild?: boolean
-  }
->(({ className = '', variant = 'default', size = 'default', asChild = false, children, ...props }, ref) => {
-  const baseClasses = "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+export default function CulturePage() {
+  const { t, locale } = useTranslation()
+  const [selectedRegion, setSelectedRegion] = useState<string>('all')
+  const [selectedTheme, setSelectedTheme] = useState<string>('all')
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('all')
 
-  const variants = {
-    default: "bg-primary text-primary-foreground hover:bg-primary/90",
-    outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-    ghost: "hover:bg-accent hover:text-accent-foreground"
-  }
+  // 获取本地化的文章
+  const localizedArticles = useMemo(() => getLocalizedArticles(cultureArticles, locale), [locale])
 
-  const sizes = {
-    sm: "h-9 rounded-md px-3",
-    default: "h-10 px-4 py-2",
-    lg: "h-11 rounded-md px-8"
-  }
+  // 获取所有唯一的语言
+  const allLanguages = useMemo(() => {
+    const languageSet = new Set<string>()
+    localizedArticles.forEach(article => {
+      article.relatedLanguages.forEach(lang => languageSet.add(lang))
+    })
+    return Array.from(languageSet)
+  }, [localizedArticles])
 
-  const classes = `${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`
+  // 筛选文章
+  const filteredArticles = useMemo(() => {
+    return localizedArticles.filter(article => {
+      if (selectedRegion !== 'all' && article.region !== selectedRegion) {
+        return false
+      }
+      if (selectedTheme !== 'all' && article.theme !== selectedTheme) {
+        return false
+      }
+      if (
+        selectedLanguage !== 'all' &&
+        !article.relatedLanguages.includes(selectedLanguage)
+      ) {
+        return false
+      }
+      return true
+    })
+  }, [localizedArticles, selectedRegion, selectedTheme, selectedLanguage])
 
-  if (asChild) {
-    return <div className={classes}>{children}</div>
+  // 重置筛选
+  const resetFilters = () => {
+    setSelectedRegion('all')
+    setSelectedTheme('all')
+    setSelectedLanguage('all')
   }
 
   return (
-    <button className={classes} ref={ref} {...props}>
-      {children}
-    </button>
-  )
-})
-Button.displayName = "Button"
-
-const Card = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className = '', ...props }, ref) => (
-  <div
-    ref={ref}
-    className={`rounded-lg border bg-card text-card-foreground shadow-sm ${className}`}
-    {...props}
-  />
-))
-Card.displayName = "Card"
-
-const CardContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className = '', ...props }, ref) => (
-  <div ref={ref} className={`p-6 pt-0 ${className}`} {...props} />
-))
-CardContent.displayName = "CardContent"
-
-// Expanded culture regions data
-const cultureRegions = [
-  {
-    id: "east-asia",
-    name: "东亚文化圈",
-    description: "深厚的历史底蕴与现代科技的完美融合",
-    languages: ["中文", "日语", "韩语", "蒙古语"],
-    image: "https://images.unsplash.com/photo-1545558014-8692077e9b5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    highlights: ["儒家文化", "茶道艺术", "书法传统", "现代科技"],
-    countries: ["中国", "日本", "韩国", "蒙古", "朝鲜"],
-    traditions: ["春节", "樱花节", "茶道", "书法", "武术"],
-    modernInfluence: ["科技创新", "流行文化", "制造业", "动漫产业"]
-  },
-  {
-    id: "europe",
-    name: "欧洲文化圈",
-    description: "艺术、哲学与浪漫主义的发源地",
-    languages: ["法语", "德语", "意大利语", "西班牙语", "英语"],
-    image: "https://images.unsplash.com/photo-1543735717-24da73e8d324?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    highlights: ["文艺复兴", "古典音乐", "建筑艺术", "葡萄酒文化"],
-    countries: ["法国", "德国", "意大利", "西班牙", "英国", "荷兰"],
-    traditions: ["歌剧", "芭蕾", "美食文化", "城堡建筑", "艺术博物馆"],
-    modernInfluence: ["时尚产业", "奢侈品", "汽车工业", "旅游业"]
-  },
-  {
-    id: "latin-america",
-    name: "拉丁美洲文化圈",
-    description: "热情奔放的音乐舞蹈与丰富多彩的节庆文化",
-    languages: ["西班牙语", "葡萄牙语"],
-    image: "https://images.unsplash.com/photo-1518123159102-4f0b5ad1a78b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    highlights: ["探戈舞", "足球文化", "玛雅文明", "嘉年华节"],
-    countries: ["巴西", "阿根廷", "墨西哥", "哥伦比亚", "秘鲁", "智利"],
-    traditions: ["萨尔萨舞", "足球", "咖啡文化", "手工艺品", "宗教节庆"],
-    modernInfluence: ["音乐产业", "足球运动", "农业出口", "生态旅游"]
-  },
-  {
-    id: "middle-east",
-    name: "中东文化圈",
-    description: "古老文明与现代发展的交汇点",
-    languages: ["阿拉伯语", "波斯语", "土耳其语", "希伯来语"],
-    image: "https://images.unsplash.com/photo-1539081031845-8ca4d7e67e8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    highlights: ["伊斯兰艺术", "古代文明", "香料贸易", "书法艺术"],
-    countries: ["阿联酋", "沙特阿拉伯", "土耳其", "伊朗", "以色列", "埃及"],
-    traditions: ["清真寺建筑", "书法", "地毯艺术", "香料料理", "诗歌文学"],
-    modernInfluence: ["石油工业", "金融中心", "航空枢纽", "科技发展"]
-  },
-  {
-    id: "africa",
-    name: "非洲文化圈",
-    description: "人类起源地的丰富多元文化",
-    languages: ["斯瓦希里语", "阿拉伯语", "法语", "英语", "阿非利堪斯语"],
-    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    highlights: ["部落文化", "野生动物", "音乐节拍", "手工艺术"],
-    countries: ["南非", "肯尼亚", "尼日利亚", "埃及", "摩洛哥", "加纳"],
-    traditions: ["部落舞蹈", "口述历史", "面具艺术", "编织工艺", "打击乐"],
-    modernInfluence: ["矿业资源", "生态旅游", "文化艺术", "农业发展"]
-  },
-  {
-    id: "south-asia",
-    name: "南亚文化圈",
-    description: "古老智慧与现代活力的融合",
-    languages: ["印地语", "乌尔都语", "孟加拉语", "泰米尔语", "信德语"],
-    image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    highlights: ["瑜伽哲学", "宝莱坞", "香料文化", "宗教多样性"],
-    countries: ["印度", "巴基斯坦", "孟加拉国", "斯里兰卡", "尼泊尔", "不丹"],
-    traditions: ["瑜伽冥想", "宝莱坞电影", "香料料理", "节庆庆典", "纺织工艺"],
-    modernInfluence: ["IT服务业", "制药工业", "纺织业", "电影产业"]
-  }
-]
-
-// Header is now imported from @/components/header with culture theme
-
-// Culture Region Card Component
-const CultureRegionCard = ({ region }: { region: typeof cultureRegions[0] }) => {
-  return (
-    <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300">
-      <div className="relative h-64 overflow-hidden">
-        <img
-          src={region.image}
-          alt={region.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        <div className="absolute bottom-4 left-4 text-white">
-          <h3 className="text-2xl font-bold mb-2">{region.name}</h3>
-          <p className="text-sm opacity-90 mb-3">{region.description}</p>
-          <div className="flex items-center space-x-2">
-            <MapPin className="w-4 h-4" />
-            <span className="text-sm">{region.countries.length} 个国家</span>
+    <div className="min-h-screen bg-background" key={locale}>
+      {/* Hero区 */}
+      <div className="bg-gradient-to-b from-primary/10 to-background py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center space-y-4">
+            <h1 className="text-4xl md:text-5xl font-bold">
+              {t.culture.pageTitle}
+            </h1>
+            <p className="text-xl text-muted-foreground">
+              {t.culture.pageSubtitle}
+            </p>
           </div>
         </div>
       </div>
 
-      <CardContent className="p-6">
-        <div className="space-y-4">
-          <div>
-            <h4 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
-              <Users className="w-4 h-4 mr-2" />
-              主要语言
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {region.languages.map((lang) => (
-                <span key={lang} className="px-3 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">
-                  {lang}
-                </span>
-              ))}
-            </div>
+      <div className="container mx-auto px-4 py-12">
+        {/* 筛选栏 */}
+        <div className="mb-8 space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold">
+              {t.culture.filterArticles}
+            </h2>
+            <Button variant="ghost" onClick={resetFilters}>
+              {t.culture.reset}
+            </Button>
           </div>
 
-          <div>
-            <h4 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
-              <BookOpen className="w-4 h-4 mr-2" />
-              文化特色
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {region.highlights.map((highlight) => (
-                <span key={highlight} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded">
-                  {highlight}
-                </span>
-              ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* 地区筛选 */}
+            <div>
+              <label className="text-sm text-muted-foreground mb-2 block">
+                {t.culture.region}
+              </label>
+              <Select value={selectedRegion} onValueChange={setSelectedRegion}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">
+                    {t.culture.allRegions}
+                  </SelectItem>
+                  {Object.entries(REGION_LABELS).map(([key, label]) => (
+                    <SelectItem key={key} value={key}>
+                      {label[locale]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
-          </div>
 
-          <div>
-            <h4 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
-              <Calendar className="w-4 h-4 mr-2" />
-              传统文化
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {region.traditions.slice(0, 3).map((tradition) => (
-                <span key={tradition} className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">
-                  {tradition}
-                </span>
-              ))}
-              {region.traditions.length > 3 && (
-                <span className="px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded">
-                  +{region.traditions.length - 3} 更多
-                </span>
-              )}
+            {/* 主题筛选 */}
+            <div>
+              <label className="text-sm text-muted-foreground mb-2 block">
+                {t.culture.theme}
+              </label>
+              <Select value={selectedTheme} onValueChange={setSelectedTheme}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">
+                    {t.culture.allThemes}
+                  </SelectItem>
+                  {Object.entries(THEME_LABELS).map(([key, label]) => (
+                    <SelectItem key={key} value={key}>
+                      {label.icon} {label[locale]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* 语言筛选 */}
+            <div>
+              <label className="text-sm text-muted-foreground mb-2 block">
+                {t.culture.language}
+              </label>
+              <Select
+                value={selectedLanguage}
+                onValueChange={setSelectedLanguage}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">
+                    {t.culture.allLanguages}
+                  </SelectItem>
+                  {allLanguages.map(lang => (
+                    <SelectItem key={lang} value={lang}>
+                      {lang.charAt(0).toUpperCase() + lang.slice(1)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </div>
 
-        <Link href={`/culture/${region.id}`} className="block w-full mt-6">
-          <Button variant="outline" className="w-full">
-            深入探索
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
-        </Link>
-      </CardContent>
-    </Card>
-  )
-}
+        {/* 文章数量显示 */}
+        <div className="mb-6 text-sm text-muted-foreground">
+          {t.culture.articlesFound.replace('{count}', filteredArticles.length.toString())}
+        </div>
 
-export default function CulturePage() {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Hero Section */}
-        <section className="text-center py-16 mb-12">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-bold mb-8 leading-tight">
-              <span className="bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent">
-                探索世界文化
-              </span>
-            </h1>
-
-            <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-              语言是文化的载体，了解不同文化背景能让您的语言学习更加深入和有意义。
-              从古老的传统到现代的影响，每种文化都有独特的魅力等待探索。
-            </p>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-600 mb-2">6</div>
-                <div className="text-gray-600">文化圈</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-600 mb-2">50+</div>
-                <div className="text-gray-600">国家地区</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-600 mb-2">30+</div>
-                <div className="text-gray-600">主要语言</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-600 mb-2">100+</div>
-                <div className="text-gray-600">文化传统</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Culture Regions Grid */}
-        <section className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              六大文化圈
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              每个文化圈都有其独特的语言特色、历史传统和现代发展，
-              选择您感兴趣的文化开始探索吧！
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
-            {cultureRegions.map((region) => (
-              <CultureRegionCard key={region.id} region={region} />
+        {/* 文章网格 */}
+        {filteredArticles.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredArticles.map(article => (
+              <CultureArticleCard key={article.id} article={article} />
             ))}
           </div>
-        </section>
-
-        {/* Cultural Learning Benefits */}
-        <section className="bg-white rounded-xl shadow-sm p-8 mb-12">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              文化学习的益处
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              了解文化背景不仅能提升语言学习效果，还能拓展您的国际视野
+        ) : (
+          <div className="text-center py-16">
+            <p className="text-muted-foreground text-lg">
+              {t.culture.noArticlesFound}
             </p>
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: BookOpen,
-                title: "深度理解",
-                description: "理解语言背后的文化含义，让表达更地道自然",
-                color: "text-blue-600"
-              },
-              {
-                icon: Users,
-                title: "跨文化交流",
-                description: "增强与不同文化背景人群的沟通能力",
-                color: "text-green-600"
-              },
-              {
-                icon: Award,
-                title: "职业优势",
-                description: "在国际化工作环境中具备文化敏感性",
-                color: "text-purple-600"
-              },
-              {
-                icon: Globe,
-                title: "世界观拓展",
-                description: "培养全球化思维和包容开放的心态",
-                color: "text-orange-600"
-              }
-            ].map((benefit, index) => (
-              <div key={index} className="text-center group">
-                <div className="w-16 h-16 mx-auto rounded-2xl bg-gray-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 mb-4">
-                  <benefit.icon className={`h-8 w-8 ${benefit.color}`} />
-                </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-900">{benefit.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-      </main>
+        )}
+      </div>
     </div>
   )
 }

@@ -114,7 +114,7 @@ const LanguageSwitcher: React.FC<{ config: typeof themeConfig[keyof typeof theme
         title={t.header.switchLanguage}
       >
         <Languages className="w-4 h-4" />
-        <span className="hidden sm:inline">{locale === 'zh' ? '中文' : 'EN'}</span>
+        <span className="hidden sm:inline">{locale === 'zh' ? '中文' : 'English'}</span>
       </Button>
 
       {isOpen && (

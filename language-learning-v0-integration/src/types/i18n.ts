@@ -36,7 +36,7 @@ export interface TranslationKeys {
       subtitle2: string
       cta: string
       supportedLanguages: string
-      activeL learners: string
+      activeLearners: string
     }
     whyUs: {
       title: string
@@ -142,5 +142,179 @@ export interface TranslationKeys {
     russian: string
     arabic: string
     chinese: string
+  }
+  // Culture pages
+  culture: {
+    pageTitle: string
+    pageSubtitle: string
+    filterArticles: string
+    reset: string
+    region: string
+    theme: string
+    language: string
+    allRegions: string
+    allThemes: string
+    allLanguages: string
+    articlesFound: string
+    noArticlesFound: string
+    readArticle: string
+    relatedArticles: string
+    tableOfContents: string
+    wantToExplore: string
+    learningWillAllow: string
+    viewLanguageDetails: string
+  }
+  // Language list page
+  languageList: {
+    pageTitle: string
+    pageSubtitle: string
+    pageDescription: string
+    searchPlaceholder: string
+    filterByRegion: string
+    filterByFamily: string
+    filterByDifficulty: string
+    sortBy: string
+    allRegions: string
+    allFamilies: string
+    allDifficulties: string
+    sortBySpeakers: string
+    sortByDifficulty: string
+    difficulty1Star: string
+    difficulty2Star: string
+    difficulty3Star: string
+    difficulty4Star: string
+    difficulty5Star: string
+    showingLanguages: string
+    clearFilters: string
+    globalSpeakers: string
+    learningDifficulty: string
+    estimatedTime: string
+    unknown: string
+  }
+  // Language detail page
+  languageDetail: {
+    notFound: string
+    backToHome: string
+    globalSpeakers: string
+    beginnerTime: string
+    learningDifficulty: string
+    mainRegions: string
+    overview: string
+    culture: string
+    learningGuide: string
+    resources: string
+    languageInfo: string
+    family: string
+    branch: string
+    writingSystem: string
+    nativeSpeakers: string
+    totalSpeakers: string
+    learningTimeline: string
+    beginnerLevel: string
+    intermediateLevel: string
+    advancedLevel: string
+    hours: string
+    estimatedTotalHours: string
+    difficultyAnalysis: string
+    overallDifficulty: string
+    grammarStructure: string
+    pronunciation: string
+    writingSystemDifficulty: string
+    simple: string
+    moderate: string
+    complex: string
+    easy: string
+    difficult: string
+    historicalBackground: string
+    modernCulture: string
+    traditions: string
+    festivals: string
+    cuisine: string
+    arts: string
+    learningPath: string
+    estimated: string
+    learningMethods: string
+    learningTools: string
+    learningApps: string
+    recommendedBooks: string
+    onlineResources: string
+    visitWebsite: string
+    careerOpportunities: string
+    averageSalary: string
+    jobGrowth: string
+    remoteWork: string
+    support: string
+    limited: string
+    travelAdvantages: string
+    popularCountries: string
+    businessHubs: string
+    culturalSites: string
+  }
+  // Survey page
+  survey: {
+    pageTitle: string
+    pageSubtitle: string
+    pageDescription: string
+    step: string
+    of: string
+    next: string
+    previous: string
+    submit: string
+    selectNativeLanguage: string
+    nativeLanguagePlaceholder: string
+    learningGoals: string
+    selectGoals: string
+    careerDevelopment: string
+    travelExploration: string
+    culturalInterest: string
+    academicResearch: string
+    dailyCommunication: string
+    businessCooperation: string
+    availableTime: string
+    dailyStudyTime: string
+    lessThan30Min: string
+    thirtyTo60Min: string
+    oneToTwoHours: string
+    moreThan2Hours: string
+    difficultyPreference: string
+    learningDifficultyPreference: string
+    easyStart: string
+    moderateChallenge: string
+    highChallenge: string
+    noPreference: string
+    culturalInterests: string
+    interestedCultures: string
+    eastAsian: string
+    european: string
+    latinAmerican: string
+    middleEastern: string
+    african: string
+    southAsian: string
+  }
+  // Recommendation page
+  recommendation: {
+    pageTitle: string
+    pageSubtitle: string
+    pageDescription: string
+    noRecommendations: string
+    noRecommendationsDesc: string
+    takeAssessment: string
+    retakeAssessment: string
+    matchScore: string
+    recommendationReason: string
+    difficultyFit: string
+    culturalMatch: string
+    goalAlignment: string
+    timeFeasibility: string
+    practicalValue: string
+    whyRecommended: string
+    learningAdvantages: string
+    potentialChallenges: string
+    nextSteps: string
+    topRecommendation: string
+    alternativeOptions: string
+    compareLanguages: string
+    startLearning: string
+    exploreLanguage: string
   }
 }

@@ -1,11 +1,15 @@
-import { Metadata } from 'next'
-import LanguageRecommendationPage from '../../../v0-components/LanguageRecommendationPage'
+'use client'
 
-export const metadata: Metadata = {
-  title: '语言推荐结果 | 语言世界',
-  description: '基于您的测评结果，为您推荐最适合的语言学习方案',
-}
+import LanguageRecommendationPage from '../../../v0-components/LanguageRecommendationPage'
+import { useTranslation } from '@/hooks/useTranslation'
+import { useEffect } from 'react'
 
 export default function RecommendationRoute() {
+  const { t } = useTranslation()
+
+  useEffect(() => {
+    document.title = `${t.recommendation.pageTitle} | ${t.header.title}`
+  }, [t])
+
   return <LanguageRecommendationPage />
 }

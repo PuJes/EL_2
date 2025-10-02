@@ -768,24 +768,6 @@ export default function LanguageSurveyPage() {
               感谢您完成问卷！我们将根据您的回答为您推荐最适合的语言学习方案。
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-              <div className="bg-gradient-to-br from-coral-50 to-orange-50 rounded-2xl p-6 text-left border border-coral-100">
-                <div className="w-12 h-12 rounded-full bg-coral-500 flex items-center justify-center mb-4">
-                  <Target className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="font-semibold text-gray-800 mb-2">智能推荐</h3>
-                <p className="text-gray-600 text-sm">基于您的回答匹配最适合的语言</p>
-              </div>
-
-              <div className="bg-gradient-to-br from-mint-50 to-teal-50 rounded-2xl p-6 text-left border border-mint-100">
-                <div className="w-12 h-12 rounded-full bg-mint-500 flex items-center justify-center mb-4">
-                  <BookOpen className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="font-semibold text-gray-800 mb-2">个性化方案</h3>
-                <p className="text-gray-600 text-sm">定制化的学习路径和时间规划</p>
-              </div>
-            </div>
-
             <Button
               className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-3 rounded-xl hover:from-pink-600 hover:to-purple-600 shadow-lg"
               onClick={() => {
@@ -870,8 +852,12 @@ export default function LanguageSurveyPage() {
           </div>
 
           <div
-            className={`mb-8 ${
-              currentQuestion.options.length > 5 ? "grid grid-cols-1 md:grid-cols-2 gap-4" : "space-y-4"
+            className={`mb-6 ${
+              currentQuestion.options.length <= 4
+                ? "space-y-3"
+                : currentQuestion.options.length <= 6
+                  ? "grid grid-cols-1 md:grid-cols-2 gap-3"
+                  : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"
             }`}
           >
             {currentQuestion.options.map((option, index) => {
@@ -903,36 +889,36 @@ export default function LanguageSurveyPage() {
                 <button
                   key={option.id}
                   onClick={() => handleOptionSelect(option.id)}
-                  className={`w-full p-6 rounded-2xl border-2 transition-all duration-200 text-left shadow-sm ${
+                  className={`w-full p-4 rounded-xl border-2 transition-all duration-200 text-left shadow-sm ${
                     isSelected || isJustSelected
                       ? `${selectedColor} shadow-lg transform scale-[1.02]`
                       : `border-gray-200 hover:border-gray-300 ${baseColor}`
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div className="text-2xl flex-shrink-0">
+                    <div className="flex items-center space-x-3">
+                      <div className="text-xl flex-shrink-0">
                         {option.flag || (
                           <div
-                            className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                            className={`w-7 h-7 rounded-full flex items-center justify-center ${
                               isSelected || isJustSelected ? "bg-white shadow-sm" : "bg-white/70"
                             }`}
                           >
                             {React.createElement(option.icon, {
-                              className: `w-4 h-4 ${isSelected || isJustSelected ? "text-gray-700" : "text-gray-600"}`,
+                              className: `w-3.5 h-3.5 ${isSelected || isJustSelected ? "text-gray-700" : "text-gray-600"}`,
                             })}
                           </div>
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="font-semibold text-gray-800 mb-1">{option.label}</div>
-                        {option.description && <div className="text-sm text-gray-600">{option.description}</div>}
+                        <div className="font-semibold text-gray-800 text-sm mb-0.5">{option.label}</div>
+                        {option.description && <div className="text-xs text-gray-600">{option.description}</div>}
                       </div>
                     </div>
 
                     {isSelected && (
-                      <div className="w-6 h-6 rounded-full bg-gradient-to-r from-mint-400 to-teal-400 flex items-center justify-center flex-shrink-0 shadow-sm">
-                        <CheckCircle className="w-4 h-4 text-white" />
+                      <div className="w-5 h-5 rounded-full bg-gradient-to-r from-mint-400 to-teal-400 flex items-center justify-center flex-shrink-0 shadow-sm">
+                        <CheckCircle className="w-3 h-3 text-white" />
                       </div>
                     )}
                   </div>
